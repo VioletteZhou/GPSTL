@@ -1,0 +1,312 @@
+# Translation of Themes - RokoPhoto Lite in French (France)
+# This file is distributed under the same license as the Themes - RokoPhoto Lite package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2017-06-27 09:39:11+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: fr\n"
+"Project-Id-Version: Themes - RokoPhoto Lite\n"
+
+#. Description of the plugin/theme
+msgid "RokoPhoto Lite is theme made for photographers with a stylish front-page for you to photograph some of your best work. This theme also includes 2 different types of sliders, portfolio section, as well as built-in contact form."
+msgstr "RokoPhoto Lite est un thème fait pour les photographes avec une page d'accueil élégante pour photographier certains de vos meilleurs travaux. Ce thème comprend également deux types différents de diaporama, une section portfolio, et un formulaire de contact intégré."
+
+#. Theme Name of the plugin/theme
+msgid "RokoPhoto Lite"
+msgstr "RokoPhoto Lite"
+
+#: inc/customizer/customizer-site-logo.php:50
+msgid "Disable pre-loader?"
+msgstr "Désactiver le préchargeur ?"
+
+#. translators: %1$s is the title
+#: loop-meta.php:25
+msgid "Home / Portfolio / %1$s"
+msgstr "Accueil / Portfolio / %1$s"
+
+#: footer.php:151
+msgid "<a href=\"https://themeisle.com/themes/rokophoto-lite/\" target=\"_blank\" rel=\"nofollow\">RokoPhoto Lite</a> powered by <a href=\"https://wordpress.org/\" target=\"_blank\" rel=\"nofollow\">WordPress</a>"
+msgstr "<a href=\"https://themeisle.com/themes/rokophoto-lite/\" target=\"_blank\" rel=\"nofollow\">RokoPhoto Lite</a> est propulsé par <a href=\"https://wordpress.org/\" target=\"_blank\" rel=\"nofollow\">WordPress</a>"
+
+#: footer.php:143 inc/customizer/customizer-footer.php:223
+msgid "Awesome Photography. All Rights Reserved"
+msgstr "Photographie formidable. Tous droits réservés"
+
+#: inc/class/upsell/class-customizer-info-singleton.php:81
+msgid "Get it"
+msgstr "Obtenez le"
+
+#: inc/customizer/customizer-theme-info.php:36
+msgid " View PRO version"
+msgstr "Voir la version PRO"
+
+#: inc/customizer/customizer-theme-info.php:19
+msgid "Theme info"
+msgstr "info du thème"
+
+#. translators: 1: number of comments, 2: post title
+#: comments.php:31
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "%1$s commentaire sur &ldquo;%2$s&rdquo;"
+msgstr[1] "%1$s commentaires sur &ldquo;%2$s&rdquo;"
+
+#. translators: %s: post title
+#: comments.php:27
+msgctxt "comments title"
+msgid "One thought on &ldquo;%s&rdquo;"
+msgstr "Un commentaire sur &ldquo;%s&rdquo;"
+
+#: inc/customizer/customizer-footer.php:197
+msgid "LinkedIn URL"
+msgstr "URL LinkedIn"
+
+#: inc/customizer/customizer-footer.php:214
+msgid "Email Address"
+msgstr "Adresse e-mail"
+
+#: functions.php:478
+msgid "Sidebar bottom"
+msgstr "Barre du bas"
+
+#: functions.php:469 functions.php:480
+msgid "Widgets in this area will be shown on all posts and pages."
+msgstr "Les widgets de cette zone seront affichés sur tous les articles et pages."
+
+#: functions.php:467
+msgid "Sidebar top"
+msgstr "Barre du haut"
+
+#: loop-meta.php:71
+msgid "Ouch!"
+msgstr "Aïe&nbsp;!"
+
+#: loop-meta.php:69
+msgid "Archives"
+msgstr "Archives"
+
+#: loop-meta.php:64
+msgid "Y"
+msgstr "Y"
+
+#: loop-meta.php:62
+msgid "F Y"
+msgstr "F Y"
+
+#: loop-meta.php:60
+msgid "F d, Y"
+msgstr "j F Y"
+
+#. translators: %1$s is the author name
+#: loop-meta.php:54
+msgid "Posts By: %1$s"
+msgstr "Article par : %1$s"
+
+#. translators: %1$s is the title
+#: loop-meta.php:32 loop-meta.php:40
+msgid "Home / %1$s"
+msgstr "Accueil / %1$s"
+
+#. translators: %1$s is category name , %2$s is the category link and %3$s is
+#. the title
+#: loop-meta.php:18
+msgid "Home / <a href=\"%2$s\">%1$s</a> / %3$s"
+msgstr "Accueil / <a href=\"%2$s\">%1$s</a> / %3$s"
+
+#: header.php:89 inc/customizer/customizer-subheader.php:28
+msgid "Welcome to"
+msgstr "Bienvenue sur"
+
+#: header.php:45
+msgid "Toggle Navigation"
+msgstr "Afficher/masquer la navigation"
+
+#: inc/customizer/customizer-theme-info.php:44
+msgid "Leave us a review (it will help us)"
+msgstr "Laissez nous un avis (cela nous aidera)"
+
+#: inc/class/upsell/class-customizer-info-singleton.php:79
+msgid "View PRO version"
+msgstr "Voir la version Pro"
+
+#: inc/customizer/customizer-theme-info.php:40
+msgid "Documentation"
+msgstr "Documentation"
+
+#: inc/customizer/customizer-footer.php:232
+msgid "Footer Copyrights"
+msgstr "Copyrights du pied"
+
+#: inc/customizer/customizer-footer.php:180
+msgid "Instagram URL"
+msgstr "URL Instagram"
+
+#: inc/customizer/customizer-footer.php:162
+msgid "Google + URL"
+msgstr "URL Google+"
+
+#: inc/customizer/customizer-footer.php:144
+msgid "Flickr URL"
+msgstr "URL Flickr"
+
+#: inc/customizer/customizer-footer.php:126
+msgid "Dribbble URL"
+msgstr "URL Dribble"
+
+#: inc/customizer/customizer-footer.php:107
+msgid "Behance URL"
+msgstr "URL Behance"
+
+#: inc/customizer/customizer-footer.php:89
+msgid "Twitter URL"
+msgstr "URL Twitter"
+
+#: inc/customizer/customizer-footer.php:71
+msgid "Facebook URL"
+msgstr "URL FaceBook"
+
+#: inc/customizer/customizer-footer.php:53
+msgid "Social Box Text"
+msgstr "Texte de boîte sociale"
+
+#: inc/customizer/customizer-footer.php:35
+msgid "Social Box Label"
+msgstr "Libellé de boîte sociale"
+
+#: inc/customizer/customizer-subheader.php:37
+msgid "Sub-Header Title"
+msgstr "Titre de sous en-Tête"
+
+#: inc/customizer/customizer-site-logo.php:33
+msgid "Site Logo Image"
+msgstr "Image de logo du site"
+
+#: inc/customizer/customizer-footer.php:20
+msgid "Footer"
+msgstr "Pied"
+
+#: inc/customizer/customizer-subheader.php:22
+msgid "Sub-Header"
+msgstr "Sous en-tête"
+
+#: inc/customizer/customizer-site-logo.php:18
+msgid "Site Logo"
+msgstr "Logo du site"
+
+#: inc/customizer/customizer-text-controls.php:60
+msgid "Check out the <a href=\"https://themeisle.com/themes/rokophoto/\">PRO version</a> add a Contact section on frontpage!"
+msgstr "Commandez la <a href=\"https://themeisle.com/themes/rokophoto/\">version PRO</a> pour ajouter une section de contact sur l'accueil !"
+
+#: inc/customizer/customizer-text-controls.php:44
+msgid "Check out the <a href=\"https://themeisle.com/themes/rokophoto/\">PRO version</a> add a Portfolio section on frontpage!"
+msgstr "Commandez la <a href=\"https://themeisle.com/themes/rokophoto/\">version PRO</a> pour ajouter une section portfolio sur l'accueil !"
+
+#: inc/customizer/customizer-text-controls.php:28
+msgid "Check out the <a href=\"https://themeisle.com/themes/rokophoto/\">PRO version</a> add a Slider on frontpage!"
+msgstr "Commandez la <a href=\"https://themeisle.com/themes/rokophoto/\">version PRO</a> pour ajouter un diaporama sur l'accueil !"
+
+#: functions.php:284
+msgid "Your comment is awaiting moderation."
+msgstr "Votre commentaire est en attente de validation."
+
+#: functions.php:270
+msgid "on"
+msgstr "On"
+
+#: functions.php:154
+msgid "Home"
+msgstr "Accueil"
+
+#: functions.php:67
+msgid "Primary Menu"
+msgstr "Menu principal"
+
+#: footer.php:30 inc/customizer/customizer-footer.php:26
+msgid "To get the latest update of me and my works"
+msgstr "Pour obtenir les dernières mises à jour de mes travaux"
+
+#: footer.php:29 inc/customizer/customizer-footer.php:44
+msgid "Follow Me"
+msgstr "Suivez moi"
+
+#: content.php:38
+msgid "Read More"
+msgstr "Lire la suite"
+
+#: content-single.php:19 content.php:19
+msgid "Category:"
+msgstr "Catégorie&nbsp;:"
+
+#: content-single.php:17 content.php:18
+msgid "Date:"
+msgstr "Date&nbsp;:"
+
+#: content-single.php:16 content.php:17
+msgid "Post By:"
+msgstr "Article par&nbsp;:"
+
+#: content-none.php:26
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "Il semblerait que nous ne soyons pas en mesure de trouver votre contenu. Essayez en lançant une recherche."
+
+#: content-none.php:23
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr "Désolé, mais rien ne correspond à votre recherche. Veuillez réessayer avec des mots différents."
+
+#. translators: %1$s is the link to add a new post
+#: content-none.php:19
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr "Prêt à publier votre 1er article ? <a href=\"%1$s\">Lancez vous ici</a>."
+
+#: content-none.php:14
+msgid "Nothing Found"
+msgstr "Rien de trouvé"
+
+#: comments.php:92
+msgid "Your Message"
+msgstr "Votre message"
+
+#: comments.php:89
+msgid "Your Website"
+msgstr "Votre site"
+
+#: comments.php:88
+msgid "Your Email"
+msgstr "Votre email"
+
+#: comments.php:87
+msgid "Your Name"
+msgstr "Votre nom"
+
+#: comments.php:69
+msgid "Comments are closed."
+msgstr "Les commentaires sont fermés."
+
+#: comments.php:64
+msgid "Newer Comments &rarr;"
+msgstr "Commentaires plus récents &rarr;"
+
+#: comments.php:63
+msgid "&larr; Older Comments"
+msgstr "&larr; Commentaires plus anciens"
+
+#: comments.php:62
+msgid "Comment navigation"
+msgstr "Navigation des commentaires"
+
+#. Author URI of the plugin/theme
+msgid "https://themeisle.com"
+msgstr "https://themeisle.com"
+
+#. Author of the plugin/theme
+msgid "ThemeIsle"
+msgstr "ThemeIsle"
+
+#. Theme URI of the plugin/theme
+msgid "https://themeisle.com/themes/rokophoto/"
+msgstr "https://themeisle.com/themes/rokophoto/"
