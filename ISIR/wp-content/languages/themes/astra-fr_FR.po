@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Astra package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-09-26 10:41:33+0000\n"
+"PO-Revision-Date: 2018-10-15 07:49:21+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,6 +14,10 @@ msgstr ""
 #. Description of the plugin/theme
 msgid "Astra is fast, fully customizable & beautiful theme suitable for blog, personal portfolio, business website and WooCommerce storefront. It is very lightweight (less than 50KB on frontend) and offers unparalleled speed. Built with SEO in mind, Astra comes with Schema.org code integrated so search engines will love your site. It offers special features and templates so it works perfectly with all page builders like Elementor, Beaver Builder, Visual Composer, SiteOrigin, Divi, etc. Some of the other features: # WooCommerce Ready # Responsive # RTL & Translation Ready # Extendible with premium addons # Regularly updated # Designed, Developed, Maintained & Supported by Brainstorm Force. Looking for a perfect base theme? Look no further. Astra is fast, fully customizable and WooCommerce ready theme that you can use for building any kind of website!"
 msgstr "Astra est un thème rapide, entièrement personnalisable et merveilleux.approprié pour les blog, portfolio personnel, site web d’affaires et vitrine WooCommerce. Il est très léger (moins de 50 Ko sur l’interface publique) et offre une vitesse sans précédent. Construit avec le SEO à l’esprit, Astra est livré avec le code Schema.org intégré de sorte que les moteurs de recherche vont adorer votre site. Il offre des fonctionnalités et des modèles spéciaux qui fonctionnent parfaitement avec tous les constructeurs de page comme Elementor, Beaver Builder, Visual Composer, SiteOrigin, Divi, etc. Quelques autres fonctionnalités: # Compatible WooCommerce# Responsive # RTL & prêt à traduire # Extensible avec des modules premium # Régulièrement mis à jour # Conçu, développé, maintenu et soutenu par Brainstorm Force. Vous cherchez un thème de base parfait ? Ne cherchez pas plus loin. Astra est un thème rapide, entièrement personnalisable et prêt pour WooCommerce que vous pouvez utiliser pour construire n’importe quel type de site web !"
+
+#: inc/customizer/configurations/layout/class-astra-header-layout-configs.php:245
+msgid "Submenu Item Border Color"
+msgstr "Couleur de bordure de l'élément sous-menu"
 
 #: inc/customizer/configurations/layout/class-astra-header-layout-configs.php:275
 msgid "Fade"
@@ -27,9 +31,52 @@ msgstr "Glisser vers le haut"
 msgid "Slide Down"
 msgstr "Glisser vers le bas"
 
+#. translators: %1$s logo link, %2$s product rating link, %3$s dismissable
+#. notice transient time.
+#: inc/core/class-astra-admin-settings.php:158
+msgid "<div class=\"notice-image\"><img src=\"%1$s\" class=\"custom-logo\" alt=\"Astra\" itemprop=\"logo\"></div> <div class=\"notice-content\"> <div class=\"notice-heading\">Hello! Seems like you have used Astra theme to build this website — Thanks a ton!</div>Could you please do us a BIG favor and give it a 5-star rating on WordPress? This would boost our motivation and help other users make a comfortable decision while choosing the Astra theme.<br /><div class=\"astra-review-notice-container\"><a href=\"%2$s\" class=\"astra-notice-close astra-review-notice button-primary\" target=\"_blank\">Ok, you deserve it</a><span class=\"dashicons dashicons-calendar\"></span><a href=\"#\" data-repeat-notice-after=\"%3$s\" class=\"astra-notice-close astra-review-notice\">Nope, maybe later</a><span class=\"dashicons dashicons-smiley\"></span><a href=\"#\" class=\"astra-notice-close astra-review-notice\">I already did</a></div></div>"
+msgstr "<div class=\"notice-image\"><img src=\"%1$s\" class=\"custom-logo\" alt=\"Astra\" itemprop=\"logo\"></div> <div class=\"notice-content\"> <div class=\"notice-heading\">Bonjour! On dirait que vous avez utilisé le thème Astra pour créer ce site Web - Merci beaucoup!</div> Pourriez-vous s'il vous plaît nous faire une grosse faveur et lui attribuer une note de 5 étoiles sur WordPress? Cela renforcerait notre motivation et aiderait les autres utilisateurs à prendre une décision confortable en choisissant le thème Astra.<br /><div class=\"astra-review-notice-container\"><a href=\"%2$s\" class=\"astra-notice-close astra-review-notice button-primary\" target=\"_blank\">OK, vous le méritez bien</a><span class=\"dashicons dashicons-calendar\"></span><a href=\"#\" data-repeat-notice-after=\"%3$s\" class=\"astra-notice-close astra-review-notice\">Non, peut-être plus tard</a><span class=\"dashicons dashicons-smiley\"></span><a href=\"#\" class=\"astra-notice-close astra-review-notice\">Déjà fait </a></div></div>"
+
+#: inc/core/class-astra-admin-settings.php:727
+msgid "Nav Menu"
+msgstr "Menu de navigation"
+
+#: inc/customizer/configurations/layout/class-astra-header-layout-configs.php:206
+msgid "Submenu Container Border"
+msgstr "Couleur de bordure du bac du sous-menu"
+
+#: inc/customizer/configurations/layout/class-astra-header-layout-configs.php:208
+msgid "Top"
+msgstr "Au début"
+
+#: inc/customizer/configurations/layout/class-astra-header-layout-configs.php:209
+msgid "Right"
+msgstr "Droite"
+
+#: inc/customizer/configurations/layout/class-astra-header-layout-configs.php:210
+msgid "Bottom"
+msgstr "Bas"
+
+#: inc/customizer/configurations/layout/class-astra-header-layout-configs.php:211
+msgid "Left"
+msgstr "Gauche"
+
+#: inc/customizer/configurations/layout/class-astra-header-layout-configs.php:235
+msgid "Submenu Item Border"
+msgstr "Bordure de l'élément sous-menu"
+
+#: inc/customizer/configurations/layout/class-astra-header-layout-configs.php:222
+msgid "Submenu Border Color"
+msgstr "Couleur de bordure du sous-menu"
+
 #: inc/customizer/configurations/layout/class-astra-header-layout-configs.php:270
 msgid "Submenu Container Animation"
-msgstr "Animation du conteneur de sous-menu"
+msgstr "Animation du bac de sous-menu"
+
+#. Translators: Author Name.
+#: inc/blog/blog-config.php:137
+msgid "View all posts by %1$s"
+msgstr "Voir tous les articles de %1$s"
 
 #: inc/customizer/configurations/layout/class-astra-header-layout-configs.php:164
 msgid "Header Bottom Border Color"
