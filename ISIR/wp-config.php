@@ -39,7 +39,7 @@ define('DB_COLLATE', '');
 
 define('WP_ALLOW_MULTISITE', true);
 
-
+define('WPLANG', '');
 /**#@+
  * Authentication Unique Keys and Salts.
  *
@@ -81,6 +81,7 @@ $table_prefix  = 'isir_';
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
 define('WP_DEBUG', false);
+
 
 define('MULTISITE', true);
 define('SUBDOMAIN_INSTALL', false);

@@ -2,9 +2,10 @@
 
 /**
  * The category template file
- * @package WordPress
+ * @package Busiprof
  */
 get_header();
+$info_list = array();
 $template_uri = BUSI_TEMPLATE_DIR_URI. '/images/default/';
 $current_options = wp_parse_args(  get_option( 'busiprof_theme_options', array() ), theme_setup_data() );
 ?>
@@ -31,20 +32,20 @@ $current_options = wp_parse_args(  get_option( 'busiprof_theme_options', array()
 	<div class="row"></div>
 	<div class="container">
 	    <?php
-			$info_list = array();
 	    $thiscat = single_cat_title('',false);
-			  if($thiscat=='Login'){?>
-					<form style= "margin-top:30px; margin-bottom: 30px;" action="login.php" method="post">
-					<div class="md-form"><i class="fa fa-envelope prefix"></i>
-					<input id="exampleInputEmail1" class="form-control" type="email" placeholder="Enter email" aria-describedby="emailHelp" />
-					<label for="exampleInputEmail1" data-error="wrong" data-success="right">Type your email</label></div>
-					<!-- password -->
-					<div class="md-form"><i class="fa fa-lock prefix"></i>
-					<input id="inputValidationEx2" class="form-control validate" type="password" />
-					<label for="inputValidationEx2" data-error="wrong" data-success="right">Type your password</label></div>
-					<!-- Validation button -->
-					<input name="test_button" type="submit" value="Submit me" />
-					</form>
+			  if($thiscat=='Login'){  ?>
+						<form style= "margin-top:30px; margin-bottom: 30px;" action= <?php echo site_url()."/isir-login"; ?> method="post">
+								<div class="md-form"><i class="fa fa-envelope prefix"></i>
+								<input id="exampleInputEmail1" class="form-control" type="email" placeholder="Enter email" aria-describedby="emailHelp" />
+								<label for="exampleInputEmail1" data-error="wrong" data-success="right">Type your email</label></div>
+								<!-- password -->
+								<div class="md-form"><i class="fa fa-lock prefix"></i>
+								<input id="inputValidationEx2" class="form-control validate" type="password" />
+								<label for="inputValidationEx2" data-error="wrong" data-success="right">Type your password</label></div>
+								<!-- Validation button -->
+								<input name="test_button" type="submit" value="Submit me" />
+								</form>
+
     <?php
 				}else {
 
@@ -91,7 +92,7 @@ $current_options = wp_parse_args(  get_option( 'busiprof_theme_options', array()
 						<h1 class="section-heading"><?php echo $thiscat; ?>
 						</h1>
 						<p><?php echo esc_html($current_options['protfolio_description_tag']); ?></p>
-						<form style="margin-top:30px;margin-bottom:30px;" method="get" id="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?> ">
+						<form style="margin-top:30px;margin-bottom:30px;" method="post" id="searchform" action="http://localhost/ISIR/wp-content/themes/busiprof/category-Chercheur.php ">
 							<input type="text" class="search_btn"  name="s" id="s" placeholder="<?php esc_attr_e( "Search", 'busiprof' ); ?>" />
 							<input type="submit" class="submit_search" style="" name="submit" value="<?php esc_attr_e( "Search", 'busiprof' ); ?>" />
 						</form>
@@ -145,7 +146,7 @@ $current_options = wp_parse_args(  get_option( 'busiprof_theme_options', array()
 					<div class="section-title">
 						<h1 class="section-heading"><?php echo $thiscat; ?></h1>
 						<p><?php echo $current_options['service_tagline']; ?></p>
-						<form style="margin-top:30px;margin-bottom:30px;" method="get" id="searchform" action="<?php echo esc_url( home_url( '/' ) ); ?> ">
+						<form style="margin-top:30px;margin-bottom:30px;" method="post" id="searchform" action="<?php echo esc_url( "http://localhost/ISIR/wp-content/themes/busiprof/category-Chercheur.php" ); ?> ">
 							<input type="text" class="search_btn"  name="s" id="s" placeholder="<?php esc_attr_e( "Search", 'busiprof' ); ?>" />
 							<input type="submit" class="submit_search" style="" name="submit" value="<?php esc_attr_e( "Search", 'busiprof' ); ?>" />
 						</form>
@@ -187,5 +188,13 @@ $current_options = wp_parse_args(  get_option( 'busiprof_theme_options', array()
 <!-- End of Page Title -->
 <!-- <div class="clearfix"></div> -->
 <!-- <div class="clearfix"></div> -->
+<?php
+if($_POST[s] !=''){
+	  // $valueToSearch = $_POST[s];
+		// $_POST[s] = "you"
 
+}else{
+		// $_POST[s] = "rien";
+}
+?>
 <?php get_footer(); ?>
