@@ -1,3 +1,4 @@
+<?php echo "<script type='text/javascript'></script>"; ?>
 <?php
 /**
  * Add Site Administration Screen
@@ -40,7 +41,8 @@ if ( isset($_REQUEST['action']) && 'add-site' == $_REQUEST['action'] ) {
 	$blog = $_POST['blog'];
 	$domain = '';
 	if ( preg_match( '|^([a-zA-Z0-9-])+$|', $blog['domain'] ) )
-		$domain = strtolower( $blog['domain'] );
+		$domain =  $blog['type'].strtolower( $blog['domain'] );
+   //$domain = $blog['domain'];
 
 	// If not a subdomain installation, make sure the domain isn't a reserved word
 	if ( ! is_subdomain_install() ) {
@@ -195,15 +197,25 @@ if ( ! empty( $messages ) ) {
 		echo '<div id="message" class="updated notice is-dismissible"><p>' . $msg . '</p></div>';
 } ?>
 <form method="post" action="<?php echo network_admin_url( 'site-new.php?action=add-site' ); ?>" novalidate="novalidate">
+
 <?php wp_nonce_field( 'add-blog', '_wpnonce_add-blog' ) ?>
 	<table class="form-table">
+		<tr class="form-field form-required">
+			<th scope="row"><label for="site-type"><?php _e( 'Site Type' ) ?></label></th>
+			<td>
+				<select id="siteType" onchange="change_site_type();">
+           <option value ="projet">Projet</option>
+           <option value ="equipe">Equipe</option>
+        </select>
+			</td>
+		</tr>
 		<tr class="form-field form-required">
 			<th scope="row"><label for="site-address"><?php _e( 'Site Address (URL)' ) ?></label></th>
 			<td>
 			<?php if ( is_subdomain_install() ) { ?>
 				<input name="blog[domain]" type="text" class="regular-text" id="site-address" aria-describedby="site-address-desc" autocapitalize="none" autocorrect="off"/><span class="no-break">.<?php echo preg_replace( '|^www\.|', '', get_network()->domain ); ?></span>
 			<?php } else {
-				echo get_network()->domain . get_network()->path ?><input name="blog[domain]" type="text" class="regular-text" id="site-address" aria-describedby="site-address-desc"  autocapitalize="none" autocorrect="off" />
+				echo get_network()->domain . get_network()->path ?><label id = "label_type">projet-</label><input name = "blog[type]" type="text" id= "append_path" value = "projet-" style="display: none;"></input><input name="blog[domain]" type="text" class="regular-text" id="site-address" aria-describedby="site-address-desc"  autocapitalize="none" autocorrect="off" />
 			<?php }
 			echo '<p class="description" id="site-address-desc">' . __( 'Only lowercase letters (a-z), numbers, and hyphens are allowed.' ) . '</p>';
 			?>
@@ -223,7 +235,7 @@ if ( ! empty( $messages ) ) {
 				<td>
 					<?php
 					// Network default.
-					$lang = get_site_option( 'WPLANG' );
+					 $lang = get_site_option( 'WPLANG' );
 
 					// Use English if the default isn't available.
 					if ( ! in_array( $lang, $languages ) ) {
@@ -234,7 +246,7 @@ if ( ! empty( $messages ) ) {
 						array(
 							'name'                        => 'WPLANG',
 							'id'                          => 'site-language',
-							'selected'                    => $lang,
+							'selected'                    => 'en-US',
 							'languages'                   => $languages,
 							'translations'                => $translations,
 							'show_available_translations' => current_user_can( 'install_languages' ) && wp_can_install_language_pack(),
@@ -265,5 +277,22 @@ if ( ! empty( $messages ) ) {
 	?>
 	</form>
 </div>
+<script type="text/javascript">
+     function change_site_type(){
+			 var  myselect = document.getElementById("siteType");
+			 var index=myselect.selectedIndex ;
+			 var append_path = document.getElementById("append_path");
+			 var label_type = document.getElementById("label_type");
+			 label_type.innerText = myselect.options[index].value+"-";
+			 append_path.value=myselect.options[index].value+"-";
+
+		 }
+	// alert("kjhbg");
+	// var  myselect=document.getElementById("type");
+	// var index=myselect.selectedIndex ;
+	// alert(myselect.options[index].value);
+	//return t1;
+
+</script>
 <?php
 require( ABSPATH . 'wp-admin/admin-footer.php' );
