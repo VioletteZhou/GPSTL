@@ -1,0 +1,141 @@
+# WordPress Blank Pot
+# Copyright (C) 2014 ...
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: BlogKori 1.2.1\n"
+"Report-Msgid-Bugs-To: Translator Name <translations@example.com>\n"
+"POT-Creation-Date: 2017-03-29 00:03+0600\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Tamal Anwar <tamal@tamalanwar.com>\n"
+"Language-Team: Tamal Anwar <tamal@tamalanwar.com>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
+"_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: index.php:7 archive.php:8 category.php:8 search.php:8
+msgid "Permanent link to"
+msgstr ""
+
+#: index.php:9 single.php:7 archive.php:10 category.php:10 search.php:10
+msgid "by"
+msgstr ""
+
+#: index.php:9 single.php:7 archive.php:10 category.php:10 search.php:10
+msgid "on"
+msgstr ""
+
+#: index.php:12 archive.php:13 category.php:13 search.php:13
+msgid "[Continue reading...]"
+msgstr ""
+
+#: index.php:15 single.php:17 archive.php:16 category.php:16 search.php:16
+msgid "Tagged as: "
+msgstr ""
+
+#: index.php:17 archive.php:18 category.php:18 search.php:18
+msgid "Add a Comment"
+msgstr ""
+
+#: index.php:17 archive.php:18 category.php:18 search.php:18
+msgid "1 Comment"
+msgstr ""
+
+#: index.php:17 archive.php:18 category.php:18 search.php:18
+msgid "% Comments"
+msgstr ""
+
+#: header.php:17 header.php:22
+msgid "back to home"
+msgstr ""
+
+#: header.php:39
+msgid "Toggle navigation"
+msgstr ""
+
+#: footer.php:3
+#, php-format
+msgid "&copy; %1$s %2$s - Developed by %3$s"
+msgstr ""
+
+#: footer.php:3
+msgid "Y"
+msgstr ""
+
+#: 404.php:6
+msgid "Nothing Found!"
+msgstr ""
+
+#: 404.php:10
+msgid "Sorry the page does not exists, please go back and try again."
+msgstr ""
+
+#: functions.php:40
+msgid "Primary Menu"
+msgstr ""
+
+#: functions.php:75
+msgid "Pages:"
+msgstr ""
+
+#: functions.php:81
+msgid "Next page"
+msgstr ""
+
+#: functions.php:82
+msgid "Previous page"
+msgstr ""
+
+#: functions.php:107
+msgid "Right Sidebar"
+msgstr ""
+
+#: functions.php:109
+msgid "Widgets in this area will be shown on all posts and pages."
+msgstr ""
+
+#: functions.php:138
+msgid "Reply"
+msgstr ""
+
+#: category.php:4
+msgid "Browsing:"
+msgstr ""
+
+#: comments.php:25
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:26
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: comments.php:27
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: comments.php:32
+msgid "Comments are closed."
+msgstr ""
+
+#: search.php:4
+msgid "Search results for:"
+msgstr ""
+
+#: search.php:25
+msgid "NEWER POSTS"
+msgstr ""
+
+#: search.php:25
+msgid "PREVIOUS POSTS"
+msgstr ""

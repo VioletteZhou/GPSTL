@@ -1,0 +1,778 @@
+/*
+Theme Name: BlogKori
+Theme URI: https://blogkori.com/blogkori-theme
+Author: Tamal Anwar
+Author URI: https://tamalweb.com/about?from=wp
+Description: {New in v1.3.6: Added option to change default color scheme and link colors from theme customizer menu.} BlogKori is a fully responsive minimalist blogging WordPress theme for personal blogs, photography blogs or for business bloggers. If you are a writer, traveler, adventure, artist and you have a blog, then this is the perfect blog for you. BlogKori is a clean simple design with awesome typography. The theme has custom logo, header, custom background image which you can easily setup from the theme customizer option. It has Google Analytics tracking box. You can also change the default color scheme of this design to your liking. The theme also features drop down menus, right sidebar area, threaded comments option and sticky post. Add featured images to your blog posts and make your readers love your blog. This theme is built on bootstrap framework which is mobile responsive. It is a light theme with HTML5 standard markup which makes it SEO friendly.
+Version: 1.3.7
+Text Domain: blogkori
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags:  blog, education, news, two-columns, right-sidebar, custom-header, custom-menu, threaded-comments, flexible-header, custom-background, editor-style, featured-images, translation-ready, sticky-post
+*/
+
+/* --------------------------------------
+    Global Styles
+-------------------------------------- */
+
+/* The platform of the entire website */
+
+body {
+	background: #efefef; /* Light gray background */
+	color: #333333; /* Global text color set to light black */
+	font-family: "Georgia", serif; /* Global font */
+	font-size: 18px; /* Global font size */
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* The main white area of the website */
+
+#main-body {
+	background: #ffffff;
+}
+
+/* Global link styles */
+
+a {
+	color: #2198f4;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: #2198f4;
+	text-decoration: none;
+}
+
+a:visited {
+	/* color: #2198f4; */
+	text-decoration: underline;
+}
+
+
+/* Global style for paragraphs */
+
+p {
+	font-size: 1em; /* Equals to global font size */
+	line-height: 1.6em; /* Golden ratio for the line height */
+	margin-bottom: 1.15em; /* Golden ratio for the gap after each paragraph */
+}
+
+/* Heading tags */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dt {
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	margin-bottom: 1.15rem; /* REM to pick up the value from the global font size */
+}
+
+/* Global Heading Tag Ratios */
+
+h1 {
+	font-size: 1.7em;
+    line-height: 1.35em;
+}
+
+h2 {
+	font-size: 1.5em;
+    line-height: 1.25em;
+}
+
+h3 {
+	font-size: 1.4em;
+    line-height: 1.2em;
+}
+
+h4 {
+	font-size: 1.3em;
+    line-height: 1.15em;
+}
+
+h5 {
+	font-size: 1.2em;
+    line-height: 1.1em;
+}
+
+h6 {
+	font-size: 1.1em;
+    line-height: 1.05em;
+}
+
+/* Unordered and ordered lists */
+
+ul,
+ol {
+	margin-bottom: 1.6rem;
+}
+
+/* List items */
+
+li,
+dd {
+	margin-bottom: 0.6rem;
+}
+
+/* Table borders */
+
+td,
+th {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+/* Making the media responsive */
+
+header img,
+footer img,
+article img,
+#sidebar img,
+#sidebar iframe,
+#sidebar object,
+article iframe,
+article object,
+
+.wp-caption {
+	max-width: 100%;
+}
+
+article img,
+#sidebar img {
+	height: auto;
+}
+
+
+/* --------------------------------------
+   Header Styles
+-------------------------------------- */
+
+header { /* Entire Header Section */
+	padding: 1em;
+}
+
+#header { /* Inner Header Section */
+
+}
+
+#header p {
+
+}
+
+#title { /* Site Title in Text */
+	color: #1b7dc6;
+    font-size: 2.2em;
+	font-weight: bold;
+}
+
+#title a {
+	color: #1b7dc6;
+	text-decoration: none;
+}
+
+#title a:hover {
+
+}
+
+#logo { /* Image Logo, Inside img tag */
+	border: 0;
+}
+
+#tagline { /* Site Tagline */
+	color: #888888;
+	margin-bottom: 0;
+}
+
+/* --------------------------------------
+   Navigation Menu Styles
+-------------------------------------- */
+
+#nav,
+.navbar-default { /* Entire Navigation Section */
+	background-color: #25aae2;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	font-size: 16px;
+	border: 0;
+}
+
+#nav li {
+	margin-bottom: 0;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #ffffff;
+}
+
+#navigation { /* Inner Navigation Section */
+
+}
+
+#menu { /* The Main Navigation ul */
+	padding:0;
+	margin:0;
+}
+
+#menu li { /* Making The Menu Inline */
+	display: inline-block;
+	padding: 10px 15px;
+}
+
+.navbar-nav>li>a {
+
+}
+
+.dropdown-menu {
+	padding: 0 0;
+}
+
+.dropdown-menu>li>a {
+    padding: 15px;
+}
+/* .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+    color: #ffffff!important;
+	background-color: #1b7dc6!important;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    color: #ffffff!important;
+	background-color: #1b7dc6!important;
+} */
+
+nav .menu-item a {
+	text-decoration: none;
+}
+
+nav .menu-item a:hover {
+	background-color: #1b7dc6!important;
+	color: #ffffff!important;
+}
+
+nav .current-menu-item a {
+	background-color: #1b7dc6;
+	color: #ffffff;
+}
+
+.navbar-toggle {
+	background: #ffffff;
+}
+
+.navbar-brand {
+	color: #ffffff;
+	overflow: hidden;
+	margin: 0;
+}
+
+.navbar-brand a {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border: 0;
+}
+
+/* --------------------------------------
+   Content Section Styles
+-------------------------------------- */
+
+#content-box { /* (Content + Sidebar) */
+	border-bottom: 3px double #dddddd;
+}
+
+main { /* (Content + Comments) */
+
+}
+
+#content {
+	border-right: 1px solid #dddddd;
+}
+
+.top-widget-area {
+	margin: 1em;
+}
+
+article { /* Blog Article */
+
+}
+
+article p {
+
+}
+
+.border {
+	border-bottom: 1px solid #dddddd;
+}
+
+.post-title {
+	font-size: 1.7em;
+    line-height: 1.35em;
+    font-weight: bold;
+}
+
+.post-title a {
+	color: #333333;
+	text-decoration: none;
+}
+
+.post-title a:hover {
+	color: #2198f4;
+}
+
+p.post-meta { /* Published Date, Comments, Author */
+	font-size: 0.8em;
+	color: #888888;
+}
+
+p.post-tags {
+	color: #888888;
+}
+
+p.post-tags a {
+
+}
+
+p.post-tags a:hover {
+
+}
+
+.post-image { /* Featured Image */
+
+}
+
+.prev-next {
+	font-size: 0.8em;
+	/* letter-spacing: 2px; */
+	text-align: center;
+}
+
+.prev-next {
+	clear: both;
+}
+
+.page-numbers {
+	padding: 0 5px;
+}
+
+/* Post navigation styles */
+
+.screen-reader-text {
+	display: none;
+}
+
+
+blockquote { /* Quoted Text */
+	font-size: 1em;
+	color: #888888;
+	font-style: italic;
+	border-left: 1px solid #dddddd;
+}
+
+/* --------------------------------------
+   Comment Styles
+-------------------------------------- */
+
+p.to-comments { /* Controls the comment link inside the { brackets } */
+	color: #888888;
+	margin-bottom: 1em;
+}
+
+p.to-comments a {
+	color: #888888;
+	text-decoration: none;
+}
+
+p.to-comments a:hover {
+	color: #888888;
+	text-decoration: underline;
+}
+
+#commentform label {
+	display: block;
+}
+
+#comments { /* The Comments Section */
+
+}
+
+#comments p {
+
+}
+
+.comments-title {
+	margin-bottom: 0;
+}
+
+.media {
+	margin: 0;
+}
+
+
+.comment-respond,
+.comment-navigation,
+.thread-alt,
+.thread-even,
+.no-comments {
+	border-bottom: 1px dotted #dddddd;
+	padding: 0 1.6em 1.6em 1.6em;
+}
+
+.comments-title {
+	padding: 0 1em 1em 1em;
+	border-bottom: 1px dotted #dddddd;
+}
+
+.single-comment { /* Single Comment Box */
+	margin: 1.6em 0;
+}
+
+.avatar { /* Comment Avatar Section */
+
+}
+
+.avatar img { /* Comment Avatar Image */
+	border-radius: 50%;
+}
+
+.comment-body p {
+	margin-bottom: 1em;
+}
+
+.comment-name {
+	font-weight: bold;
+}
+
+.comment-name a {
+	text-decoration: none;
+}
+
+.comment-name a:hover {
+	text-decoration: underline;
+}
+
+.comment-meta {
+	color: #888888;
+    font-size: 0.75em;
+}
+
+.comment-reply {
+	color: #888888;
+}
+
+.comment-reply a {
+	color: #888888;
+	text-decoration: none;
+}
+
+.comment-reply a:hover {
+	text-decoration: underline;
+}
+
+.children {
+	padding-left: 1.6em;
+}
+
+.children .comment {
+    border-left: 2px solid #dddddd;
+	padding-left: 1.6em;
+}
+
+.comment-author-admin {
+    border-left: 2px solid #b1dafb;
+}
+
+.children .comment-author-admin {
+    border-color: #b1dafb;
+
+}
+
+
+.children {
+
+}
+
+.comment-form {
+
+}
+
+/* --------------------------------------
+   Sidebar Styles
+-------------------------------------- */
+
+#sidebar { /* Primary Sidebar Section */
+	font-size: 0.8em;
+}
+
+#sidebar p {
+
+}
+
+#sidebar ul {
+	padding-left: 0;
+	list-style: none;
+}
+
+#sidebar li {
+	margin-bottom: 0.8em;
+}
+
+#sidebar a {
+	text-decoration: none;
+}
+
+#sidebar a:hover {
+	text-decoration: underline;
+}
+
+#sidebar input[type="search"] {
+    max-width: 100%;
+}
+
+.widget { /* Single Widget */
+	margin-bottom: 2em;
+}
+
+.widget-title {
+	font-size: 16px;
+	margin-bottom: 16px;
+    font-weight: bold;
+}
+
+.widget-title a {
+
+}
+
+.widget-title a:hover {
+
+}
+
+/* --------------------------------------
+   Footer Styles
+-------------------------------------- */
+
+footer { /* Entire Footer Section */
+	padding: 1em;
+	font-size: 0.8em;
+	color: #888888;
+	text-align: left;
+}
+
+#footer { /* Inner Footer */
+
+}
+
+#footer p {
+
+}
+
+#footer a {
+
+}
+
+#footer a:hover {
+
+}
+
+/* --------------------------------------
+   WordPress Core Styles
+-------------------------------------- */
+
+/* Image Alignment Styles */
+
+.alignleft {
+	float: left;
+	padding-right: 1em;
+}
+
+.alignright {
+	float: right;
+	padding-left: 1em;
+}
+
+.aligncenter {
+	display: block;
+	margin: 0 auto;
+}
+
+.alignleft,
+.alignright,
+.aligncenter {
+    padding-bottom: 1em;
+}
+
+/* Image Caption Text */
+
+.wp-caption {
+	padding-bottom: 1em;
+}
+
+.wp-caption-text {
+	text-align: center;
+	font-size: 0.8em;
+	color: #888888;
+}
+
+.gallery-caption {
+	padding: 5px 0;
+}
+
+/* Sticky Post */
+
+.sticky {
+    border-left: 2px solid #b1dafb;
+}
+
+/* Comment Style for Post Author */
+
+.bypostauthor {
+
+}
+
+/* Accessibility Style */
+
+.screen-reader-text {
+
+}
+
+.no-pad {
+	padding: 0;
+}
+
+code {
+	color: #666666;
+	background-color: #efefef;
+}
+
+
+
+
+
+/* --------------------------------------
+   Media Queries
+-------------------------------------- */
+
+/* Portrait & landscape phone */
+@media (max-width: 480px) {
+
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+	.navbar-brand {
+		display: block;
+	}
+
+	header {
+		display: none;
+	}
+
+	.navbar-default .navbar-nav .open .dropdown-menu>li>a {
+		color: #ffffff;
+	}
+
+	.single-comment { /* Single Comment Box */
+		margin: 0.6em 0;
+	}
+
+	.children {
+		padding-left: 0.6em;
+	}
+
+	.children .comment {
+		border-left: 1px solid #dddddd;
+		padding-left: 0.6em;
+	}
+
+	.comments-title,
+	.comment-respond,
+	.comment-navigation,
+	.thread-alt,
+	.thread-even {
+		border-bottom: 1px dotted #dddddd;
+		padding: 0 0.6em 0.6em 0.6em;
+	}
+
+	.single-comment { /* Single Comment Box */
+		margin: 0.6em 0;
+	}
+
+    button,
+    input,
+    select,
+    textarea {
+        max-width: 100%;
+    }
+
+    .alignleft,
+    .alignright {
+        max-width: 50%;
+    }
+
+    .sticky {
+        border-left: 0!important;
+    }
+
+	#footer {
+		text-align: center;
+	}
+
+}
+
+/* Landscape phone to portrait tablet */
+@media (min-width: 768px) {
+
+	.navbar-brand {
+		display: none;
+	}
+
+
+
+	#content {
+		padding: 0;
+	}
+
+	.article ,
+	#sidebar {
+		padding: 1em 1.6em;
+	}
+
+	.navbar {
+		margin-bottom: 0;
+		border-radius: 0;
+	}
+
+	.navbar-collapse {
+		padding-right: 0;
+		padding-left: 0;
+	}
+
+	.prev-next {
+		padding: 1em 1.6em;
+	}
+
+}
+
+/* Small Older Desktops with CRT Monitor  */
+@media (max-width: 992px) {
+
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {
+	#main-body {
+		margin-top: 1em;
+		margin-bottom: 1em;
+		box-shadow: 0px 1px 3px #ddd;
+	}
+
+	.container {
+		width: 900px;
+	}
+
+	#content-box {
+
+	}
+
+}

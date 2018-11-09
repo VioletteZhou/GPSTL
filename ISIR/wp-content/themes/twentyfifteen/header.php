@@ -38,15 +38,21 @@
 					<?php endif;
 
 					$description = get_bloginfo( 'description', 'display' );
+
 					if ( $description || is_customize_preview() ) : ?>
-						<p class="site-description"><?php echo $description; ?></p>
+
 					<?php endif;
 				?>
 				<button class="secondary-toggle"><?php _e( 'Menu and widgets', 'twentyfifteen' ); ?></button>
+				<div class="row" style="margin:25px auto"><a>Home</a><div>
+				<div class="row" style="margin:25px auto"><a>Members</a><div>
+				<div class="row" style="margin:25px auto"><a>Axes of research</a><div>
+        <div class="row" style="margin:25px auto"><a>Experimental platforms</a><div>
+        <div class="row" style="margin:25px auto"><a>Publications</a><div>
+				<div class="row" style="margin:25px auto"><a>Liens</a><div>
 			</div><!-- .site-branding -->
 		</header><!-- .site-header -->
 
-		<?php get_sidebar(); ?>
 	</div><!-- .sidebar -->
 
 	<div id="content" class="site-content">

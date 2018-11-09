@@ -1088,7 +1088,7 @@ function wpmu_activate_signup($key) {
 		return array( 'user_id' => $user_id, 'password' => $password, 'meta' => $meta );
 	}
 
-	$blog_id = wpmu_create_blog( $signup->domain, $signup->path, $signup->title, $user_id, $meta, get_current_network_id() );
+	$blog_id = wpmu_create_blog( $signup->domain, $signup->path, $signup->title,$blog_type, $blog_desc, $user_id, $meta, get_current_network_id() );
 
 	// TODO: What to do if we create a user but cannot create a blog?
 	if ( is_wp_error($blog_id) ) {
@@ -1182,7 +1182,7 @@ function wpmu_create_user( $user_name, $password, $email ) {
  * @param int    $network_id Optional. Network ID. Only relevant on multi-network installations.
  * @return int|WP_Error Returns WP_Error object on failure, the new site ID on success.
  */
-function wpmu_create_blog( $domain, $path, $title, $user_id, $meta = array(), $network_id = 1 ) {
+function wpmu_create_blog( $domain, $path, $title, $blog_type, $blog_desc,$user_id, $meta = array(), $network_id = 1 ) {
 	$defaults = array(
 		'public' => 0,
 		'WPLANG' => get_network_option( $network_id, 'WPLANG' ),
@@ -1208,10 +1208,11 @@ function wpmu_create_blog( $domain, $path, $title, $user_id, $meta = array(), $n
 		wp_installing( true );
 	}
 
-	if ( ! $blog_id = insert_blog($domain, $path, $network_id) )
+	if ( ! $blog_id = insert_blog($domain, $path, $network_id, $blog_type, $blog_desc) )
 		return new WP_Error('insert_blog', __('Could not create site.'));
 
 	switch_to_blog($blog_id);
+
 	install_blog($blog_id, $title);
 	wp_install_defaults($user_id);
 
@@ -1229,6 +1230,21 @@ function wpmu_create_blog( $domain, $path, $title, $user_id, $meta = array(), $n
 	if ( ! is_super_admin( $user_id ) && ! get_user_meta( $user_id, 'primary_blog', true ) )
 		update_user_meta( $user_id, 'primary_blog', $blog_id );
 
+if($blog_type == 1){
+	$theme = 'specia'; //projet
+}else if($blog_type == 2){
+	$theme = 'twentyfifteen'; //equipe
+}else {
+	$theme = 'Author';
+}
+$allowed_themes = get_blog_option( $blog_id, 'allowedthemes' );
+if ( !$allowed_themes ) {
+    $allowed_themes = array( $theme => true );
+} else {
+    $allowed_themes[$theme] = true;
+}
+update_option('allowedthemes', $allowed_themes );
+switch_theme($theme);
 	restore_current_blog();
 	/**
 	 * Fires immediately after a new site is created.
@@ -1392,19 +1408,19 @@ function domain_exists( $domain, $path, $network_id = 1 ) {
  * @since MU (3.0.0)
  *
  * @global wpdb $wpdb WordPress database abstraction object.
- *
+ * @param int blog_type 0-lab 1-pro 2-equipe
  * @param string $domain     The domain of the new site.
  * @param string $path       The path of the new site.
  * @param int    $network_id Unless you're running a multi-network installation, be sure to set this value to 1.
  * @return int|false The ID of the new row
  */
-function insert_blog($domain, $path, $network_id) {
+function insert_blog($domain, $path, $network_id, $blog_type, $blog_desc) {
 	global $wpdb;
 
 	$path = trailingslashit($path);
 	$network_id = (int) $network_id;
 
-	$result = $wpdb->insert( $wpdb->blogs, array('site_id' => $network_id, 'domain' => $domain, 'path' => $path, 'registered' => current_time('mysql')) );
+	$result = $wpdb->insert( $wpdb->blogs, array('site_id' => $network_id, 'domain' => $domain, 'path' => $path, 'blog_desc' => $blog_desc, 'blog_type' => $blog_type, 'registered' => current_time('mysql')) );
 	if ( ! $result )
 		return false;
 

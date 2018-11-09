@@ -33,19 +33,7 @@ $current_options = wp_parse_args(  get_option( 'busiprof_theme_options', array()
 	<div class="container">
 	    <?php
 	    $thiscat = single_cat_title('',false);
-			  if($thiscat=='Login'){  ?>
-						<form style= "margin-top:30px; margin-bottom: 30px;" action= <?php echo site_url()."/isir-login"; ?> method="post">
-								<div class="md-form"><i class="fa fa-envelope prefix"></i>
-								<input id="exampleInputEmail1" class="form-control" type="email" placeholder="Enter email" aria-describedby="emailHelp" />
-								<label for="exampleInputEmail1" data-error="wrong" data-success="right">Type your email</label></div>
-								<!-- password -->
-								<div class="md-form"><i class="fa fa-lock prefix"></i>
-								<input id="inputValidationEx2" class="form-control validate" type="password" />
-								<label for="inputValidationEx2" data-error="wrong" data-success="right">Type your password</label></div>
-								<!-- Validation button -->
-								<input name="test_button" type="submit" value="Submit me" />
-								</form>
-
+			  if($thiscat=='Login'){ ?>
     <?php
 				}else {
 
@@ -60,19 +48,17 @@ $current_options = wp_parse_args(  get_option( 'busiprof_theme_options', array()
 	        }
 	      }else {
 	         if($thiscat=='Equipe'){
-	           $need = '/equipe';
+	           $need = 2;
 	         }else if($thiscat=='Project'){
-	           $need = '/projet';
-	         }else if($thiscat=='Laboratoire'){
-	           $need = '/lab';
+	           $need = 1;
 	         }
 	         $blog_list = get_blog_list( 0, 'all' );
 	         $homeurl = home_url();
 	         foreach ($blog_list AS $blog)
 	         {
 	             $blog_details = get_blog_details($blog['blog_id']);
-	             if(strpos($blog_details->path, $need)){
-										array_push($info_list,['name' => $blog_details->blogname , 'url' => $blog_details->siteurl]);
+	             if($blog_details->blog_type == $need){
+										array_push($info_list,['name' => $blog_details->blogname , 'url' => $blog_details->siteurl, 'blog_desc' => $blog_details->blog_desc]);
 	             }
 	          }
 	      }
@@ -83,7 +69,7 @@ $current_options = wp_parse_args(  get_option( 'busiprof_theme_options', array()
 
 <!-- Portfolio Section -->
 <?php if($thiscat == 'Chercheur'){  array_multisort(array_column($info_list, 'name'), SORT_ASC, $info_list); ?>
-	<section id="section" class="portfolio bg-color">
+	<section id="section" class="portfolio bg-color" >
 		<div class="container">
 			<!-- Section Title -->
 			<div class="row">
@@ -103,7 +89,7 @@ $current_options = wp_parse_args(  get_option( 'busiprof_theme_options', array()
 			<!-- Portfolio Item -->
 		<div class="tab-content main-portfolio-section" id="myTabContent">
 			<!-- Portfolio Item -->
-				<div class="row">
+				<div class="row" >
 					<?php
 	 			 for ($x=0; $x<count($info_list); $x++) {?>
 					 <div class="col-md-3 col-sm-6 col-xs-12" onclick="location.href='<?php echo $info_list[$x]['url']; ?>';">
@@ -113,11 +99,11 @@ $current_options = wp_parse_args(  get_option( 'busiprof_theme_options', array()
 	 						</figure>
 	 						<div class="portfolio-info">
 	 							<div class="entry-header">
-	 								<h4 class="entry-title">
+	 								<h4 class="entry-title" class="entry-content">
 	 								<?php echo esc_html($info_list[$x]['name']); ?>
 	 								</h4>
 	 							</div>
-	 							<div class="entry-content">
+	 							<div class="entry-content" >
 	 								<p><?php
 									if($info_list[$x]['email']){
 										  echo esc_html($info_list[$x]['email']);
@@ -162,7 +148,6 @@ $current_options = wp_parse_args(  get_option( 'busiprof_theme_options', array()
 						  $type = "Assistance aux Gestes et Applications THErapeutiques (ERL INSERM U1150)";
 						  if($thiscat=='Project'){
 							$icon = "fa-tasks";
-							$type = "Projet ANR PROSBOT - Robot Prostatique Contrôlé par Modèle et Image - novembre 2011 / novembre 2014";
 						}
 		 			 for ($x=0; $x<count($info_list); $x++) {?>
 						 <div class="col-md-3 col-sm-6 col-xs-12" onclick="location.href='<?php echo $info_list[$x]['url']; ?>';">
@@ -173,7 +158,7 @@ $current_options = wp_parse_args(  get_option( 'busiprof_theme_options', array()
 						 		<h4 class="entry-title"><?php echo esc_html($info_list[$x]['name']); ?></h4>
 						 	</div>
 						 	<div class="entry-content">
-						 		<p><?php echo esc_html($type); ?></p>
+						 		<p><?php echo esc_html($info_list[$x]['blog_desc']); ?></p>
 						 	</div>
 						 </div>
 						 </div>
