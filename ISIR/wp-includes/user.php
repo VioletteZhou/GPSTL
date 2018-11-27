@@ -114,7 +114,7 @@ function connectToMemberDb($username, $password)
 {
 	$servername = "localhost";
 	$dbusername = "root";
-	$dbpassword = "";
+	$dbpassword = "Vva#eTqq";
 	$dbname = "MEMBER";
 	$table = "User";
 	// Create connection
