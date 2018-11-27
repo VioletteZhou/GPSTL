@@ -10,6 +10,7 @@ function theme_enqueue_styles() {
 
 
 // add Textes page
+$new_page_title = "Textes";
 if (get_page_by_title("Textes") == null){
 	$new_page = array(
 		'post_type' => 'page',
@@ -18,11 +19,13 @@ if (get_page_by_title("Textes") == null){
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}	
 }
 // Add videos page 
+$new_page_title = "Videos";
 if(get_page_by_title("Videos") == null){
 	$new_page = array(
 		'post_type' => 'page',
@@ -31,11 +34,13 @@ if(get_page_by_title("Videos") == null){
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
 }
 // Add Publications page 
+$new_page_title = "Publications";
 if(get_page_by_title("Publications") == null){
 	$new_page = array(
 		'post_type' => 'page',
@@ -44,6 +49,7 @@ if(get_page_by_title("Publications") == null){
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
@@ -51,6 +57,7 @@ if(get_page_by_title("Publications") == null){
 
 
 // Add Photos page
+$new_page_title = "Photos";
 if(get_page_by_title("Photos") == null){
 	$new_page = array(
 		'post_type' => 'page',
@@ -59,12 +66,14 @@ if(get_page_by_title("Photos") == null){
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
 }
 
 // add code sources page 
+$new_page_title = "Codes Sources";
 if(get_page_by_title("Codes Sources") == null){
 	$new_page = array(
 		'post_type' => 'page',
@@ -73,6 +82,7 @@ if(get_page_by_title("Codes Sources") == null){
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
@@ -80,6 +90,7 @@ if(get_page_by_title("Codes Sources") == null){
 
 
 // add cours et présentations 
+$new_page_title = "Cours et présentations";
 if(get_page_by_title("Cours et présentations") == null){
 	$new_page = array(
 		'post_type' => 'page',
@@ -88,12 +99,14 @@ if(get_page_by_title("Cours et présentations") == null){
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
 }
 
 // add Réseax Sociaux
+$new_page_title = "Réseax Sociaux";
 if(get_page_by_title("Réseax Sociaux") == null){
 	$new_page = array(
 		'post_type' => 'page',
@@ -102,12 +115,14 @@ if(get_page_by_title("Réseax Sociaux") == null){
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
 }
 
 // add BD Expérimentale
+$new_page_title = "BD Expérimentale";
 if(get_page_by_title("BD Expérimentale") == null){
 	$new_page = array(
 		'post_type' => 'page',
@@ -116,6 +131,7 @@ if(get_page_by_title("BD Expérimentale") == null){
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}

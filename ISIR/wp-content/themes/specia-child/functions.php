@@ -61,6 +61,7 @@ function specia_setup() {
 	add_editor_style( array( 'css/editor-style.css', specia_google_font() ) );
 
 	// add Textes page
+$new_page_title = "Textes";
 	$new_page = array(
 		'post_type' => 'page',
 		'post_title' => "Textes",
@@ -68,11 +69,13 @@ function specia_setup() {
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
 
 	// Add videos page 
+$new_page_title = "Vidéos";
 	$new_page = array(
 		'post_type' => 'page',
 		'post_title' => "Vidéos",
@@ -80,10 +83,12 @@ function specia_setup() {
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
 	// Add Publications page 
+$new_page_title = "Publications";
 	$new_page = array(
 		'post_type' => 'page',
 		'post_title' => "Publications",
@@ -91,11 +96,13 @@ function specia_setup() {
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
 
 	// Add Photos page
+$new_page_title = "Photos";
 	$new_page = array(
 		'post_type' => 'page',
 		'post_title' => "Photos",
@@ -103,11 +110,13 @@ function specia_setup() {
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
 
 	// add code sources page 
+$new_page_title = "Code source";
 	$new_page = array(
 		'post_type' => 'page',
 		'post_title' => "Code source",
@@ -115,11 +124,13 @@ function specia_setup() {
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
 
 	// add cours et présentations 
+$new_page_title = "Cours & Présentation";
 	$new_page = array(
 		'post_type' => 'page',
 		'post_title' => "Cours & Présentation",
@@ -127,11 +138,13 @@ function specia_setup() {
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
 
 	// add Réseax Sociaux
+$new_page_title = "Réseax Sociaux";
 	$new_page = array(
 		'post_type' => 'page',
 		'post_title' => "Réseax Sociaux",
@@ -139,11 +152,13 @@ function specia_setup() {
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
 
 	// add BD Expérimentale
+$new_page_title = "BD Expérimentale";
 	$new_page = array(
 		'post_type' => 'page',
 		'post_title' => "BD Expérimentale",
@@ -151,6 +166,7 @@ function specia_setup() {
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+$page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
