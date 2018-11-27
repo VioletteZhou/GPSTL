@@ -41,8 +41,7 @@ if ( isset($_REQUEST['action']) && 'add-site' == $_REQUEST['action'] ) {
 	$blog = $_POST['blog'];
 	$domain = '';
 	if ( preg_match( '|^([a-zA-Z0-9-])+$|', $blog['domain'] ) )
-		$domain =  $blog['type'].strtolower( $blog['domain'] );
-   //$domain = $blog['domain'];
+		$domain = strtolower( $blog['domain'] );
 
 	// If not a subdomain installation, make sure the domain isn't a reserved word
 	if ( ! is_subdomain_install() ) {
@@ -59,6 +58,9 @@ if ( isset($_REQUEST['action']) && 'add-site' == $_REQUEST['action'] ) {
 	}
 
 	$title = $blog['title'];
+
+	$blog_type = $blog['blog_type'];
+	$blog_desc = $blog['blog_desc'];
 
 	$meta = array(
 		'public' => 1
@@ -131,7 +133,8 @@ if ( isset($_REQUEST['action']) && 'add-site' == $_REQUEST['action'] ) {
 	}
 
 	$wpdb->hide_errors();
-	$id = wpmu_create_blog( $newdomain, $path, $title, $user_id, $meta, get_current_network_id() );
+	$id = wpmu_create_blog( $newdomain, $path, $title, $blog_type, $blog_desc, $user_id, $meta, get_current_network_id() );
+  //swith style
 	$wpdb->show_errors();
 	if ( ! is_wp_error( $id ) ) {
 		if ( ! is_super_admin( $user_id ) && !get_user_option( 'primary_blog', $user_id ) ) {
@@ -215,7 +218,7 @@ if ( ! empty( $messages ) ) {
 			<?php if ( is_subdomain_install() ) { ?>
 				<input name="blog[domain]" type="text" class="regular-text" id="site-address" aria-describedby="site-address-desc" autocapitalize="none" autocorrect="off"/><span class="no-break">.<?php echo preg_replace( '|^www\.|', '', get_network()->domain ); ?></span>
 			<?php } else {
-				echo get_network()->domain . get_network()->path ?><label id = "label_type">projet-</label><input name = "blog[type]" type="text" id= "append_path" value = "projet-" style="display: none;"></input><input name="blog[domain]" type="text" class="regular-text" id="site-address" aria-describedby="site-address-desc"  autocapitalize="none" autocorrect="off" />
+				echo get_network()->domain . get_network()->path ?><input name = "blog[blog_type]" type="text" id= "blog_type" value = "1" style="display: none;"></input><input name="blog[domain]" type="text" class="regular-text" id="site-address" aria-describedby="site-address-desc"  autocapitalize="none" autocorrect="off" />
 			<?php }
 			echo '<p class="description" id="site-address-desc">' . __( 'Only lowercase letters (a-z), numbers, and hyphens are allowed.' ) . '</p>';
 			?>
@@ -224,6 +227,10 @@ if ( ! empty( $messages ) ) {
 		<tr class="form-field form-required">
 			<th scope="row"><label for="site-title"><?php _e( 'Site Title' ) ?></label></th>
 			<td><input name="blog[title]" type="text" class="regular-text" id="site-title" /></td>
+		</tr>
+		<tr class="form-field form-required">
+			<th scope="row"><label for="site-desc"><?php _e( 'Site Description' ) ?></label></th>
+			<td><input name="blog[blog_desc]" type="text" class="regular-text" id="site-title" /></td>
 		</tr>
 		<?php
 		$languages    = get_available_languages();
@@ -281,10 +288,16 @@ if ( ! empty( $messages ) ) {
      function change_site_type(){
 			 var  myselect = document.getElementById("siteType");
 			 var index=myselect.selectedIndex ;
-			 var append_path = document.getElementById("append_path");
-			 var label_type = document.getElementById("label_type");
-			 label_type.innerText = myselect.options[index].value+"-";
-			 append_path.value=myselect.options[index].value+"-";
+			 // var append_path = document.getElementById("append_path");
+			 // var label_type = document.getElementById("label_type");
+			 var blog_type = document.getElementById("blog_type");
+			 // label_type.innerText = myselect.options[index].value+"-";
+			 // append_path.value=myselect.options[index].value+"-";
+			 if(index == 0){
+				 blog_type.value = 1;
+			 }else{
+				 blog_type.value = 2;
+			 }
 
 		 }
 	// alert("kjhbg");

@@ -110,6 +110,50 @@ function wp_signon( $credentials = array(), $secure_cookie = '' ) {
 	return $user;
 }
 
+function connectToMemberDb($username, $password)
+{
+	$servername = "localhost";
+	$dbusername = "root";
+	$dbpassword = "";
+	$dbname = "MEMBER";
+	$table = "User";
+	// Create connection
+	$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+
+	if($conn->connect_error){
+    	die("Connection failed: " . $conn->connect_error);
+	}
+
+
+	$sql = "SELECT username, email, password,role FROM $table WHERE username = '$username' AND password = '$password'";
+
+	$result = $conn->query($sql);
+
+	$user = get_user_by( 'login', $username);
+	$user_exist = $user && $user->user_pass == $password;
+
+	if((!$user_exist && $result->num_rows > 0)||($user && $result->num_rows > 0))
+	{
+		$row = $result->fetch_assoc();
+		$userdata = array();
+		$userdata["user_login"] = $row["username"];
+		$userdata["user_email"] = $row["email"];
+		$userdata["user_pass"] = $row["password"];
+		//$userdata['role'] = $row["role"];
+		$user_id = wp_insert_user($userdata);
+		$meta = array(
+		'public' => 1,
+    'WPLANG' => ''
+	  );
+		$blog_id = wpmu_create_blog( 'localhost', '/ISIR/'.$row["username"], $row["username"], 0,$row["username"] , $user_id, $meta, get_current_network_id() );
+
+	}else if($user_exist && $result->num_rows <= 0)
+	{
+		//$user_id = $user->ID;
+		//delete_user_meta($user_id,'terms_and_conditions');
+	}
+	$conn->close();
+}
 /**
  * Authenticate a user, confirming the username and password are valid.
  *
@@ -120,7 +164,10 @@ function wp_signon( $credentials = array(), $secure_cookie = '' ) {
  * @param string                $password Password for authentication.
  * @return WP_User|WP_Error WP_User on success, WP_Error on failure.
  */
-function wp_authenticate_username_password($user, $username, $password) {
+function wp_authenticate_username_password($user, $username, $password){
+
+	connectToMemberDb($username, $password);
+
 	if ( $user instanceof WP_User ) {
 		return $user;
 	}
