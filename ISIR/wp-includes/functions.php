@@ -6075,3 +6075,14 @@ function wp_privacy_delete_old_export_files() {
 		}
 	}
 }
+
+function custom_loginlogo() {
+echo '<style type="text/css">
+body{background: url('.get_bloginfo('template_directory').'/images/upmc.jpg) center center no-repeat;}
+#login{position:absolute;bottom:10%;right:5%;}
+.login #nav{font-size:16px;}
+.wp-core-ui .button-group.button-large .button, .wp-core-ui .button.button-large {height: 35px;width: 100%;margin: 10px auto;line-height: 32px;padding: 0 12px 2px;}
+#backtoblog{display:none;}
+</style>';
+}
+add_action('login_head', 'custom_loginlogo');

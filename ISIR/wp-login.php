@@ -857,13 +857,13 @@ case 'confirmaction' :
 	if ( is_wp_error( $result ) ) {
 		wp_die( $result );
 	}
-	
+
 	/**
 	 * Fires an action hook when the account action has been confirmed by the user.
-	 * 
+	 *
 	 * Using this you can assume the user has agreed to perform the action by
 	 * clicking on the link in the confirmation email.
-	 * 
+	 *
 	 * After firing this action hook the page will redirect to wp-login a callback
 	 * redirects or exits first.
 	 *

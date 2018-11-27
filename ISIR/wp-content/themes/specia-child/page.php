@@ -1,0 +1,87 @@
+<?php
+get_header();
+get_template_part('sections/specia','breadcrumb'); ?>
+
+<section class="page-wrapper">
+	<div class="container">
+					
+		<div class="row padding-top-60 padding-bottom-60">		
+			<?php 
+
+			$page_title = $wp_query->post->post_title;
+												
+			switch($page_title)
+			{
+				    case 'Textes': ?>
+					<div style="vertical-align:middle; ">
+						<button type="button" style= " margin-bottom: 30px; float: right;">+ Ajouter un texte</button>
+					</div>
+			<?php break; 
+					case 'Vidéos': ?>
+							<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter une vidéos</button>
+			<?php break;
+					case 'Publications': ?>
+						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter une publication</button>
+			<?php break;
+					case 'Photos': ?>
+						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter une photo</button>			
+			<?php break; 
+					case 'Codes Sources': ?>
+						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter du code source</button>				
+			<?php break;
+					case 'Cours et présentations': ?>
+						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter un cours/une présentation</button>			
+			<?php break; 
+					case 'Réseaux sociaux': ?>
+						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter un post facebook/twetter</button>			
+			<?php break; 
+					case 'BD expérimentales': ?>
+						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter une BD expérimentale</button>				
+			<?php break;
+						}
+
+				if ( class_exists( 'WooCommerce' ) ) 
+				{
+					
+					if( is_account_page() || is_cart() || is_checkout() ) {
+							echo '<div class="col-md-'.( !is_active_sidebar( "woocommerce-1" ) ?"12" :"8" ).'">'; 
+					}
+					else{ 
+				
+					echo '<div class="col-md-'.( !is_active_sidebar( "sidebar-primary" ) ?"12" :"8" ).'">'; 
+					
+					}
+					
+				}
+				else
+				{ 
+				
+					echo '<div class="col-md-'.( !is_active_sidebar( "sidebar-primary" ) ?"12" :"8" ).'">';
+					
+					
+				} 
+			?>
+			<div class="site-content">
+			
+			<?php 
+				
+				if( have_posts()) :  the_post();
+				
+				the_content(); 
+				endif;
+				
+				comments_template( '', true ); // show comments 
+			?>
+				
+
+			</div><!-- /.posts -->
+							
+			</div><!-- /.col -->
+			
+						
+		</div><!-- /.row -->
+	</div><!-- /.container -->
+</section>
+
+<?php get_footer(); ?>
+

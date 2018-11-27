@@ -149,4 +149,5 @@ function templateRedirect() {
 
 add_action('template_redirect', 'templateRedirect');
 
+
 ?>
