@@ -45,36 +45,38 @@ function specia_setup() {
 		'gallery',
 		'caption',
 	) );
-	
-	
+
+
 	add_theme_support('custom-logo');
-	
+
 	/*
 	 * WooCommerce Plugin Support
 	 */
 	add_theme_support( 'woocommerce' );
-	
+
 	/*
 	 * This theme styles the visual editor to resemble the theme style,
 	 * specifically font, colors, icons, and column width.
 	 */
 	add_editor_style( array( 'css/editor-style.css', specia_google_font() ) );
 
-	// add Textes page
-$new_page_title = "Textes";
-	$new_page = array(
-		'post_type' => 'page',
-		'post_title' => "Textes",
-		'post_content' => '',
-		'post_status' => 'publish',
-		'post_author' => 1,
-	);
-$page_check = get_page_by_title($new_page_title);
-	if(!isset($page_check->ID)){
-		$new_page_id = wp_insert_post($new_page);
-	}
+	// add Textes category
+  //create the main category
+  wp_insert_term(
 
-	// Add videos page 
+  // the name of the category
+  'Textes',
+
+  // the taxonomy, which in this case if category (don't change)
+  'category',
+
+  array(
+
+  // what to use in the url for term archive
+  'slug' => 'Textes',
+  ));
+
+	// Add videos page
 $new_page_title = "Vidéos";
 	$new_page = array(
 		'post_type' => 'page',
@@ -87,7 +89,7 @@ $page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
-	// Add Publications page 
+	// Add Publications page
 $new_page_title = "Publications";
 	$new_page = array(
 		'post_type' => 'page',
@@ -102,20 +104,21 @@ $page_check = get_page_by_title($new_page_title);
 	}
 
 	// Add Photos page
-$new_page_title = "Photos";
-	$new_page = array(
-		'post_type' => 'page',
-		'post_title' => "Photos",
-		'post_content' => '',
-		'post_status' => 'publish',
-		'post_author' => 1,
-	);
-$page_check = get_page_by_title($new_page_title);
-	if(!isset($page_check->ID)){
-		$new_page_id = wp_insert_post($new_page);
-	}
+  wp_insert_term(
 
-	// add code sources page 
+  // the name of the category
+  'Photos',
+
+  // the taxonomy, which in this case if category (don't change)
+  'category',
+
+  array(
+
+  // what to use in the url for term archive
+  'slug' => 'Photos',
+  ));
+
+	// add code sources page
 $new_page_title = "Code source";
 	$new_page = array(
 		'post_type' => 'page',
@@ -129,7 +132,7 @@ $page_check = get_page_by_title($new_page_title);
 		$new_page_id = wp_insert_post($new_page);
 	}
 
-	// add cours et présentations 
+	// add cours et présentations
 $new_page_title = "Cours & Présentation";
 	$new_page = array(
 		'post_type' => 'page',
@@ -166,13 +169,14 @@ $new_page_title = "BD Expérimentale";
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
+
+
+
 $page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
-	
+
 }
 endif;
 add_action( 'after_setup_theme', 'specia_setup' );
-
-
