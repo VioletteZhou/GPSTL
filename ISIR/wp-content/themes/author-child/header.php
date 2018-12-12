@@ -35,12 +35,12 @@
 						</button>
 						<hr>
 						<!-- Menu Toggle -->
-						<?php 
+						<?php
 
-						$page1 = get_page_by_title("Textes");
+						$page1 = get_category_by_slug("Textes");
 						$page2 = get_page_by_title("Videos");
 						$page3 = get_page_by_title("Publications");
-						$page4 = get_page_by_title("Photos");
+						$page4 = get_category_by_slug("Photos");;
 						$page5 = get_page_by_title("Codes Sources");
 						$page6 = get_page_by_title("Cours et présentations");
 						$page7 = get_page_by_title("Réseax Sociaux");
@@ -49,10 +49,10 @@
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 						<ul class="nav navbar-nav navbar-right" style="list-style-type: none; ">
-							<li id=" menu-item-0 " style ="margin: 0 0 10px 0;"><a style ="color: white;" href="<?php echo get_permalink( $page1->ID ); ?>" title="Textes">Textes</a></li>
+							<li id=" menu-item-0 " style ="margin: 0 0 10px 0;"><a style ="color: white;" href="<?php echo get_category_link($page1->term_id) ?>" title="Textes">Textes</a></li>
 							<li id=" menu-item-1 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page2->ID ); ?>">Vidéos</a></li>
 							<li id=" menu-item-2 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page3->ID ); ?>">Publications</a></li>
-							<li id=" menu-item-3 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page4->ID ); ?>">Photos</a></li>
+							<li id=" menu-item-3 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_category_link($page4->term_id) ?>">Photos</a></li>
 							<li id=" menu-item-4 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page5->ID ); ?>">Codes Sources</a></li>
 							<li id=" menu-item-5 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page6->ID ); ?>">Cours et présentations</a></li>
 							<li id=" menu-item-6 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page7->ID ); ?>">Réseaux sociaux</a></li>

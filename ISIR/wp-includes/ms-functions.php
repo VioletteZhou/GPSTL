@@ -1089,7 +1089,6 @@ function wpmu_activate_signup($key) {
 	}
 
 	$blog_id = wpmu_create_blog( $signup->domain, $signup->path, $signup->title,$blog_type, $blog_desc, $user_id, $meta, get_current_network_id() );
-
 	// TODO: What to do if we create a user but cannot create a blog?
 	if ( is_wp_error($blog_id) ) {
 		// If blog is taken, that means a previous attempt to activate this blog failed in between creating the blog and
@@ -1100,6 +1099,8 @@ function wpmu_activate_signup($key) {
 		}
 		return $blog_id;
 	}
+
+
 
 	$wpdb->update( $wpdb->signups, array('active' => 1, 'activated' => $now), array('activation_key' => $key) );
 	/**
@@ -1264,6 +1265,11 @@ switch_theme($theme);
 
 	return $blog_id;
 }
+
+
+
+
+
 
 /**
  * Notifies the network admin that a new site has been activated.

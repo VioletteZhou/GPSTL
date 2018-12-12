@@ -134,7 +134,8 @@ if ( isset($_REQUEST['action']) && 'add-site' == $_REQUEST['action'] ) {
 
 	$wpdb->hide_errors();
 	$id = wpmu_create_blog( $newdomain, $path, $title, $blog_type, $blog_desc, $user_id, $meta, get_current_network_id() );
-  //swith style
+
+	//swith style
 	$wpdb->show_errors();
 	if ( ! is_wp_error( $id ) ) {
 		if ( ! is_super_admin( $user_id ) && !get_user_option( 'primary_blog', $user_id ) ) {

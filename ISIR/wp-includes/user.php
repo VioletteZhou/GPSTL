@@ -114,7 +114,7 @@ function connectToMemberDb($username, $password)
 {
 	$servername = "localhost";
 	$dbusername = "root";
-	$dbpassword = "Vva#eTqq";
+	$dbpassword = "root";
 	$dbname = "MEMBER";
 	$table = "User";
 	// Create connection
@@ -147,6 +147,9 @@ function connectToMemberDb($username, $password)
 	  );
 		$blog_id = wpmu_create_blog( 'localhost', '/ISIR/'.$row["username"], $row["username"], 0,$row["username"] , $user_id, $meta, get_current_network_id() );
 
+		//create table for youtube
+    create_video_tables($blog_id);
+
 	}else if($user_exist && $result->num_rows <= 0)
 	{
 		//$user_id = $user->ID;
@@ -154,6 +157,27 @@ function connectToMemberDb($username, $password)
 	}
 	$conn->close();
 }
+
+
+function create_video_tables($blog_id) {
+	global $wpdb;
+	$table_name = 'isir_'.$blog_id.'_video';
+	$charset_collate = $wpdb->get_charset_collate();
+        //if table exist or not
+  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+	$sql = "CREATE TABLE $table_name (
+		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		titre varchar(100) DEFAULT '' NOT NULL,
+		url varchar(100) DEFAULT '' NOT NULL,
+		isFavoris boolean DEFAULT false NOT NULL,
+		PRIMARY KEY  (id)
+	) $charset_collate;";
+        //excute
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
+      }
+}
+
 /**
  * Authenticate a user, confirming the username and password are valid.
  *
