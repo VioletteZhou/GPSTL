@@ -1,0 +1,222 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: wp-hal\n"
+"POT-Creation-Date: 2016-03-22 17:39+0100\n"
+"PO-Revision-Date: 2016-03-22 17:42+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-KeywordsList: __;gettext;gettext_noop;_n\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: wp-hal.php:15
+msgid ""
+"Crée une page qui remonte les publications d'un auteur ou d'une structure en "
+"relation avec HAL et un widget des dernières publications d'un auteur ou "
+"d'une structure."
+msgstr ""
+"Crear una página que muestra las publicaciones de un autor o de una "
+"estructura en relación con HAL y un widget de las últimas publicaciones de "
+"un autor o de una estructura."
+
+#: wp-hal.php:44
+msgid "Paramètres"
+msgstr "Parámetros"
+
+#: wp-hal.php:138
+msgid "Publications"
+msgstr "Publicaciones"
+
+#: wp-hal.php:140
+msgid "Filtres"
+msgstr "Metadatos"
+
+#: wp-hal.php:143 wp-hal.php:188 wp-hal.php:1063
+msgid "Contact"
+msgstr "Contacto"
+
+#: wp-hal.php:147 wp-hal.php:263 wp-hal.php:1064
+msgid "Disciplines"
+msgstr "Disciplinas"
+
+#: wp-hal.php:151 wp-hal.php:296 wp-hal.php:1065
+msgid "Mots-clefs"
+msgstr "Palabras clave"
+
+#: wp-hal.php:155 wp-hal.php:339 wp-hal.php:1066
+msgid "Auteurs"
+msgstr "Autores"
+
+#: wp-hal.php:159 wp-hal.php:379 wp-hal.php:1067
+msgid "Revues"
+msgstr "Revistas"
+
+#: wp-hal.php:163 wp-hal.php:419 wp-hal.php:1068
+msgid "Année de production"
+msgstr "Año de producción"
+
+#: wp-hal.php:167 wp-hal.php:459 wp-hal.php:1069
+msgid "Institutions"
+msgstr "Instituciones"
+
+#: wp-hal.php:171 wp-hal.php:499 wp-hal.php:1070
+msgid "Laboratoires"
+msgstr "Laboratorios"
+
+#: wp-hal.php:175 wp-hal.php:540 wp-hal.php:1071
+msgid "Départements"
+msgstr "Departamentos"
+
+#: wp-hal.php:179 wp-hal.php:580 wp-hal.php:1072
+msgid "Équipes de recherche"
+msgstr "Equipos de investigación"
+
+#: wp-hal.php:291 wp-hal.php:779
+msgid "Graphique"
+msgstr "Gráfico"
+
+#: wp-hal.php:334 wp-hal.php:373 wp-hal.php:413 wp-hal.php:453 wp-hal.php:493
+#: wp-hal.php:534 wp-hal.php:574 wp-hal.php:614 wp-hal.php:779
+msgid "Liste complète"
+msgstr "Lista completa "
+
+#: wp-hal.php:627 wp-hal.php:650
+msgid "documents"
+msgstr ""
+
+#: wp-hal.php:633
+msgid "document"
+msgstr "documento"
+
+#: wp-hal.php:767
+msgid "Documents récupérés de l'archive ouverte HAL"
+msgstr "Respaldado por HAL"
+
+#: wp-hal.php:779
+msgid "Liste"
+msgstr "Lista"
+
+#: wp-hal.php:779
+msgid "Liste principale"
+msgstr "Lista principal"
+
+#: wp-hal.php:779
+msgid "Nuage de mots"
+msgstr "Nube de palabras"
+
+#: wp-hal.php:885
+msgid "Afficher les dernières publications d'un auteur ou d'une structure."
+msgstr "Mostrar las últimas publicaciones de un autor o de una estructura."
+
+#: wp-hal.php:890 wp-hal.php:963
+msgid "Publications récentes"
+msgstr "Últimas publicaciones"
+
+#: wp-hal.php:971 wp-hal.php:981
+msgid "Titre"
+msgstr "Titulo"
+
+#: wp-hal.php:975
+msgid "Nombre de documents affichés"
+msgstr "Número de documentos visualizado"
+
+#: wp-hal.php:979
+msgid "Type d'affichage"
+msgstr "Tipo de visualización"
+
+#: wp-hal.php:982
+msgid "Citation"
+msgstr "Cita"
+
+#: wp-hal.php:986 wp-hal.php:1044
+msgid "Type d'Id"
+msgstr "Clase de Id"
+
+#: wp-hal.php:988 wp-hal.php:1046
+msgid "(Exemple : laurent-capelli)"
+msgstr "(Ejemplo : laurent-capelli)"
+
+#: wp-hal.php:989 wp-hal.php:1047
+msgid "(Exemple : 129)"
+msgstr "(Ejemplo : 129)"
+
+#: wp-hal.php:990 wp-hal.php:1048
+msgid "(Exemple : 1646)"
+msgstr "(Ejemplo : 1646)"
+
+#: wp-hal.php:991 wp-hal.php:1049
+msgid "(Exemple : 17877)"
+msgstr "(Ejemplo : 17877)"
+
+#: wp-hal.php:992 wp-hal.php:1050
+msgid "(Exemple : TICE2014)"
+msgstr "(Ejemplo : TICE2014)"
+
+#: wp-hal.php:996
+msgid "Id"
+msgstr ""
+
+#: wp-hal.php:1032
+msgid "Plugin HAL"
+msgstr "Plugin HAL"
+
+#: wp-hal.php:1041
+msgid "Paramètre de la page :"
+msgstr "Parámetro página :"
+
+#: wp-hal.php:1056
+msgid "Affichage des documents"
+msgstr "Visualización de documentos"
+
+#: wp-hal.php:1057
+msgid "Documents avec pagination"
+msgstr "Documentos con paginación"
+
+#: wp-hal.php:1058
+msgid "Documents groupés par type"
+msgstr "Documentos agrupados por tipo"
+
+#: wp-hal.php:1062
+msgid "Choix des éléments menu"
+msgstr "Elección elementos del menu"
+
+#: wp-hal.php:1076
+msgid "Contact :"
+msgstr "Contacto :"
+
+#: wp-hal.php:1079
+msgid "Afficher les informations d'un chercheur ayant un IdHal ?"
+msgstr ""
+
+#: wp-hal.php:1080
+msgid "Oui"
+msgstr "Si"
+
+#: wp-hal.php:1081
+msgid "Non"
+msgstr "No"
+
+#: wp-hal.php:1084
+msgid "Email"
+msgstr "Email"
+
+#: wp-hal.php:1088
+msgid "Téléphone"
+msgstr "Teléfono"
+
+#: wp-hal.php:1109
+msgid "Enregistrer"
+msgstr "Registrar"
+
+#~ msgid "Nombre de documents"
+#~ msgstr "Número de documentos"
+
+#~ msgid "Titre :"
+#~ msgstr "Titulo :"

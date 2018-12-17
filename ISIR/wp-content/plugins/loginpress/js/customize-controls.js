@@ -811,6 +811,39 @@ jQuery(document).ready(function($) {
     });
   });
 
+  // Live Templates Change. 1.1.16
+  // wp.customize( 'customize_presets_settings', function(value) {
+  //   value.bind( function(loginPressVal) {
+  //
+  //     customizer_bg = change_theme ? change_theme : loginpress_script.login_theme;
+  //
+  //       var preset_nonce = loginpress_script.preset_nonce;
+  //
+  //       $.ajax({
+  //
+  //         url : ajaxurl,
+  //         type: 'POST',
+  //         data: {
+  //           action   : 'loginpress_presets',
+  //           security : preset_nonce
+  //         },
+  //         beforeSend: function() {
+  //           loginpress_find('.login').append('<div class="loginpres-previewer-loader" style="position: fixed;top: 0;left: 0; height: 100%; width: 100%; background: rgba(255,255, 255, .5) url(' + loginpress_script.preset_loader + ') no-repeat center center; z-index: 9999999;"></div>');
+  //         },
+  //         success: function(response) {
+  //
+  //           loginpress_find('#loginpress-style').remove();
+  //           loginpress_find('head').append(response);
+  //           loginpress_find('.loginpres-previewer-loader').remove();
+  //
+  //           // setTimeout(function() {
+  //           //   $(".log-file-text").fadeOut()
+  //           // }, 3000);
+  //         }
+  //       });
+  //   });
+  // });
+
 
   loginpress_background_img( 'loginpress_customization[setting_form_background]', '#loginform');
 
@@ -891,7 +924,6 @@ jQuery(document).ready(function($) {
   // Update the login form button border-color in real time...
   wp.customize( 'loginpress_customization[button_hover_color]', function(value) {
     value.bind( function(loginPressVal) {
-      console.log(loginPressVal);
       if ( loginPressVal == '' ) {
         loginPressBtnHvr = undefined;
         // loginpress_find('.wp-core-ui #login  .button-primary').css( 'background', '' );

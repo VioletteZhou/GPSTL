@@ -1,3 +1,11 @@
+<?php
+/**
+ * LoginPress deactivation Content.
+ * @package LoginPress
+ * @version 1.1.14
+ */
+
+$loginpress_deactivate_nonce = wp_create_nonce( 'loginpress-deactivate-nonce' ); ?>
 <style>
     .loginpress-hidden{
 
@@ -132,6 +140,7 @@ background: none;
     </div>
     <div class="loginpress-popup-body">
       <h3><?php _e( 'If you have a moment, please let us know why you are deactivating:', 'loginpress' ); ?></h3>
+      <input type="hidden" class="loginpress_deactivate_nonce" name="loginpress_deactivate_nonce" value="<?php echo $loginpress_deactivate_nonce; ?>">
       <ul id="loginpress-reason-list">
         <li class="loginpress-reason loginpress-reason-pro" data-input-type="" data-input-placeholder="">
           <label>
@@ -274,6 +283,8 @@ background: none;
           var _reason =  $('input[type="radio"][name="loginpress-selected-reason"]:checked').val();
           var _reason_details = '';
 
+          var deactivate_nonce = $('.loginpress_deactivate_nonce').val();
+
           if ( _reason == 2 ) {
             _reason_details = $("input[type='text'][name='better_plugin']").val();
           } else if ( _reason == 7 ) {
@@ -291,6 +302,7 @@ background: none;
               action        : 'loginpress_deactivate',
               reason        : _reason,
               reason_detail : _reason_details,
+              security      : deactivate_nonce
             },
             beforeSend: function(){
               $(".loginpress-spinner").show();

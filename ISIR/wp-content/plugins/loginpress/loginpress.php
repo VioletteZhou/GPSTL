@@ -3,7 +3,7 @@
 * Plugin Name: LoginPress - Customizing the WordPress Login
 * Plugin URI: https://WPBrigade.com/wordpress/plugins/loginpress/
 * Description: LoginPress is the best <code>wp-login</code> Login Page Customizer plugin by <a href="https://wpbrigade.com/">WPBrigade</a> which allows you to completely change the layout of login, register and forgot password forms.
-* Version: 1.1.13
+* Version: 1.1.17
 * Author: WPBrigade
 * Author URI: https://WPBrigade.com/
 * Text Domain: loginpress
@@ -22,7 +22,7 @@ if ( ! class_exists( 'LoginPress' ) ) :
     /**
     * @var string
     */
-    public $version = '1.1.13';
+    public $version = '1.1.17';
 
     /**
     * @var The single instance of the class
@@ -81,8 +81,9 @@ if ( ! class_exists( 'LoginPress' ) ) :
       include_once( LOGINPRESS_DIR_PATH . 'custom.php' );
       include_once( LOGINPRESS_DIR_PATH . 'classes/class-loginpress-setup.php' );
       include_once( LOGINPRESS_DIR_PATH . 'classes/class-loginpress-ajax.php' );
-      include_once( LOGINPRESS_DIR_PATH . 'classes/class-loginpress-filter-plugin.php' );
+      // include_once( LOGINPRESS_DIR_PATH . 'classes/class-loginpress-filter-plugin.php' );
       include_once( LOGINPRESS_DIR_PATH . 'classes/class-loginpress-developer-hooks.php' );
+      include_once( LOGINPRESS_DIR_PATH . 'classes/class-loginpress-notifications.php' );
       if ( is_multisite() ) {
   			require_once( LOGINPRESS_DIR_PATH . 'include/class-loginpress-theme-template.php' );
       }
@@ -118,12 +119,11 @@ if ( ! class_exists( 'LoginPress' ) ) :
       add_filter( 'plugin_row_meta',        array( $this, '_row_meta'), 10, 2 );
       add_action( 'admin_enqueue_scripts',  array( $this, '_admin_scripts' ) );
       add_action( 'admin_footer',           array( $this, 'add_deactive_modal' ) );
-			add_action( 'admin_init',             array( $this, 'loginpress_review_notice' ) );
-      add_action( 'admin_init' ,            array( $this, 'loginpress_addon_notice' ) );
       add_action( 'plugin_action_links', 	  array( $this, 'loginpress_action_links' ), 10, 2 );
       add_action( 'admin_init',             array( $this, 'redirect_optin' ) );
       add_filter( 'auth_cookie_expiration', array( $this, '_change_auth_cookie_expiration' ), 10, 3 );
       //add_filter( 'plugins_api',            array( $this, 'get_addon_info_' ) , 100, 3 );
+      add_action( 'login_enqueue_scripts', array( $this, 'load_loginpress_assets' ) );
       if ( is_multisite() ) {
   			add_action( 'admin_init',             array( $this, 'redirect_loginpress_edit_page' ) );
   			add_action( 'admin_init',             array( $this, 'check_loginpress_page' ) );
@@ -161,8 +161,7 @@ if ( ! class_exists( 'LoginPress' ) ) :
         wp_redirect( admin_url('admin.php?page=loginpress-optin&redirect-page=' . $_GET['page'] ) );
         exit;
       } elseif ( get_option( '_loginpress_optin' ) && ( get_option( '_loginpress_optin' ) == 'yes' || get_option( '_loginpress_optin' ) == 'no' ) && isset( $_GET['page'] ) && $_GET['page'] === 'loginpress-optin' ) {
-
-        wp_redirect( admin_url( 'admin.php?page=loginpress-settings' ) );
+         wp_redirect( admin_url( 'admin.php?page=loginpress-settings' ) );
         exit;
       }
     }
@@ -328,6 +327,24 @@ if ( ! class_exists( 'LoginPress' ) ) :
 
  }
 
+ /**
+    * Load assets on login screen.
+    *
+    * @since 1.0.0
+    * @version 1.1.14
+    */
+    function load_loginpress_assets() {
+
+      wp_enqueue_script( 'loginpress-script', plugins_url( 'js/loginpress.js', __FILE__ ), array( 'jquery' ), LOGINPRESS_VERSION );
+
+      // Array for localize.
+      $loginpress_localize = array(
+        'caps_lock' => __( 'Caps Lock is on', 'loginpress' ),
+      );
+
+      wp_localize_script( 'loginpress-script', 'loginpress_script', $loginpress_localize );
+    }
+
    /**
     * Session Expiration
     *
@@ -448,186 +465,7 @@ if ( ! class_exists( 'LoginPress' ) ) :
 
   }
 
-  /**
-	 * Ask users to review our plugin on wordpress.org
-	 *
-	 * @since 1.1.3
-	 * @return boolean false
-	 */
-	public function loginpress_addon_notice() {
 
-		$this->loginpress_addon_dismissal();
-
-		$activation_time 	= get_site_option( 'loginpress_addon_active_time' );
-		$addon_dismissal	= get_site_option( 'loginpress_addon_dismiss_1' );
-
-		if ( 'yes' == $addon_dismissal ) return;
-
-		if ( ! $activation_time ) :
-
-			$activation_time = time();
-			add_site_option( 'loginpress_addon_active_time', $activation_time );
-		endif;
-
-		// 432000 = 5 Days in seconds.
-		// if ( time() - $activation_time > 432000 ) :
-
-			add_action( 'admin_notices' , array( $this, 'loginpress_addon_notice_text' ) );
-		// endif;
-
-	}
-
-  /**
-	 * Ask users to review our plugin on wordpress.org
-	 *
-	 * @since 1.0.11
-	 * @return boolean false
-	 * @version 1.1.3
-	 */
-	public function loginpress_review_notice() {
-
-		$this->loginpress_review_dismissal();
-		$this->loginpress_review_pending();
-
-		$activation_time 	= get_site_option( 'loginpress_active_time' );
-		$review_dismissal	= get_site_option( 'loginpress_review_dismiss' );
-
-		if ( 'yes' == $review_dismissal ) return;
-
-		if ( ! $activation_time ) :
-
-			$activation_time = time();
-			add_site_option( 'loginpress_active_time', $activation_time );
-		endif;
-
-		// 1296000 = 15 Days in seconds.
-		if ( time() - $activation_time > 1296000 ) :
-
-      wp_enqueue_style( 'loginpress_review_stlye', plugins_url( 'css/style-review.css', __FILE__ ), array(), LOGINPRESS_VERSION );
-			add_action( 'admin_notices' , array( $this, 'loginpress_review_notice_message' ) );
-		endif;
-
-	}
-
-  /**
-	 *	Check and Dismiss review message.
-	 *
-	 *	@since 1.0.11
-	 */
-	private function loginpress_review_dismissal() {
-
-		if ( ! is_admin() ||
-			! current_user_can( 'manage_options' ) ||
-			! isset( $_GET['_wpnonce'] ) ||
-			! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'loginpress-review-nonce' ) ||
-			! isset( $_GET['loginpress_review_dismiss'] ) ) :
-
-			return;
-		endif;
-
-		add_site_option( 'loginpress_review_dismiss', 'yes' );
-	}
-
-  /**
-	 * Set time to current so review notice will popup after 14 days
-	 *
-	 * @since 1.0.11
-	 */
-	function loginpress_review_pending() {
-
-		if ( ! is_admin() ||
-			! current_user_can( 'manage_options' ) ||
-			! isset( $_GET['_wpnonce'] ) ||
-			! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'loginpress-review-nonce' ) ||
-			! isset( $_GET['loginpress_review_later'] ) ) :
-
-			return;
-		endif;
-
-		// Reset Time to current time.
-		update_site_option( 'loginpress_active_time', time() );
-	}
-
-  /**
-	 * Review notice message
-	 *
-	 * @since  1.0.11
-	 */
-	public function loginpress_review_notice_message() {
-
-		$scheme      = ( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_QUERY ) ) ? '&' : '?';
-		$url         = $_SERVER['REQUEST_URI'] . $scheme . 'loginpress_review_dismiss=yes';
-		$dismiss_url = wp_nonce_url( $url, 'loginpress-review-nonce' );
-
-		$_later_link = $_SERVER['REQUEST_URI'] . $scheme . 'loginpress_review_later=yes';
-		$later_url   = wp_nonce_url( $_later_link, 'loginpress-review-nonce' );
-    ?>
-
-		<div class="loginpress-review-notice">
-			<div class="loginpress-review-thumbnail">
-				<img src="<?php echo plugins_url( 'img/thumbnail/gray-loginpress.png', __FILE__ ) ?>" alt="">
-			</div>
-			<div class="loginpress-review-text">
-				<h3><?php _e( 'Leave A Review?', 'loginpress' ) ?></h3>
-				<p><?php _e( 'We hope you\'ve enjoyed using LoginPress! Would you consider leaving us a review on WordPress.org?', 'loginpress' ) ?></p>
-				<ul class="loginpress-review-ul">
-          <li><a href="https://wordpress.org/support/view/plugin-reviews/loginpress?rate=5#postform" target="_blank"><span class="dashicons dashicons-external"></span><?php _e( 'Sure! I\'d love to!', 'loginpress' ) ?></a></li>
-          <li><a href="<?php echo $dismiss_url ?>"><span class="dashicons dashicons-smiley"></span><?php _e( 'I\'ve already left a review', 'loginpress' ) ?></a></li>
-          <li><a href="<?php echo $later_url ?>"><span class="dashicons dashicons-calendar-alt"></span><?php _e( 'Maybe Later', 'loginpress' ) ?></a></li>
-          <li><a href="<?php echo $dismiss_url ?>"><span class="dashicons dashicons-dismiss"></span><?php _e( 'Never show again', 'loginpress' ) ?></a></li></ul>
-			</div>
-		</div>
-	<?php
-	}
-
-  /**
-   * Review notice message
-   *
-   * @since  1.1.3
-   */
-  public function loginpress_addon_notice_text() {
-
-    $scheme      = ( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_QUERY ) ) ? '&' : '?';
-    $url         = $_SERVER['REQUEST_URI'] . $scheme . 'loginpress_addon_dismiss_1=yes';
-    $dismiss_url = wp_nonce_url( $url, 'loginpress-addon-nonce' );
-    wp_enqueue_style( 'loginpress_review_stlye', plugins_url( 'css/style-review.css', __FILE__ ), array(), LOGINPRESS_VERSION );
-    ?>
-    <div class="loginpress-alert-notice">
-      <a href="<?php echo $dismiss_url ?>" class="notice-dismiss" ><span class="screen-reader-text"></span></a>
-      <a href="https://wpbrigade.com/wordpress/plugins/loginpress/addons/?utm_source=loginpress-lite&utm_medium=addons-notice-banner&utm_campaign=pro-upgrade" class="loginpress-addon-notice-link" target="_blank">
-      <div class="loginpress-alert-thumbnail">
-        <img src="<?php echo plugins_url( 'img/notification_logo.svg', __FILE__ ) ?>" alt="">
-      </div>
-      <div class="loginpress-alert-text">
-        <h3><?php _e( 'Introducing LoginPress Addons!', 'loginpress' ) ?></h3>
-        <p><?php _e( 'Extend LoginPress with these add-ons and supercharge your login pages.', 'loginpress' ) ?></p>
-      </div>
-      </a>
-      <div class="loginpress-alert-button-section">
-        <a href="https://wpbrigade.com/wordpress/plugins/loginpress/addons/?utm_source=loginpress-lite&utm_medium=addons-notice-more&utm_campaign=pro-upgrade" class="loginpress-alert-button" target="_blank"><?php _e( 'Learn More', 'loginpress' ) ?></a>
-      </div>
-    </div>
-  <?php
-  }
-
-  /**
-	 *	Check and Dismiss addon message.
-	 *
-	 *	@since 1.1.3
-	 */
-	private function loginpress_addon_dismissal() {
-
-		if ( ! is_admin() ||
-			! current_user_can( 'manage_options' ) ||
-			! isset( $_GET['_wpnonce'] ) ||
-			! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'loginpress-addon-nonce' ) ||
-			! isset( $_GET['loginpress_addon_dismiss_1'] ) ) :
-
-			return;
-		endif;
-
-		add_site_option( 'loginpress_addon_dismiss_1', 'yes' );
-	}
 
   /**
 	 * Pull the LoginPress page from options.

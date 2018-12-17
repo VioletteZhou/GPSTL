@@ -1,0 +1,201 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: wp-hal\n"
+"POT-Creation-Date: 2016-02-05 13:41+0100\n"
+"PO-Revision-Date: 2014-06-03 10:48+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-KeywordsList: __;gettext;gettext_noop;_n\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: wp-hal.php:15
+msgid ""
+"Crée une page qui remonte les publications d'un auteur ou d'une structure en "
+"relation avec HAL et un widget des dernières publications d'un auteur ou "
+"d'une structure."
+msgstr ""
+
+#: wp-hal.php:43
+msgid "Paramètres"
+msgstr ""
+
+#: wp-hal.php:113
+msgid "Publications"
+msgstr ""
+
+#: wp-hal.php:115
+msgid "Filtres"
+msgstr ""
+
+#: wp-hal.php:118 wp-hal.php:163 wp-hal.php:1017
+msgid "Contact"
+msgstr ""
+
+#: wp-hal.php:122 wp-hal.php:188 wp-hal.php:1018
+msgid "Disciplines"
+msgstr ""
+
+#: wp-hal.php:126 wp-hal.php:221 wp-hal.php:1019
+msgid "Mots-clefs"
+msgstr ""
+
+#: wp-hal.php:130 wp-hal.php:264 wp-hal.php:1020
+msgid "Auteurs"
+msgstr ""
+
+#: wp-hal.php:134 wp-hal.php:304 wp-hal.php:1021
+msgid "Revues"
+msgstr ""
+
+#: wp-hal.php:138 wp-hal.php:344 wp-hal.php:1022
+msgid "Année de production"
+msgstr ""
+
+#: wp-hal.php:142 wp-hal.php:384 wp-hal.php:1023
+msgid "Institutions"
+msgstr ""
+
+#: wp-hal.php:146 wp-hal.php:424 wp-hal.php:1024
+msgid "Laboratoires"
+msgstr ""
+
+#: wp-hal.php:150 wp-hal.php:465 wp-hal.php:1025
+msgid "Départements"
+msgstr ""
+
+#: wp-hal.php:154 wp-hal.php:505 wp-hal.php:1026
+msgid "Équipes de recherche"
+msgstr ""
+
+#: wp-hal.php:216 wp-hal.php:777
+msgid "Graphique"
+msgstr ""
+
+#: wp-hal.php:259 wp-hal.php:298 wp-hal.php:338 wp-hal.php:378 wp-hal.php:418
+#: wp-hal.php:459 wp-hal.php:499 wp-hal.php:539 wp-hal.php:777
+msgid "Liste complète"
+msgstr ""
+
+#: wp-hal.php:550 wp-hal.php:572
+msgid "documents"
+msgstr ""
+
+#: wp-hal.php:558
+msgid "document"
+msgstr ""
+
+#: wp-hal.php:690
+msgid "Documents récupérés de l'archive ouverte HAL"
+msgstr ""
+
+#: wp-hal.php:777
+msgid "Liste"
+msgstr ""
+
+#: wp-hal.php:777
+msgid "Liste principale"
+msgstr ""
+
+#: wp-hal.php:777
+msgid "Nuage de mots"
+msgstr ""
+
+#: wp-hal.php:838
+msgid "Afficher les dernières publications d'un auteur ou d'une structure."
+msgstr ""
+
+#: wp-hal.php:843 wp-hal.php:918
+msgid "Publications récentes"
+msgstr ""
+
+#: wp-hal.php:926 wp-hal.php:936
+msgid "Titre"
+msgstr ""
+
+#: wp-hal.php:930
+msgid "Nombre de documents affichés"
+msgstr ""
+
+#: wp-hal.php:934
+msgid "Type d'affichage"
+msgstr ""
+
+#: wp-hal.php:937
+msgid "Citation"
+msgstr ""
+
+#: wp-hal.php:941 wp-hal.php:998
+msgid "Type d'Id"
+msgstr ""
+
+#: wp-hal.php:943 wp-hal.php:1000
+msgid "(Exemple : laurent-capelli)"
+msgstr ""
+
+#: wp-hal.php:944 wp-hal.php:1001
+msgid "(Exemple : 129)"
+msgstr ""
+
+#: wp-hal.php:945 wp-hal.php:1002
+msgid "(Exemple : 1646)"
+msgstr ""
+
+#: wp-hal.php:946 wp-hal.php:1003
+msgid "(Exemple : 17877)"
+msgstr ""
+
+#: wp-hal.php:947 wp-hal.php:1004
+msgid "(Exemple : TICE2014)"
+msgstr ""
+
+#: wp-hal.php:951
+msgid "Id"
+msgstr ""
+
+#: wp-hal.php:986
+msgid "Plugin HAL"
+msgstr ""
+
+#: wp-hal.php:995
+msgid "Paramètre de la page :"
+msgstr ""
+
+#: wp-hal.php:1010
+msgid "Affichage des documents"
+msgstr ""
+
+#: wp-hal.php:1011
+msgid "Documents avec pagination"
+msgstr ""
+
+#: wp-hal.php:1012
+msgid "Documents groupés par type"
+msgstr ""
+
+#: wp-hal.php:1016
+msgid "Choix des éléments menu"
+msgstr ""
+
+#: wp-hal.php:1030
+msgid "Contact :"
+msgstr ""
+
+#: wp-hal.php:1033
+msgid "Email"
+msgstr ""
+
+#: wp-hal.php:1037
+msgid "Téléphone"
+msgstr ""
+
+#: wp-hal.php:1058
+msgid "Enregistrer"
+msgstr ""

@@ -1,3 +1,12 @@
+<?php
+/**
+ * LoginPress optout Content.
+ * @package LoginPress
+ * @version 1.1.14
+ */
+
+$loginpress_optout_nonce = wp_create_nonce('loginpress-optout-nonce');
+?>
 <style media="screen">
 .loginpress-modal.active {
   display: block;
@@ -95,6 +104,7 @@
     </div>
     <div class="loginpress-modal-body">
       <div class="loginpress-modal-panel active">
+        <input type="hidden" class="loginpress_optout_nonce" name="loginpress_optout_nonce" value="<?php echo $loginpress_optout_nonce; ?>">
         <h2><?php _e( 'We appreciate your help in making the plugin better by letting us track some usage data.', 'loginpress' ); ?></h2>
         <div class="notice notice-error inline opt-out-error-message" style="display: none;">
           <p></p>
@@ -121,6 +131,7 @@
 
   $(function() {
     var pluginSlug = 'loginpress';
+    var optout_nonce = $('.loginpress_optout_nonce').val();
     // Code to fire when the DOM is ready.
 
     $(document).on('click', 'tr[data-slug="' + pluginSlug + '"] .opt-out', function(e){
@@ -139,7 +150,8 @@
         url: ajaxurl,
         type: 'POST',
         data: {
-          action: 'loginpress_optout_yes'
+          action    : 'loginpress_optout_yes',
+          security  : optout_nonce,
         },
         beforeSend: function(){
           $(".loginpress-optout-spinner").show();

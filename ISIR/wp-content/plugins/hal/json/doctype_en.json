@@ -1,0 +1,166 @@
+{
+  "response": {
+    "lst": {
+      "int": [
+        "0",
+        "0"
+      ],
+      "lst": {
+        "bool": "true",
+        "str": [
+          "all",
+          "en",
+          "json"
+        ]
+      }
+    },
+    "result": {
+      "doc": [
+        {
+          "str": [
+            "ART",
+            "Journal articles"
+          ]
+        },
+        {
+          "str": [
+            "COMM",
+            "Conference papers"
+          ]
+        },
+        {
+          "str": [
+            "POSTER",
+            "Poster communications"
+          ]
+        },
+        {
+          "str": [
+            "PRESCONF",
+            "Documents associated with scientific events"
+          ]
+        },
+        {
+          "str": [
+            "OUV",
+            "Books"
+          ]
+        },
+        {
+          "str": [
+            "COUV",
+            "Book sections"
+          ]
+        },
+        {
+          "str": [
+            "DOUV",
+            "Directions of work or proceedings"
+          ]
+        },
+        {
+          "str": [
+            "PATENT",
+            "Patents"
+          ]
+        },
+        {
+          "str": [
+            "OTHER",
+            "Other publications"
+          ]
+        },
+        {
+          "str": [
+            "UNDEFINED",
+            "Preprints, Working Papers, ..."
+          ]
+        },
+        {
+          "str": [
+            "REPORT",
+            "Reports"
+          ]
+        },
+        {
+          "str": [
+            "THESE",
+            "Theses"
+          ]
+        },
+        {
+          "str": [
+            "HDR",
+            "Habilitation à diriger des recherches"
+          ]
+        },
+        {
+          "str": [
+            "MEM",
+            "Master thesis"
+          ]
+        },
+        {
+          "str": [
+            "LECTURE",
+            "Lectures"
+          ]
+        },
+        {
+          "str": [
+            "IMG",
+            "Photos"
+          ]
+        },
+        {
+          "str": [
+            "VIDEO",
+            "Videos"
+          ]
+        },
+        {
+          "str": [
+            "SON",
+            "Audios"
+          ]
+        },
+        {
+          "str": [
+            "MAP",
+            "Maps"
+          ]
+        },
+        {
+          "str": [
+            "MINUTES",
+            "Minutes"
+          ]
+        },
+        {
+          "str": [
+            "NOTE",
+            "Book reviews"
+          ]
+        },
+        {
+          "str": [
+            "SYNTHESE",
+            "Notes de synthèse"
+          ]
+        },
+        {
+          "str": [
+            "OTHERREPORT",
+            "Other reports"
+          ]
+        },
+        {
+          "str": [
+            "REPACT",
+            "Administrative Reports"
+          ]
+        }
+      ]
+    }
+  }
+}

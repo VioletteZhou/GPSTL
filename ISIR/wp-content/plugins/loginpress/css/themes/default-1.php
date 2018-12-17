@@ -3,7 +3,7 @@
 function first_presets() {
   ob_start();
   ?>
-  <style media="screen">
+  <style media="screen" id="loginpress-style">
     /*************************************************************
      * Plugin:      LoginPress - Customizing the WordPress Login.*
      * Description: LoginPress is the best Login Page Customizer *
@@ -64,6 +64,10 @@ function first_presets() {
     	border-color: #bdbdbd;
     	padding-left: 27px;
     	font-weight: normal;
+    }
+    #jetpack_protect_answer{
+      padding-left: 0;
+      text-align : center;
     }
     .login input[type="submit"] {
     	background: #fff;
@@ -255,7 +259,7 @@ function first_presets() {
     }
     .loginpress-show-love a:hover{
       color: #4d5d95;
-    }
+	}
     @media screen and (max-width: 767px) {
         #login{
             width: 300px;

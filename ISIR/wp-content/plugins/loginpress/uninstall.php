@@ -30,6 +30,8 @@ $loginpress_uninstall_options = array(
 	'loginpress_review_dismiss',
 	'loginpress_active_time',
 	'_loginpress_optin',
+	'loginpress_friday_sale_active_time',
+	'loginpress_friday_sale_dismiss',
 );
 
 if ( ! is_multisite() ) {

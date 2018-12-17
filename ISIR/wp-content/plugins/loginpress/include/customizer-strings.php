@@ -87,6 +87,7 @@ $form_label         = array(
   __( 'Username Label:', 'loginpress' ),
   __( 'Password Label:', 'loginpress' ),
 );
+$form_sanitization = array( 'wp_strip_all_tags', 'wp_strip_all_tags', 'wp_strip_all_tags', 'wp_strip_all_tags', 'wp_strip_all_tags' );
 /** -----------------Sectin Login Form------------------ */
 
 /**

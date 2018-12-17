@@ -3,7 +3,11 @@
  * LoginPress Import Export Page Content.
  * @package LoginPress
  * @since 1.0.19
+ * @version 1.1.14
  */
+
+$loginpress_import_nonce = wp_create_nonce('loginpress-import-nonce');
+$loginpress_export_nonce = wp_create_nonce('loginpress-export-nonce');
 ?>
 <div class="loginpress-import-export-page">
   <h2><?php esc_html_e( 'Import/Export LoginPress Settings', 'loginpress' ); ?></h2>
@@ -17,6 +21,7 @@
         <td>
           <input type="file" name="loginPressImport" id="loginPressImport">
           <input type="button" class="button loginpress-import" value="<?php esc_html_e( 'Import', 'loginpress' ); ?>" multiple="multiple" disabled="disabled">
+          <input type="hidden" class="loginpress_import_nonce" name="loginpress_import_nonce" value="<?php echo $loginpress_import_nonce; ?>">
           <span class="import-sniper">
             <img src="<?php echo admin_url( 'images/wpspin_light.gif' ); ?>">
           </span>
@@ -31,6 +36,7 @@
         </th>
         <td>
           <input type="button" class="button loginpress-export" value="<?php esc_html_e( 'Export', 'loginpress' ); ?>">
+          <input type="hidden" class="loginpress_export_nonce" name="loginpress_export_nonce" value="<?php echo $loginpress_export_nonce; ?>">
           <span class="export-sniper">
             <img src="<?php echo admin_url( 'images/wpspin_light.gif' ); ?>">
           </span>

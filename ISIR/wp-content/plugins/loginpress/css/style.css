@@ -362,7 +362,6 @@ input[type=checkbox].loginpress-check-hidden:checked + .loginpress-checkbox {
 input[type=checkbox].loginpress-check-hidden:checked + .loginpress-checkbox:active:after{
   background: #fff;
 }
-
 /*---- !LoginPress-Settings-Checkbox ----*/
 
 @media screen and (max-width: 1170px) {

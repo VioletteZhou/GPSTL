@@ -1,10 +1,10 @@
 === Custom Login Page Customizer | LoginPress ===
 Requires at least: 4.0
-Tested up to: 4.9
+Tested up to: 5.0
 Contributors: WPBrigade, hiddenpearls, AbdulWahab610
 Author URI: https://wpbrigade.com
 Tags: wp-login, custom wp-login, login customizer, custom login, custom login logo, login customizer, custom login page, login error, login page style, loginpress
-Stable tag: 1.1.13
+Stable tag: 1.1.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -205,13 +205,31 @@ Please visit <a target="_blank" rel="friend" href="https://WPBrigade.com/wordpre
 
 == Changelog ==
 
+= 1.1.17 - 2018-12-11 =
+* Bugfix: Custom CSS.
+
+= 1.1.16 - 2018-12-07 =
+* Bugfix: CapsLock JS issue.
+* Enhancement: Important Security update.
+* Enhancement: Code refactoring.
+* Compatibility: Compatible with WordPress 5.0
+
+= 1.1.15 - 2018-11-20 =
+* Enhancement: hide banner.
+
+= 1.1.14 - 2018-11-20 =
+* New Feature: Detect CapsLock ON.
+* Bugfix: Jetpack captcha input field conflict.
+* Enhancement: Important Security update.
+* Enhancement: Code refactoring.
+
 = 1.1.13 - 2018-11-05 =
 * Update: log file (active theme info).
 * Compatibility: LoginPress is compatible with Russian language now. Special thanks to <a href="https://profiles.wordpress.org/satone667" rel="friend">satone667</a> to contribute.
 * Enhancement: Code refactoring.
 
 = 1.1.12 - 2018-10-10 =
-* Bugfix: On load hide login form control if transparency enabled.
+* Bugfix: On load hide login form control if transparency enabled. (in customizer)
 
 = 1.1.11 - 2018-09-19 =
 * Bugfix: Social Login CSS Confliction with Default Template.
@@ -423,5 +441,5 @@ Please visit <a target="_blank" rel="friend" href="https://WPBrigade.com/wordpre
 
 == Upgrade Notice ==
 
-= 1.1.13 =
+= 1.1.17 =
 * Important Release, upgrade immediately.

@@ -1,0 +1,166 @@
+{
+  "response": {
+    "lst": {
+      "int": [
+        "0",
+        "0"
+      ],
+      "lst": {
+        "bool": "true",
+        "str": [
+          "all",
+          "fr",
+          "json"
+        ]
+      }
+    },
+    "result": {
+      "doc": [
+        {
+          "str": [
+            "ART",
+            "Article dans une revue"
+          ]
+        },
+        {
+          "str": [
+            "COMM",
+            "Communication dans un congr\u00e8s"
+          ]
+        },
+        {
+          "str": [
+            "POSTER",
+            "Poster"
+          ]
+        },
+        {
+          "str": [
+            "PRESCONF",
+            "Document associ\u00e9 \u00e0 des manifestations scientifiques"
+          ]
+        },
+        {
+          "str": [
+            "OUV",
+            "Ouvrage (y compris \u00e9dition critique et traduction)"
+          ]
+        },
+        {
+          "str": [
+            "COUV",
+            "Chapitre d'ouvrage"
+          ]
+        },
+        {
+          "str": [
+            "DOUV",
+            "Direction d'ouvrage, Proceedings"
+          ]
+        },
+        {
+          "str": [
+            "PATENT",
+            "Brevet"
+          ]
+        },
+        {
+          "str": [
+            "OTHER",
+            "Autre publication"
+          ]
+        },
+        {
+          "str": [
+            "UNDEFINED",
+            "Pr\u00e9-publication, Document de travail"
+          ]
+        },
+        {
+          "str": [
+            "REPORT",
+            "Rapport"
+          ]
+        },
+        {
+          "str": [
+            "THESE",
+            "Th\u00e8se"
+          ]
+        },
+        {
+          "str": [
+            "HDR",
+            "HDR"
+          ]
+        },
+        {
+          "str": [
+            "MEM",
+            "M\u00e9moire d'\u00e9tudiant"
+          ]
+        },
+        {
+          "str": [
+            "LECTURE",
+            "Cours"
+          ]
+        },
+        {
+          "str": [
+            "IMG",
+            "Image"
+          ]
+        },
+        {
+          "str": [
+            "VIDEO",
+            "Vid\u00e9o"
+          ]
+        },
+        {
+          "str": [
+            "SON",
+            "Son"
+          ]
+        },
+        {
+          "str": [
+            "MAP",
+            "Carte"
+          ]
+        },
+        {
+          "str": [
+            "MINUTES",
+            "Compte rendu de table ronde"
+          ]
+        },
+        {
+          "str": [
+            "NOTE",
+            "Note de lecture"
+          ]
+        },
+        {
+          "str": [
+            "SYNTHESE",
+            "Notes de synth\u00e8se"
+          ]
+        },
+        {
+          "str": [
+            "OTHERREPORT",
+            "Autre rapport, s\u00e9minaire, workshop"
+          ]
+        },
+        {
+          "str": [
+            "REPACT",
+            "Rapport d'activit\u00e9"
+          ]
+        }
+      ]
+    }
+  }
+}

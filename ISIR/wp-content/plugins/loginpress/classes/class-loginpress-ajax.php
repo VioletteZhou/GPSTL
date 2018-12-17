@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 * Handling all the AJAX calls in LoginPress.
 *
 * @since 1.0.19
+* @version 1.1.14
 * @class LoginPress_AJAX
 */
 
@@ -30,6 +31,7 @@ if ( ! class_exists( 'LoginPress_AJAX' ) ) :
         'help'       => false,
         'deactivate' => false,
         'optout_yes' => false,
+        'presets'    => false
       );
 
       foreach ( $ajax_calls as $ajax_call => $no_priv ) {
@@ -46,8 +48,15 @@ if ( ! class_exists( 'LoginPress_AJAX' ) ) :
     * [Import LoginPress Settings]
     * @return [array] [update settings meta]
     * @since 1.0.19
+    * @version 1.1.14
     */
     public function import() {
+
+      check_ajax_referer( 'loginpress-import-nonce', 'security' );
+
+      if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'No cheating, huh!' );
+      }
 
       $lg_imp_tmp_name =  $_FILES['file']['tmp_name'];
       $lg_file_content = file_get_contents( $lg_imp_tmp_name );
@@ -65,7 +74,7 @@ if ( ! class_exists( 'LoginPress_AJAX' ) ) :
             foreach ( $array as $key => $value ) {
 
               // Array of loginpress customizer images.
-              $imagesCheck = array( 'setting_logo', 'setting_background', 'setting_form_background', 'forget_form_background' );
+              $imagesCheck = array( 'setting_logo', 'setting_background', 'setting_form_background', 'forget_form_background', 'gallery_background' );
 
               /**
               * [if json fetched data has array of $imagesCheck]
@@ -75,8 +84,8 @@ if ( ! class_exists( 'LoginPress_AJAX' ) ) :
 
                 global $wpdb;
                 // Count the $value of that $key from {$wpdb->posts}.
-                $query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE guid='$value'";
-                $count = $wpdb->get_var($query);
+                // $query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE guid='$value'";
+                $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->posts} WHERE guid='%s'", $value ) );
 
                 if ( $count < 1 && ! empty( $value ) ) {
                   $file = array();
@@ -126,6 +135,12 @@ if ( ! class_exists( 'LoginPress_AJAX' ) ) :
               update_option( $object, $array );
             }
           } // loginpress_setting check.
+
+          if ( 'customize_presets_settings' == $object ) {
+
+            update_option( 'customize_presets_settings', $array );
+
+          }
         } // endforeach.
       } else {
         echo "error";
@@ -137,13 +152,21 @@ if ( ! class_exists( 'LoginPress_AJAX' ) ) :
     * [Export LoginPress Settings]
     * @return [string] [return settings in json formate]
     * @since 1.0.19
+    * @version 1.1.14
     */
     public function export(){
+
+      check_ajax_referer( 'loginpress-export-nonce', 'security' );
+
+      if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'No cheating, huh!' );
+      }
 
       $loginpress_db            = array();
       $loginpress_setting_opt   = array();
       $loginpress_customization = get_option( 'loginpress_customization' );
       $loginpress_setting       = get_option( 'loginpress_setting' );
+      $loginpress_preset        = get_option( 'customize_presets_settings' );
       $loginpress_setting_fetch = array( 'session_expiration', 'login_with_email' );
 
       if ( $loginpress_customization ) {
@@ -159,6 +182,12 @@ if ( ! class_exists( 'LoginPress_AJAX' ) ) :
         }
         $loginpress_db['loginpress_setting'] = $loginpress_setting_opt;
       }
+
+      if ( $loginpress_preset ) {
+
+        $loginpress_db['customize_presets_settings'] = $loginpress_preset;
+      }
+
       $loginpress_db = json_encode( $loginpress_db );
 
       echo $loginpress_db;
@@ -184,9 +213,15 @@ if ( ! class_exists( 'LoginPress_AJAX' ) ) :
      * [deactivate get response from user on deactivating plugin]
      * @return [string] [response]
      * @since   1.0.15
-     * @version 1.0.23
+     * @version 1.1.14
      */
     public function deactivate() {
+
+      check_ajax_referer( 'loginpress-deactivate-nonce', 'security' );
+
+      if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'No cheating, huh!' );
+      }
 
       $email         = get_option( 'admin_email' );
       $_reason       = sanitize_text_field( wp_unslash( $_POST['reason'] ) );
@@ -238,7 +273,33 @@ if ( ! class_exists( 'LoginPress_AJAX' ) ) :
      * @since  1.0.15
      */
     function optout_yes() {
+
+      check_ajax_referer( 'loginpress-optout-nonce', 'security' );
+
+      if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'No cheating, huh!' );
+      }
+
       update_option( '_loginpress_optin', 'no' );
+      wp_die();
+    }
+
+    static function presets() {
+
+      check_ajax_referer( 'loginpress-preset-nonce', 'security' );
+
+      if ( ! current_user_can( 'manage_options' ) ) {
+        wp_die( 'No cheating, huh!' );
+      }
+
+      $selected_preset = get_option( 'customize_presets_settings', true );
+
+      if ( $selected_preset == 'default1' ) {
+      	include_once LOGINPRESS_ROOT_PATH . 'css/themes/default-1.php';
+      	echo first_presets();
+      } else {
+      	do_action( 'loginpress_add_pro_theme', $selected_preset );
+      }
       wp_die();
     }
   }

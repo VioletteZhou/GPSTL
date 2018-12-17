@@ -3,7 +3,7 @@
  * Get option and check the key exists in it.
  *
  * @since 1.0.0
- * @version 1.1.6
+ * @version 1.1.17
  * * * * * * * * * * * * * * * */
 
 
@@ -18,7 +18,12 @@ function loginpress_get_option_key( $loginpress_key, $loginpress_array ) {
 
 	if ( array_key_exists( $loginpress_key, $loginpress_array ) ) {
 
-		return $loginpress_array[ $loginpress_key ];
+		if ( 'loginpress_custom_js' == $loginpress_key || 'loginpress_custom_css' == $loginpress_key ) {
+			return $loginpress_array[ $loginpress_key ];
+		} else {
+			return esc_js( $loginpress_array[ $loginpress_key ] );
+		}
+
 	}
 }
 
@@ -781,6 +786,55 @@ text-shadow: none;
     display: flex;
     justify-content: center;
 }
+.loginpress-caps-lock{
+	background: rgba(51, 56, 61, 0.9);
+    color: #fff;
+    display: none;
+    font-size: 14px;
+    width: 120px;
+	padding: 5px 10px;
+	line-height: 20px;
+    position: absolute;
+    left: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 5px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    -webkit-box-shadow: 0 0 9px 0px rgba(0, 0, 0, 0.20);
+    box-shadow: 0 0 9px 0px rgba(0, 0, 0, 0.20);
+    margin-left: 5px;
+    font-weight: normal;
+	margin: 0;
+	display: none;
+}
+.loginpress-caps-lock:before{
+	content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 5px 5px 0;
+    border-color: transparent rgba(51, 56, 61, 0.9) transparent transparent;
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-left: 0;
+    margin-top: -5px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    z-index: 1;
+}
+.login form{
+    overflow: visible;
+}
+#loginform .user-pass-fields input{
+    margin-bottom: 0;
+}
+#loginform .user-pass-fields {
+	margin-bottom: 18px;
+	position: relative;
+}
 @media screen and (max-width: 767px) {
 		.login h1 a {
 				max-width: 100%;
@@ -788,7 +842,24 @@ text-shadow: none;
 		}
     .copyRight{
     	padding: 12px;
-    }
+	}
+	.loginpress-caps-lock{
+		left: auto;
+		right: 0;
+		top: 149%;
+	}
+	.loginpress-caps-lock:before{
+		content: '';
+		width: 0;
+		height: 0;
+		border-style: solid;
+		border-width: 0 5px 5px 5px;
+		border-color: transparent transparent rgba(51, 56, 61, 0.9) transparent;
+		position: absolute;
+		top: 0px;
+		left: 5px;
+		right: auto;
+	}
 }
 
 </style>
