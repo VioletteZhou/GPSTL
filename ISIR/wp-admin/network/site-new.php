@@ -166,6 +166,43 @@ Name: %3$s' ),
 			)
 		);
 		wpmu_welcome_notification( $id, $user_id, $password, $title, array( 'public' => 1 ) );
+
+
+		// create youtube video table
+			$table_name = 'isir_'.$id.'_video';
+			$charset_collate = $wpdb->get_charset_collate();
+		        //if table exist or not
+		  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+			$sql = "CREATE TABLE $table_name (
+				id mediumint(9) NOT NULL AUTO_INCREMENT,
+				titre varchar(100) DEFAULT '' NOT NULL,
+				url varchar(100) DEFAULT '' NOT NULL,
+				isFavoris boolean DEFAULT false NOT NULL,
+				PRIMARY KEY  (id)
+			) $charset_collate;";
+		        //excute
+			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+			dbDelta( $sql );
+		      }
+		// end create table
+
+		// create hal table
+					$table_name = 'isir_'.$id.'_hal';
+					$charset_collate = $wpdb->get_charset_collate();
+					//if table exist or not
+				  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+					$sql = "CREATE TABLE $table_name (
+						id int NOT NULL,
+						label varchar(1000) ,
+						url varchar(1000) ,
+						PRIMARY KEY  (id)
+					) $charset_collate;";
+					//excute
+					require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+					dbDelta( $sql );
+				      }
+		// end create table
+
 		wp_redirect( add_query_arg( array( 'update' => 'added', 'id' => $id ), 'site-new.php' ) );
 		exit;
 	} else {

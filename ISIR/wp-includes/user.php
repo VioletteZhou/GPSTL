@@ -147,8 +147,11 @@ function connectToMemberDb($username, $password)
 	  );
 		$blog_id = wpmu_create_blog( 'localhost', '/ISIR/'.$row["username"], $row["username"], 0,$row["username"] , $user_id, $meta, get_current_network_id() );
 
-		//create table for youtube
-    create_video_tables($blog_id);
+	//create table for youtube
+    	create_video_tables($blog_id);
+
+	//create table for hal
+	create_hal_tables($blog_id);
 
 	}else if($user_exist && $result->num_rows <= 0)
 	{
@@ -170,6 +173,24 @@ function create_video_tables($blog_id) {
 		titre varchar(100) DEFAULT '' NOT NULL,
 		url varchar(100) DEFAULT '' NOT NULL,
 		isFavoris boolean DEFAULT false NOT NULL,
+		PRIMARY KEY  (id)
+	) $charset_collate;";
+        //excute
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
+      }
+}
+
+function create_hal_tables($blog_id) {
+	global $wpdb;
+	$table_name = 'isir_'.$blog_id.'_hal';
+	$charset_collate = $wpdb->get_charset_collate();
+        //if table exist or not
+  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+	$sql = "CREATE TABLE $table_name (
+		id int NOT NULL,
+		label varchar(1000) ,
+		url varchar(1000) ,
 		PRIMARY KEY  (id)
 	) $charset_collate;";
         //excute
@@ -1670,6 +1691,7 @@ function wp_insert_user( $userdata ) {
 			/* translators: 1: first name, 2: last name */
 			$display_name = sprintf( _x( '%1$s %2$s', 'Display name based on first name and last name' ), $meta['first_name'], $meta['last_name'] );
 		} elseif ( $meta['first_name'] ) {
+
 			$display_name = $meta['first_name'];
 		} elseif ( $meta['last_name'] ) {
 			$display_name = $meta['last_name'];
