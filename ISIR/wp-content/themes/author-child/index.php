@@ -84,9 +84,21 @@ get_template_part( 'content/archive-header' );
 		$result = $wpdb->get_results( "SELECT * FROM isir_youtubelive WHERE blog_id=".$blog_id."");
 		$row = json_decode(json_encode($result[0]), True);
 		$embed = $row['sharelink'];
-		echo "<h3>".$row['title']."</h3>";
-		printf('<iframe width="560" height="315" src="https://www.youtube.com/embed/%s?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>',$embed);
-		echo "<h4>By : ".$row['author_name']."<h4>";
+		
+		$url = "https://www.youtube.com/oembed?format=json&url=https://youtu.be/".$embed;
+      	$data = file_get_contents($url);
+      	$json = json_decode($data);
+		if(count($result) == 0 || $json->title == "")
+		{
+			echo "<h3>Youtube live currently unavailable</h3>";
+			echo '<img src="/ISIR/wp-content/uploads/youtube-live/youtubelive.jpg" alt="Youtube-live" width="560" height="315"/>';
+		}
+		else
+		{
+			echo "<h3>".$row['title']."</h3>";
+			printf('<iframe width="560" height="315" src="https://www.youtube.com/embed/%s?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>',$embed);
+			echo "<h4>By : ".$row['author_name']."<h4>";
+		}
 		?>
 		<?php break;
 				case 'Publications': ?>
