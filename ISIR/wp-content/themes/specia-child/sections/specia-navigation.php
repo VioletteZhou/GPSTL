@@ -46,6 +46,7 @@
 			$page6 = get_page_by_title("Cours & Présentation");
 			$page7 = get_page_by_title("Réseax Sociaux");
 			$page8 = get_page_by_title("BD Expérimentale");
+			$page9 = get_page_by_title("Videos live");
 
 			?>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -53,6 +54,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li id=" menu-item-0 " class="menu-item menu-item-2"><a href="<?php echo get_category_link($page1->term_id); ?>" title="Textes">Textes</a></li>
 				<li id=" menu-item-1 " class="menu-item menu-item-2"><a href="<?php echo get_permalink( $page2->ID ); ?>">Vidéos</a></li>
+				<li id=" menu-item-1 " class="menu-item menu-item-2"><a href="<?php echo get_permalink( $page9->ID ); ?>">Videos live</a></li>
 				<li id=" menu-item-2 " class="menu-item menu-item-2"><a href="<?php echo get_permalink( $page3->ID ); ?>">Publications</a></li>
 				<li id=" menu-item-3 " class="menu-item menu-item-2"><a href="<?php echo get_category_link($page4->term_id); ?>">Photos</a></li>
 				<li id=" menu-item-4 " class="menu-item menu-item-2"><a href="<?php echo get_permalink( $page5->ID ); ?>">Codes Sources</a></li>

@@ -45,12 +45,15 @@
 						$page6 = get_page_by_title("Cours et présentations");
 						$page7 = get_page_by_title("Réseax Sociaux");
 						$page8 = get_page_by_title("BD Expérimentale");
+						$page9 = get_page_by_title("Videos live");
+				
 						?>
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 						<ul class="nav navbar-nav navbar-right" style="list-style-type: none; ">
 							<li id=" menu-item-0 " style ="margin: 0 0 10px 0;"><a style ="color: white;" href="<?php echo get_category_link($page1->term_id) ?>" title="Textes">Textes</a></li>
 							<li id=" menu-item-1 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page2->ID ); ?>">Vidéos</a></li>
+							<li id=" menu-item-1 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page9->ID ); ?>">Videos live</a></li>
 							<li id=" menu-item-2 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page3->ID ); ?>">Publications</a></li>
 							<li id=" menu-item-3 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_category_link($page4->term_id) ?>">Photos</a></li>
 							<li id=" menu-item-4 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page5->ID ); ?>">Codes Sources</a></li>
@@ -62,9 +65,7 @@
 						</div>
 						<!-- Menu Toggle -->
 					</header>
-					<?php do_action( 'after_header' ); ?>
-					<?php get_sidebar( 'primary' ); ?>
-					<?php do_action( 'after_sidebar' ); ?>
+					
 				</div>
 				<?php do_action( 'before_main' ); ?>
 				<section id="main" class="main" role="main">

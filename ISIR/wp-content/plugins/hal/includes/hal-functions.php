@@ -1,11 +1,4 @@
 <?php
-if(!isset($_POST['action'])){
-  if($_POST['action']=="call_this"){
-      echo "test";
-  }
-}
-?>
-<?php
 /*
  * Add my new menu to the Admin Control Panel
  */
@@ -15,6 +8,7 @@ if(!isset($_POST['action'])){
 add_action( 'admin_menu', 'hal_Print_Text' );
 
 
+ 
 // Add a new top level menu link to the ACP
 function hal_Print_Text()
 {
@@ -29,16 +23,71 @@ function hal_Print_Text()
 
 
 function test_init(){
+
+global $wpdb;
+
+echo "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">
+  <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>";
+
 echo "<script type=\"text/javascript\" src=\"../wp-content/plugins/hal/includes/hal.js\"></script>";
-echo "<script type=\"text/javascript\" src=\"http://code.jquery.com/jquery-latest.js\"></script>";
+
+
+echo "<script>jQuery(document).ready(function(){
+  jQuery(\"#myInput\").on(\"keyup\", function() {
+    var value = jQuery(this).val().toLowerCase();
+    jQuery(\"#myList li\").filter(function() {
+      jQuery(this).toggle(jQuery(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>";
+
+$tablename = "isir_".get_current_blog_id()."_hal";
+$myrows = $wpdb->get_results( "SELECT id FROM $tablename" );
+
+echo "<script type=\"text/javascript\">";
+
+foreach ( $myrows as $row ) 
+{
+	echo "getSelected(\"$row->id\");" ;
+}
+
+
+echo "</script>";
+
+
 	echo "<div class=\"wrap\">
-  <h1>Choisissez les documents HAL que vous voulez afficher</h1>
+  <h1>Choisissez les documents HAL que vous voulez mettre en favoris</h1>
 <div id=\"wait\"><p>Chargement en cours. Attendez svp...</p></div>
+<div class=\"container\">
+<input class=\"form-control\" id=\"myInput\" type=\"text\" placeholder=\"Search..\">
+
+<a href=\"#\" id=\"all\" >All</a>
+
+<a href=\"#\" id=\"sortbygroup\" >Sort by doctype</a>
+
+<script>
+	document.getElementById(\"all\").addEventListener(\"click\",function(){
+        getDocuments(\"amel\", \"arkoub\"); return false;
+    },false);
+</script>
+
+
+<script>
+	document.getElementById(\"sortbygroup\").addEventListener(\"click\",function(){
+        getDocumentsSortedByGroup(\"amel\", \"arkoub\"); return false;
+    },false);
+</script>
+
   <script type=\"text/javascript\">getDocuments(\"amel\", \"arkoub\");</script>
 
-	<div id=\"docs\"></div>
-  <button onclick=\"submit()\">submit</button>
+	<div id=\"docs\"></div></div>
 </div>";
+
+
+
+
+
 
 
 

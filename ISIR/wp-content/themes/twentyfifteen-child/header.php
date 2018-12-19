@@ -45,21 +45,25 @@
 				?>
 
 					<?php 
-					$page1 = get_page_by_title("Team Home");
+					
 					$page2 = get_page_by_title("Team Members");
 					$page3 = get_page_by_title("Team Axes of research");
-					$page4 = get_page_by_title("Team Experimental platforms");
-					$page5 = get_page_by_title("Team Publications");
-					$page6 = get_page_by_title("Team Links");
+					$page4 = get_page_by_title("Team videos");
+					$page5 = get_page_by_title("Team Experimental platforms");
+					$page6 = get_page_by_title("Team Publications");
+					$page7 = get_page_by_title("Team Links");
+					$page8 = get_page_by_title("Team videos live");
 				
 					?>
 				<button class="secondary-toggle"><?php _e( 'Menu and widgets', 'twentyfifteen' ); ?></button>
-				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page1->ID ); ?>">Home</a><div>
+			
 				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page2->ID ); ?>">Members</a><div>
 				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page3->ID ); ?>">Axes of research</a><div>
-        		<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page4->ID ); ?>">Experimental platforms</a><div>
-        		<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page5->ID ); ?>">Publications</a><div>
-				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page6->ID ); ?>">Links</a><div>
+				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page4->ID ); ?>">Videos</a><div>
+				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page8->ID ); ?>">videos live</a><div>
+				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page5->ID ); ?>">Experimental platforms</a><div>
+        		<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page6->ID ); ?>">Publications</a><div>
+				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page7->ID ); ?>">Links</a><div>
 			</div><!-- .site-branding -->
 		</header><!-- .site-header -->
 

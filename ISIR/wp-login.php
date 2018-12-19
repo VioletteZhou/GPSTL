@@ -34,7 +34,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = null ) {
 	global $error, $interim_login, $action;
 
 	// Don't index any of these forms
-	add_action( 'login_head', 'wp_no_robots' );
+	add_action( 'login_head', 'wp_sensitive_page_meta' );
 
 	add_action( 'login_head', 'wp_login_viewport_meta' );
 
@@ -857,13 +857,13 @@ case 'confirmaction' :
 	if ( is_wp_error( $result ) ) {
 		wp_die( $result );
 	}
-
+	
 	/**
 	 * Fires an action hook when the account action has been confirmed by the user.
-	 *
+	 * 
 	 * Using this you can assume the user has agreed to perform the action by
 	 * clicking on the link in the confirmation email.
-	 *
+	 * 
 	 * After firing this action hook the page will redirect to wp-login a callback
 	 * redirects or exits first.
 	 *

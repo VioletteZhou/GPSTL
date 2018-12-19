@@ -12,7 +12,7 @@ add_action( 'admin_menu', 'addtext_Print_Video' );
 function addtext_Print_Video()
 {
   add_menu_page(
-        'Add video page', // Title of the page
+        'Add video page*', // Title of the page
         'Add video', // Text to show on the menu link
         'manage_options', // Capability requirement to see the link
 	    'add-video',
@@ -22,6 +22,57 @@ function addtext_Print_Video()
 
 
 function test_init_video(){
+	
+    global $wpdb;
+	$table_name = 'isir_'.$blog_id.'_video';
+	$blog_id = get_current_blog_id();
+    $result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video" );
+    
+	echo '
+	 <h2>My videos : </h2>
+	 <div>
+		Check the "is Favoris" box to add the video to your favorites
+	</div>
+	<table id="tableVideo" cellpadding="10" cellspacing="10" class="tableau">
+			<thead>
+				<tr><th scope="col">Is favoris</th><th scope="col">Title</th><th scope="col">URL</th><th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>'; 
+			foreach ( $result as $print )   {
+				
+				if($print->isFavoris == 0)
+				{
+					echo '<tr value="is Favoris"><th scope="row">
+							<form id="myform" method="post">
+								<input class= "favoris" type="checkbox" id="'.$print->id.'" name="'.$print->id.'" onClick="this.form.submit();"> 
+								<input name="videoId" value="'.$print->id.'"  type="hidden"></input>
+							</form>
+						</th>'; 
+				}else{
+					echo '<tr value="is Favoris"><th scope="row"> 
+								<form id="myform" method="post">
+									<input type="checkbox" id="'.$print->id.'" name="'.$print->id.'" checked="true" onClick="this.form.submit();">
+									<input name="videoId" value="'.$print->id.'"  type="hidden"></input>
+								</form>
+						  </th>'; 
+				}
+				
+			echo '
+			<form method="POST" >
+				<td>'.$print->titre.'</td><td ><a href="'.$print->url.'">'.$print->url.'</a></td><td><button ">delete</button></td></tr>
+				<input name="deleteVideoId" value="'.$print->id.'"  type="hidden"></input>
+			</form>
+
+				'; 
+			 }  
+				
+				echo '
+			</tbody>
+	  </table>
+	'; 	 
+	
+	
 
  echo '
  <h2>Search for the video that you want to add by keyWords or by URL : </h2>
@@ -69,7 +120,6 @@ if (isset($_POST['q']) && isset($_POST['maxResults']) ) {
 					</iframe>
 					<div style="display: inline-block; border: 1px;  vertical-align:top;">
 						<p>'.$title.'</p>
-
 						<form method="POST" >
 							<input name="title" value="'.$title.'"  type="hidden"></input>
 							<input name="url" value="https://www.youtube.com/embed/'.$id.'"  type="hidden"></input>
@@ -77,6 +127,8 @@ if (isset($_POST['q']) && isset($_POST['maxResults']) ) {
 						</form>
 					</div>
 				</div>
+				
+
 					';
           break;
         case 'youtube#channel':
@@ -102,20 +154,60 @@ if (isset($_POST['title']) && isset($_POST['url']))
 
 	$title = $_POST['title'];
 	$url = $_POST['url'];
-  $blog_id = get_current_blog_id();
-
-	$table_name = 'isir_'.$blog_id.'_video';;
+	
+	$blog_id = get_current_blog_id();
+	$table_name = 'isir_'.$blog_id.'_video';
 
 	$wpdb->insert(
 		$table_name,
 		array(
 			'titre' => $title,
 			'url' => $url,
-      'isFavoris' => 0
+			'isFavoris' => 0
 		)
 	);
+	
+	echo "<script type='text/javascript'>
+        window.location=document.location.href;
+        </script>";
 
-}else{
-	echo "je suis dans le else ";
+}
+
+if (isset($_POST['videoId']) )
+{
+	
+	global $wpdb;
+	$blog_id = get_current_blog_id();
+	$table_name = 'isir_'.$blog_id.'_video';
+	
+	if(isset($_POST[$_POST['videoId']])){
+		
+		$result = $wpdb->get_results( "UPDATE ".$table_name." SET isFavoris = 1 WHERE id=".$_POST['videoId']."");
+		echo "<script type='text/javascript'>
+        window.location=document.location.href;
+        </script>";
+		
+	}else{
+		
+		$result = $wpdb->get_results( "UPDATE ".$table_name." SET isFavoris = 0 WHERE id=".$_POST['videoId']."");
+		echo "<script type='text/javascript'>
+        window.location=document.location.href;
+        </script>";
+	}
+}
+
+if (isset($_POST['deleteVideoId']) )
+{
+	
+	global $wpdb;
+	$blog_id = get_current_blog_id();
+	$table_name = 'isir_'.$blog_id.'_video';
+	
+
+	$result = $wpdb->get_results( "DELETE FROM ".$table_name."  WHERE id=".$_POST['deleteVideoId']."");
+	echo "<script type='text/javascript'>
+    window.location=document.location.href;
+    </script>";
+		
 }
 }
