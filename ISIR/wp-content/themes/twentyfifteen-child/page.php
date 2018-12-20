@@ -21,6 +21,18 @@ get_header(); ?>
 												
 			switch($page_title)
 			{
+				    case 'Team Home': ?>
+					<div id="primary" class="content-area">
+							<main id="main" class="site-main" role="main">
+							
+									<div class="page-content">
+										<h3>Description de l'équipe <h3>
+										<p>ceci est une petite description de l'équipe de projet</p>
+									</div>
+
+							</main>
+						</div>
+			<?php break; 
 					case 'Team Members': ?>
 						<div id="primary" class="content-area">
 							<main id="main" class="site-main" role="main">
@@ -40,7 +52,8 @@ get_header(); ?>
 
 							</main>
 						</div>
-			<?php break;
+
+		<?php break;
 				case 'Team videos': 
 			
 				echo '
@@ -77,12 +90,9 @@ get_header(); ?>
 								'; 
 								 }  
 									
-									?>
-			<?php break;
-					case 'Photos': ?>
-						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter une photo</button>			
-			<?php break; 
+			?>
 
+		<?php break; 
 			case 'Team videos live':
 				$blog_id = get_current_blog_id();
 					$result = $wpdb->get_results( "SELECT * FROM isir_youtubelive WHERE blog_id=".$blog_id."");
@@ -104,19 +114,20 @@ get_header(); ?>
 						echo "<h4>By : ".$row['author_name']."<h4>";
 					}
 			?>
-								
+
+			<?php break;
+					case 'Publications': ?>
+					
+			<?php break;
+					case 'Photos': ?>
 			<?php break; 
 					case 'Codes Sources': ?>
-						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter du code source</button>				
 			<?php break;
 					case 'Cours et présentations': ?>
-						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter un cours/une présentation</button>			
 			<?php break; 
 					case 'Réseaux sociaux': ?>
-						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter un post facebook/twetter</button>			
 			<?php break; 
 					case 'BD expérimentales': ?>
-						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter une BD expérimentale</button>				
 			<?php break;
 						}
 
