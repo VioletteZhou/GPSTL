@@ -19,6 +19,19 @@ get_template_part( 'content/archive-header' );
 		$slug = basename(get_permalink());
 		if ($slug == "hello-world"){ 
 			global $wpdb;
+
+			echo "<h1>Favorite publications</h1>";
+			$table_name = 'isir_'.$blog_id.'_hal';
+			$blog_id = get_current_blog_id();
+			$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_hal" );
+			foreach ( $result as $print )   {
+				echo "
+<li id=\"element_".$print->id."\" class=\"list-group-item\"> <a href=\"".$print->url."\">".$print->label."</a></li>
+					
+					"; 
+				}  
+			
+			echo "<h1>Favorite videos</h1>";
 			$table_name = 'isir_'.$blog_id.'_video';
 			$blog_id = get_current_blog_id();
 			$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video WHERE isFavoris=1" );
