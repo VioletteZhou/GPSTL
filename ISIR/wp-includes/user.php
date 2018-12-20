@@ -114,7 +114,7 @@ function connectToMemberDb($username, $password)
 {
 	$servername = "localhost";
 	$dbusername = "root";
-	$dbpassword = "root";
+	$dbpassword = "";
 	$dbname = "MEMBER";
 	$table = "User";
 	// Create connection
@@ -146,14 +146,20 @@ function connectToMemberDb($username, $password)
     'WPLANG' => ''
 	  );
 		$blog_id = wpmu_create_blog( 'localhost', '/ISIR/'.$row["username"], $row["username"], 0,$row["username"] , $user_id, $meta, get_current_network_id() );
+	if($blog_id instanceof WP_Error){
+		die( $blog_id);
 
+	}
+else{
 		//create table for youtube
 	create_video_tables($blog_id);
 	
 	//create table for hal
 	create_hal_tables($blog_id);
 
-	}else if($user_exist && $result->num_rows <= 0)
+	
+}
+}else if($user_exist && $result->num_rows <= 0)
 	{
 		//$user_id = $user->ID;
 		//delete_user_meta($user_id,'terms_and_conditions');
