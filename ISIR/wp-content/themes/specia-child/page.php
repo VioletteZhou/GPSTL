@@ -5,25 +5,22 @@ get_template_part('sections/specia','breadcrumb'); ?>
 <section class="page-wrapper">
 	<div class="container">
 					
-		
 		<div class="row padding-top-60 padding-bottom-60">		
 			<?php 
 
-			
-			$page_title = $wp_query->post->post_title; 	
-			echo $page_title ; 
-		 						
+			$page_title = $wp_query->post->post_title;
+												
 			switch($page_title)
 			{
-				  case 'Textes': ?>
+				    case 'Textes': ?>
 					<div style="vertical-align:middle; ">
 						<button type="button" style= " margin-bottom: 30px; float: right;">+ Ajouter un texte</button>
 					</div>
 			<?php break; 
-				
 					case 'Vidéos': 
-			
-				echo '
+
+
+echo '
 				<div>
 					<form action="/action_page.php" style="margin-bottom:20px;align:center;  ">
 					  <input type="text" placeholder="Search for a video . . . " name="search" style="display:inline-block; width:60%; ">
@@ -55,9 +52,8 @@ get_template_part('sections/specia','breadcrumb'); ?>
 									<div style="padding-left:20px;padding-right:20px; font-weight: bold;">'.$print->titre.'</div>
 								</div>
 								'; 
-								 }  
-									
-									?>
+								 }  ?>
+
 			<?php break;
 				case 'Videos live': 
 					$blog_id = get_current_blog_id();
@@ -80,24 +76,19 @@ get_template_part('sections/specia','breadcrumb'); ?>
 						echo "<h4>By : ".$row['author_name']."<h4>";
 					}
 			?>
+							
 			<?php break;
-				case 'Publications': ?>
-					<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter une publication</button>
+					case 'Publications': ?>
 			<?php break;
 					case 'Photos': ?>
-						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter une photo</button>			
 			<?php break; 
-					case 'Code source': ?>
-						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter du code source</button>				
+					case 'Codes Sources': ?>
 			<?php break;
-					case 'Cours & Présentation': ?>
-						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter un cours/une présentation</button>			
+					case 'Cours et présentations': ?>
 			<?php break; 
-					case 'Réseax Sociaux': ?>
-						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter un post facebook/twetter</button>			
+					case 'Réseaux sociaux': ?>
 			<?php break; 
-					case 'BD Expérimentale': ?>
-						<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter une BD expérimentale</button>				
+					case 'BD expérimentales': ?>
 			<?php break;
 						}
 
@@ -123,7 +114,16 @@ get_template_part('sections/specia','breadcrumb'); ?>
 				} 
 			?>
 			<div class="site-content">
-		
+			
+			<?php 
+				
+				if( have_posts()) :  the_post();
+				
+				the_content(); 
+				endif;
+				
+				comments_template( '', true ); // show comments 
+			?>
 				
 
 			</div><!-- /.posts -->
