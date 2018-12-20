@@ -8,6 +8,36 @@ function theme_enqueue_styles() {
 
 }
 
+function getPublicationHTML(){
+
+	return "<div class=\"wrap\">
+
+<div id=\"wait\"><p>Chargement en cours. Attendez svp...</p></div>
+
+<div class=\"container\">
+
+<input class=\"form-control\" id=\"myInput\" type=\"text\" placeholder=\"Search..\">
+
+
+
+<a href=\"#\" id=\"all\" >All</a>
+
+
+
+<a href=\"#\" id=\"sortbygroup\" >Sort by doctype</a>
+
+
+
+	<div id=\"docs\"></div></div>
+
+</div>";
+
+
+
+
+
+}
+
 
 // add Textes page
 wp_insert_term(
@@ -44,7 +74,7 @@ if(get_page_by_title("Publications") == null){
 	$new_page = array(
 		'post_type' => 'page',
 		'post_title' => "Publications",
-		'post_content' => '',
+		'post_content' => getPublicationHTML(),
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
