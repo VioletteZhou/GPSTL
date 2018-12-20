@@ -102,22 +102,20 @@ get_template_part( 'content/archive-header' );
 		?>
 		<?php break;
 				case 'Publications': ?>
-					<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter une publication</button>
+					
 		<?php break;
 				case 'Photos': ?>
-					<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter une photo</button>
+					
 		<?php break;
 				case 'Codes Sources': ?>
-					<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter du code source</button>
+					
 		<?php break;
 				case 'Cours et présentations': ?>
-					<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter un cours/une présentation</button>
+					
 		<?php break;
 				case 'Réseax Sociaux': ?>
-					<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter un post facebook/twetter</button>
 		<?php break;
 				case 'BD Expérimentale': ?>
-					<button type="button" style= "margin-top:30px; margin-bottom: 30px; float: right;">+ Ajouter une BD expérimentale</button>
 		<?php break;
 					}?>
 	</div>
