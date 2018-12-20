@@ -75,7 +75,7 @@ if(get_page_by_title("Publications") == null){
 	$new_page = array(
 		'post_type' => 'page',
 		'post_title' => "Publications",
-		'post_content' => getPublicationHTML(),
+		'post_content' => '',
 		'post_status' => 'publish',
 		'post_author' => 1,
 	);
@@ -157,6 +157,22 @@ if(get_page_by_title("BD Expérimentale") == null){
 	$new_page = array(
 		'post_type' => 'page',
 		'post_title' => "BD Expérimentale",
+		'post_content' => '',
+		'post_status' => 'publish',
+		'post_author' => 1,
+	);
+$page_check = get_page_by_title($new_page_title);
+	if(!isset($page_check->ID)){
+		$new_page_id = wp_insert_post($new_page);
+	}
+}
+
+// add video live 
+$new_page_title = "Videos live";
+if(get_page_by_title("Videos live") == null){
+	$new_page = array(
+		'post_type' => 'page',
+		'post_title' => "Videos live",
 		'post_content' => '',
 		'post_status' => 'publish',
 		'post_author' => 1,
