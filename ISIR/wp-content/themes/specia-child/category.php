@@ -29,14 +29,13 @@ get_template_part('sections/specia','breadcrumb'); ?>
 
 					<?php else: ?>
 
-						<?php get_template_part('template-parts/content','none'); ?>
-
+					
 					<?php endif; ?>
 
 			</div>
 			<!--/End of Blog Detail-->
 
-			<?php get_sidebar(); ?>
+	
 
 		</div>
 	</div>

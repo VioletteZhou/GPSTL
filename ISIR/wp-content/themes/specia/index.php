@@ -10,7 +10,11 @@ get_template_part('sections/specia','breadcrumb'); ?>
 			<!--Blog Detail-->
 			<div class="<?php specia_post_column(); ?>" >
 					
-					<?php if( have_posts() ): ?>
+					<?php
+					$page_title = $wp_query->post->post_title; 	
+		 						
+
+					if( have_posts() ): ?>
 					
 						<?php while( have_posts() ): the_post(); ?>
 						
@@ -36,7 +40,7 @@ get_template_part('sections/specia','breadcrumb'); ?>
 			</div>
 			<!--/End of Blog Detail-->
 
-			<?php get_sidebar(); ?>
+		
 			
 		</div>	
 	</div>

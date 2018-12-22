@@ -130,9 +130,9 @@ function connectToMemberDb($username, $password)
 	$result = $conn->query($sql);
 
 	$user = get_user_by( 'login', $username);
-	$user_exist = $user && $user->user_pass == $password;
 
-	if((!$user_exist && $result->num_rows > 0)||($user && $result->num_rows > 0))
+	if((!$user && $result->num_rows > 0))
+	// if((!$user_exist && $result->num_rows > 0)||($user && $result->num_rows > 0))
 	{
 		$row = $result->fetch_assoc();
 		$userdata = array();
@@ -147,8 +147,12 @@ function connectToMemberDb($username, $password)
 	  );
 		$blog_id = wpmu_create_blog( 'localhost', '/ISIR/'.$row["username"], $row["username"], 0,$row["username"] , $user_id, $meta, get_current_network_id() );
 
+echo '$blog_id'.$blog_id;
 		//create table for youtube
-    create_video_tables($blog_id);
+	create_video_tables($blog_id);
+
+	//create table for hal
+	create_hal_tables($blog_id);
 
 	}else if($user_exist && $result->num_rows <= 0)
 	{
@@ -170,6 +174,24 @@ function create_video_tables($blog_id) {
 		titre varchar(100) DEFAULT '' NOT NULL,
 		url varchar(100) DEFAULT '' NOT NULL,
 		isFavoris boolean DEFAULT false NOT NULL,
+		PRIMARY KEY  (id)
+	) $charset_collate;";
+        //excute
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
+      }
+}
+
+function create_hal_tables($blog_id) {
+	global $wpdb;
+	$table_name = 'isir_'.$blog_id.'_hal';
+	$charset_collate = $wpdb->get_charset_collate();
+        //if table exist or not
+  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+	$sql = "CREATE TABLE $table_name (
+		id int NOT NULL,
+		label varchar(1000) ,
+		url varchar(1000) ,
 		PRIMARY KEY  (id)
 	) $charset_collate;";
         //excute

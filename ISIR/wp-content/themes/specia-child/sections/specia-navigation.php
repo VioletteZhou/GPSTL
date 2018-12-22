@@ -46,6 +46,8 @@
 			$page6 = get_page_by_title("Cours & Présentation");
 			$page7 = get_page_by_title("Réseax Sociaux");
 			$page8 = get_page_by_title("BD Expérimentale");
+			$page9 = get_page_by_title("Videos live");
+
 
 			?>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -59,6 +61,8 @@
 				<li id=" menu-item-5 " class="menu-item menu-item-2"><a href="<?php echo get_permalink( $page6->ID ); ?>">Cours et présentations</a></li>
 				<li id=" menu-item-6 " class="menu-item menu-item-2"><a href="<?php echo get_permalink( $page7->ID ); ?>">Réseaux sociaux</a></li>
 				<li id=" menu-item-7 " class="menu-item menu-item-2"><a href="<?php echo get_permalink( $page8->ID ); ?>">BD expérimentales</a></li>
+				<li id=" menu-item-8 " class="menu-item menu-item-2"><a href="<?php echo get_permalink( $page9->ID ); ?>">Videos live</a></li>
+
 
 			</ul>
 
