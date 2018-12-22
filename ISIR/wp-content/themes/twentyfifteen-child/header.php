@@ -44,7 +44,11 @@
 					<?php endif;
 				?>
 
+<<<<<<< HEAD
 					<?php
+=======
+					<?php 
+>>>>>>> master
 					$page1 = get_page_by_title("Team Home");
 					$page2 = get_page_by_title("Team Members");
 					$page3 = get_page_by_title("Team Axes of research");
@@ -53,6 +57,7 @@
 					$page6 = get_page_by_title("Team Links");
 					$page7 = get_page_by_title("Team videos");
 					$page8 = get_page_by_title("Team videos live");
+<<<<<<< HEAD
 					$page9 = get_category_by_slug("Team textes");
 					$page10 = get_category_by_slug("Team photos");
 
@@ -61,6 +66,13 @@
 				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page1->ID ); ?>">Home</a><div>
 				<div class="row" style="margin:25px auto"><a href="<?php echo get_category_link($page9->term_id); ?>">Textes</a><div>
 				<div class="row" style="margin:25px auto"><a href="<?php echo get_category_link($page10->term_id); ?>">Photos</a><div>	
+=======
+
+				
+					?>
+				<button class="secondary-toggle"><?php _e( 'Menu and widgets', 'twentyfifteen' ); ?></button>
+				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page1->ID ); ?>">Home</a><div>
+>>>>>>> master
 				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page2->ID ); ?>">Members</a><div>
 				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page3->ID ); ?>">Axes of research</a><div>
         		<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page4->ID ); ?>">Experimental platforms</a><div>

@@ -147,10 +147,16 @@ function connectToMemberDb($username, $password)
 	  );
 		$blog_id = wpmu_create_blog( 'localhost', '/ISIR/'.$row["username"], $row["username"], 0,$row["username"] , $user_id, $meta, get_current_network_id() );
 
+<<<<<<< HEAD
 echo '$blog_id'.$blog_id;
 		//create table for youtube
 	create_video_tables($blog_id);
 
+=======
+		//create table for youtube
+	create_video_tables($blog_id);
+	
+>>>>>>> master
 	//create table for hal
 	create_hal_tables($blog_id);
 
@@ -3693,3 +3699,4 @@ final class WP_User_Request {
 		$this->confirm_key         = $post->post_password;
 	}
 }
+
