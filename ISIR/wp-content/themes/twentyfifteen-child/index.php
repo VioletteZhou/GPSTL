@@ -16,10 +16,19 @@
 
 get_header(); ?>
 
+<<<<<<< HEAD
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+		<?php
+		// Start the loop.
+=======
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 	
 		<?php 
+>>>>>>> master
 
 		global $wpdb;
 		$table_name = 'isir_'.$blog_id.'_video';
@@ -31,11 +40,19 @@ get_header(); ?>
 						<iframe width="600px" height="350px" src="'.$print->url.'" ></iframe>
 						<div style="padding-left:20px;padding-right:20px; font-weight: bold;">'.$print->titre.'</div>
 				</div>
+<<<<<<< HEAD
+				';
+			}
+=======
 				'; 
 			}  
+>>>>>>> master
 		?>
 
 		</main><!-- .site-main -->
 	</div><!-- .content-area -->
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> master

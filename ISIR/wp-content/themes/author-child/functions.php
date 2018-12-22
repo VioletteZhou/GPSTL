@@ -39,6 +39,26 @@ function getPublicationHTML(){
 
 
 // add Textes page
+<<<<<<< HEAD
+
+// add Textes page
+wp_insert_term(
+
+// the name of the category
+'Textes',
+
+// the taxonomy, which in this case if category (don't change)
+'category',
+
+array(
+
+// what to use in the url for term archive
+'slug' => 'Textes',
+));
+
+
+// Add videos page
+=======
 $new_page_title = "Textes";
 if (get_page_by_title("Textes") == null){
 	$new_page = array(
@@ -55,6 +75,7 @@ $page_check = get_page_by_title($new_page_title);
 }
 
 // Add videos page 
+>>>>>>> master
 $new_page_title = "Videos";
 if(get_page_by_title("Videos") == null){
 	$new_page = array(
@@ -69,7 +90,11 @@ $page_check = get_page_by_title($new_page_title);
 		$new_page_id = wp_insert_post($new_page);
 	}
 }
+<<<<<<< HEAD
+// Add Publications page
+=======
 // Add Publications page 
+>>>>>>> master
 $new_page_title = "Publications";
 if(get_page_by_title("Publications") == null){
 	$new_page = array(
@@ -87,6 +112,25 @@ $page_check = get_page_by_title($new_page_title);
 
 
 // Add Photos page
+<<<<<<< HEAD
+
+// Add Photos page
+wp_insert_term(
+
+// the name of the category
+'Photos',
+
+// the taxonomy, which in this case if category (don't change)
+'category',
+
+array(
+
+// what to use in the url for term archive
+'slug' => 'Photos',
+));
+
+// add code sources page
+=======
 $new_page_title = "Photos";
 if(get_page_by_title("Photos") == null){
 	$new_page = array(
@@ -103,6 +147,7 @@ $page_check = get_page_by_title($new_page_title);
 }
 
 // add code sources page 
+>>>>>>> master
 $new_page_title = "Codes Sources";
 if(get_page_by_title("Codes Sources") == null){
 	$new_page = array(
@@ -119,7 +164,11 @@ $page_check = get_page_by_title($new_page_title);
 }
 
 
+<<<<<<< HEAD
+// add cours et présentations
+=======
 // add cours et présentations 
+>>>>>>> master
 $new_page_title = "Cours et présentations";
 if(get_page_by_title("Cours et présentations") == null){
 	$new_page = array(
@@ -167,7 +216,11 @@ $page_check = get_page_by_title($new_page_title);
 	}
 }
 
+<<<<<<< HEAD
+// add video live
+=======
 // add video live 
+>>>>>>> master
 $new_page_title = "Videos live";
 if(get_page_by_title("Videos live") == null){
 	$new_page = array(
