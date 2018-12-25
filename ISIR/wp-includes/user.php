@@ -148,11 +148,16 @@ function connectToMemberDb($username, $password)
 		$blog_id = wpmu_create_blog( 'localhost', '/ISIR/'.$row["username"], $row["username"], 0,$row["username"] , $user_id, $meta, get_current_network_id() );
 
 echo '$blog_id'.$blog_id;
-		//create table for youtube
+
+	//create table for youtube
 	create_video_tables($blog_id);
 
 	//create table for hal
 	create_hal_tables($blog_id);
+
+	//create table for code source
+	create_code_source_tables($blog_id);
+
 
 	}else if($user_exist && $result->num_rows <= 0)
 	{
@@ -161,6 +166,8 @@ echo '$blog_id'.$blog_id;
 	}
 	$conn->close();
 }
+
+
 
 
 function create_video_tables($blog_id) {
@@ -174,6 +181,9 @@ function create_video_tables($blog_id) {
 		titre varchar(100) DEFAULT '' NOT NULL,
 		url varchar(100) DEFAULT '' NOT NULL,
 		isFavoris boolean DEFAULT false NOT NULL,
+		publishedAt date ,
+		addedAt date ,
+		channelTitle varchar(100) ,
 		PRIMARY KEY  (id)
 	) $charset_collate;";
         //excute
@@ -181,6 +191,7 @@ function create_video_tables($blog_id) {
 	dbDelta( $sql );
       }
 }
+
 
 function create_hal_tables($blog_id) {
 	global $wpdb;
@@ -199,6 +210,34 @@ function create_hal_tables($blog_id) {
 	dbDelta( $sql );
       }
 }
+
+
+function create_code_source_tables($blog_id) {
+	global $wpdb;
+	$table_name = 'isir_'.$blog_id.'_code_source';
+	$charset_collate = $wpdb->get_charset_collate();
+        //if table exist or not
+  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+	$sql = "CREATE TABLE $table_name (
+		id mediumint(9) NOT NULL AUTO_INCREMENT,
+		name varchar(100) DEFAULT '' NOT NULL,
+		html_url varchar(100) DEFAULT '' NOT NULL,
+		clone_url varchar(100) ,
+		avatar_url varchar(100) ,
+		owner varchar(100) ,
+		description varchar(100) ,
+		language varchar(100) ,
+		isFavoris boolean DEFAULT false NOT NULL,
+		created_at date ,
+		addedAt date ,
+		PRIMARY KEY  (id)
+	) $charset_collate;";
+        //excute
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
+      }
+}
+
 
 /**
  * Authenticate a user, confirming the username and password are valid.

@@ -55,6 +55,7 @@
 					$page8 = get_page_by_title("Team videos live");
 					$page9 = get_category_by_slug("Team textes");
 					$page10 = get_category_by_slug("Team photos");
+					$page11 = get_page_by_title("Codes Sources");
 
 					?>
 				<button class="secondary-toggle"><?php _e( 'Menu and widgets', 'twentyfifteen' ); ?></button>
@@ -66,6 +67,7 @@
         		<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page4->ID ); ?>">Experimental platforms</a><div>
         		<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page5->ID ); ?>">Publications</a><div>
 				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page6->ID ); ?>">Links</a><div>
+				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page11->ID ); ?>">Codes sources</a><div>
 			<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page7->ID ); ?>">Videos</a><div>
 			<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page8->ID ); ?>">Videos live</a><div>
 			</div><!-- .site-branding -->

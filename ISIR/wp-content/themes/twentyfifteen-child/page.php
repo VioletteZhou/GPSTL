@@ -43,7 +43,11 @@ get_header(); ?>
 								<?php
 									$blogusers = get_users( 'orderby=post_count' );
 										foreach ( $blogusers as $user ) {
-										echo '<li><a>' . esc_html( $user->display_name ) . '</a></li>';
+
+											 $url = '/ISIR/'.$user->user_nicename; ?>
+
+										 <li onclick="location.href='<?php echo $url; ?>'"> <?php echo esc_html( $user->display_name ) ?> </a></li>
+										 <?php
 									}
 								?>
 
@@ -57,38 +61,37 @@ get_header(); ?>
 		<?php break;
 				case 'Team videos':
 
-				echo '
-				<div style="margin: 0px auto; width:500px;">
-					<form action="/action_page.php" style="margin-bottom:20px; ">
-					  <input type="text" placeholder="Search for a video . . . " name="search">
-					  <button type="submit" style="width:50px; height="100px; "><i class="fa fa-search"></i></button>
-					</form>
+				if(!empty($_POST["video_search_value"])) {
+						$video_search_value = $_POST["video_search_value"];
+				 }
+				 ?>
 
-					<div id="styled-select" style="width:700px;">
-						<select name="group" id="group">
-							<option val="">Choose year</option>
-							<option val="1">2018</option>
-							<option val="2">2017</option>
-							<option val="3">2016</option>
-							<option val="4">Before 2016</option>
-						</select>
-					</div>
-				</div>
-				';
-						global $wpdb;
-						$table_name = 'isir_'.$blog_id.'_video';
-						$blog_id = get_current_blog_id();
-						$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video" );
-						?>
+							<div style="margin: 0px auto; width:500px;">
+							<div>
+							<form method="POST" action=" " style="margin-bottom:20px;align:center; text-align: center; ">
+								<input type="text" id="myInputSearch" name ="video_search_value" value="<?php echo $video_search_value;?>" placeholder="Search for a video ..." style="display:inline-block; width:70%; margin-top:20px; align:center;">
+								<input type="submit" style="display:inline-block; " ><i class="fa fa-search"></i></input>
+							</form>
+							</div>
+			<?php
 
-						<?php
+					global $wpdb;
+					$table_name = 'isir_'.$blog_id.'_video';
+					$blog_id = get_current_blog_id();
+					// $result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video ORDER BY addedAt DESC" );
+					if(!empty($_POST["video_search_value"])){
+								$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video WHERE titre LIKE "."'%".$video_search_value."%'"." order by addedAt desc" );
+					}else{
+								$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video order by addedAt desc" );
+					}
 								foreach ( $result as $print )   {
-								echo '
-								<div width="400px" style=" background-color:#FFFFFF; padding-bottom:20px; margin:15px; overflow:hidden; display: inline-block; " >
-									<iframe width="600px" height="350px" src="'.$print->url.'" ></iframe>
-									<div style="padding-left:20px;padding-right:20px; font-weight: bold;">'.$print->titre.'</div>
-								</div>
-								';
+									echo '
+									<div width="90%" align ="center" style=" background-color:#FFFFFF; padding-bottom:20px; margin:25px; overflow:hidden; display: inline-block; " >
+											<iframe width="600px" height="350px" src="'.$print->url.'"  style="margin-top: 20px; "></iframe>
+											<p style="padding-right:20px; font-weight: bold;">'.$print->titre.'</p>
+											<p> '.$print->channelTitle.' at '.$print->addedAt.'<p>
+									</div>
+									';
 								 }
 
 			?>
@@ -122,7 +125,66 @@ get_header(); ?>
 			<?php break;
 					case 'Photos': ?>
 			<?php break;
-					case 'Codes Sources': ?>
+					case 'Codes Sources':
+
+										 if(!empty($_POST["code_source_search_value"])) {
+												 $code_source_search_value = $_POST["code_source_search_value"];
+											}
+
+					?>
+									<div style="margin: 0px auto; width:500px;">
+									<div>
+									<form method="POST" action=" " style="margin-bottom:20px;align:center; text-align: center; ">
+										<input type="text" id="myInputSearch" name = "code_source_search_value" value="<?php echo $code_source_search_value; ?>" placeholder="Search for a project ..." style="display:inline-block; width:70%; margin-top:20px; align:center;">
+										<input type="submit" style="display:inline-block; " ><i class="fa fa-search"></i></input>
+									</form>
+									</div>
+					  <?php
+
+									global $wpdb;
+									$table_name = 'isir_'.$blog_id.'_code_source';
+									$blog_id = get_current_blog_id();
+									if(!empty($_POST["code_source_search_value"])){
+												$result = $wpdb->get_results( "SELECT * FROM ".$table_name ." WHERE name LIKE "."'%".$code_source_search_value."%'"." order by addedAt desc" );
+									}else{
+												$result = $wpdb->get_results( "SELECT * FROM ".$table_name ." order by addedAt desc" );
+									}
+
+					foreach ($result as $print )
+					{
+
+						echo '
+						<table style=" border: none; background-color: white;  margin-top: 30px; width : 90%; padding: 30px; margin-left: 5%; ">
+							<tr>
+								<td  align="center" style="width : 30%; ">
+								<img  src="'.$print->avatar_url.'" alt="Avatar" style="border-radius: 50%; width:100px;  height: 100px; display:inline-block; ">
+								<h4>'.$print->owner.'</h4>
+								</td>
+								<td style="position: relative; padding-left: 50px; width: 70%; ">
+								<h3 style=" margin-top: 0; ">'.$print->name.'</h3>
+								';
+								if($print->description != null){
+									echo '</br>';
+									echo '<p style=" margin-top: 0; " >Description : '.$print->description.'</p>';
+								}
+								echo '
+								<p style=" margin-top: 0; " >Created at  : '.$print->created_at.' </p>
+								';
+								if($print->language != ""){
+									echo '<p style=" margin-top: 0; " >Language  : '.$print->language.'</p>';
+								}
+								echo '
+								<p>HTML Link : </p><a  style="  margin-top: 0; " href="'.$print->html_url.'">'.$print->html_url.'</a>
+								<p>Clone Link : '.$print->clone_url.'</p>
+								</td>
+
+							</tr>
+						</table>
+
+								';
+					}
+
+					?>
 			<?php break;
 					case 'Cours et présentations': ?>
 			<?php break;
@@ -145,5 +207,3 @@ get_header(); ?>
 
 		</main><!-- .site-main -->
 	</div><!-- .content-area -->
-
-<?php get_footer(); ?>

@@ -177,13 +177,43 @@ Name: %3$s' ),
 				titre varchar(100) DEFAULT '' NOT NULL,
 				url varchar(100) DEFAULT '' NOT NULL,
 				isFavoris boolean DEFAULT false NOT NULL,
+				publishedAt date ,
+				addedAt date ,
+				channelTitle varchar(100) ,
 				PRIMARY KEY  (id)
 			) $charset_collate;";
 		        //excute
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			dbDelta( $sql );
 		      }
-// end create table
+			// end create table
+
+
+			// create youtube code source table
+			$table_name = 'isir_'.$id.'_code_source';
+			$charset_collate = $wpdb->get_charset_collate();
+		        //if table exist or not
+		  	if($wpdb->get_var("show tables like $table_name") != $table_name) {
+			$sql = "CREATE TABLE $table_name (
+				id mediumint(9) NOT NULL AUTO_INCREMENT,
+				name varchar(100) DEFAULT '' NOT NULL,
+				html_url varchar(100) DEFAULT '' NOT NULL,
+				clone_url varchar(100) ,
+				avatar_url varchar(100) ,
+				owner varchar(100) ,
+				description varchar(100) ,
+				language varchar(100) ,
+				isFavoris boolean DEFAULT false NOT NULL,
+				created_at date ,
+				addedAt date ,
+				PRIMARY KEY  (id)
+			) $charset_collate;";
+		        //excute
+			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+			dbDelta( $sql );
+		      }
+			// end create table
+
 
 
 // create hal table
@@ -202,6 +232,8 @@ require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 dbDelta( $sql );
   }
 // end create table
+
+
 
 
 		wp_redirect( add_query_arg( array( 'update' => 'added', 'id' => $id ), 'site-new.php' ) );

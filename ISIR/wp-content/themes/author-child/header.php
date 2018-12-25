@@ -68,9 +68,7 @@
 						</div>
 						<!-- Menu Toggle -->
 					</header>
-					<?php do_action( 'after_header' ); ?>
-					<?php get_sidebar( 'primary' ); ?>
-					<?php do_action( 'after_sidebar' ); ?>
+				
 				</div>
 				<?php do_action( 'before_main' ); ?>
 				<section id="main" class="main" role="main">
