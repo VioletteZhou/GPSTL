@@ -5,54 +5,69 @@ get_template_part('sections/specia','breadcrumb'); ?>
 <!-- Blog & Sidebar Section -->
 <section class="page-wrapper">
 	<div class="container">
-		<div class="row padding-top-60 padding-bottom-60">
+		<div class="row padding-top-60 padding-bottom-60" style="margin-bottom:20px;align:center; text-align: center; ">
 			
 			<?php 
 
 			global $wpdb;
 			$table_name = 'isir_'.$blog_id.'_video';
 			$blog_id = get_current_blog_id();
-			$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video WHERE isFavoris=1" );
+			$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video WHERE isFavoris=1 ORDER BY addedAt DESC" );
+			if($result != null){
+				echo "<h1>Favorite videos</h1>";
+			}
 			foreach ( $result as $print )   {
 				echo '
 					<div width="400px" style=" background-color:#FFFFFF; padding-bottom:20px; margin:15px; overflow:hidden; display: inline-block; " >
 							<iframe width="600px" height="350px" src="'.$print->url.'" ></iframe>
-							<div style="padding-left:20px;padding-right:20px; font-weight: bold;">'.$print->titre.'</div>
+							<div style="padding-right:20px; font-weight: bold;">'.$print->titre.'</div>
+							<p> '.$print->channelTitle.' at '.$print->addedAt.'<p>
 					</div>
 					'; 
-				}  
-			?>
-			<!--Blog Detail-->
-			<div class="<?php specia_post_column(); ?>" >
+				} 
+				
+				
+				$table_name = 'isir_'.$blog_id.'_code_source';
+				$blog_id = get_current_blog_id();
+				$result = $wpdb->get_results( "SELECT * FROM ".$table_name ." WHERE isFavoris=1 order by addedAt desc" );	
+				if($result != null){
+					echo "<h1>Favorite projects</h1>";
+				}
+				foreach ($result as $print )
+        		{
 					
-					<?php
-			
+					echo '
+					<table style=" border: none; background-color: white;  margin-top: 30px; width : 90%; padding: 30px; ">
+						<tr>
+							<td  align="center" style="width : 30%; ">
+							<img  src="'.$print->avatar_url.'" alt="Avatar" style="border-radius: 50%; width:70px;  height: 70px; display:inline-block; ">
+							<h4>'.$print->owner.'</h4>
+							</td>
+							<td style="position: relative; padding-left: 50px; width: 70%; ">
+							<h3 style=" margin-top: 0; ">'.$print->name.'</h3>
+							'; 
+							if($print->description != null){
+								echo '</br>'; 
+								echo '<p style=" margin-top: 0; " >Description : '.$print->description.'</p>'; 
+							}
+							echo '
+							<p style=" margin-top: 0; " >Created at  : '.$print->created_at.' </p>
+							'; 
+							if($print->language != ""){
+								echo '<p style=" margin-top: 0; " >Language  : '.$print->language.'</p>'; 
+							}
+							echo '
+							<p>HTML Link : </p><a  style="  margin-top: 0; " href="'.$print->html_url.'">'.$print->html_url.'</a>
+							<p>Clone Link : '.$print->clone_url.'</p>
+							</td>
+						
+						</tr>
+					</table>
 
-					if( have_posts() ): ?>
-					
-						<?php while( have_posts() ): the_post(); ?>
-						
-							<?php get_template_part('template-parts/content','page'); ?>
-					
-						<?php endwhile; ?>
-						
-						<div class="paginations">
-						<?php						
-						// Previous/next page navigation.
-						the_posts_pagination( array(
-						'prev_text'          => '<i class="fa fa-angle-double-left"></i>',
-						'next_text'          => '<i class="fa fa-angle-double-right"></i>',
-						) ); ?>
-						</div>
-						
-					<?php else: ?>
-						
-						<?php get_template_part('template-parts/content','none'); ?>
-						
-					<?php endif; ?>
-			
-			</div>
-			<!--/End of Blog Detail-->
+							'; 
+				}
+			?>
+
 
 		
 			

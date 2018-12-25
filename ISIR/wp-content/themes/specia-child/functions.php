@@ -118,11 +118,13 @@ $page_check = get_page_by_title($new_page_title);
   'slug' => 'Photos',
   ));
 
-	// add code sources page
-$new_page_title = "Code source";
+
+// add code source page 
+$new_page_title = "Codes Sources";
+if(get_page_by_title("Codes Sources") == null){
 	$new_page = array(
 		'post_type' => 'page',
-		'post_title' => "Code source",
+		'post_title' => "Codes Sources",
 		'post_content' => '',
 		'post_status' => 'publish',
 		'post_author' => 1,
@@ -131,6 +133,7 @@ $page_check = get_page_by_title($new_page_title);
 	if(!isset($page_check->ID)){
 		$new_page_id = wp_insert_post($new_page);
 	}
+}
 
 	// add cours et présentations
 $new_page_title = "Cours & Présentation";
