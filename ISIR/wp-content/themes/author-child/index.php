@@ -25,10 +25,10 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		if ($slug == "hello-world"){
 			global $wpdb;
 
-			
-			
-			
-			
+
+
+
+
 		// check for plugin using plugin name
 		if ( is_plugin_active( 'hal/hal.php' ) ) {
 
@@ -53,16 +53,16 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 		// check for plugin using plugin name
 		if ( is_plugin_active( 'add-video/add-video.php' ) ) {
-		
-			
+
+
 			$table_name = 'isir_'.$blog_id.'_video';
 			$blog_id = get_current_blog_id();
 			$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video WHERE isFavoris=1" );
 
 
-			if(count($result)>0)	
-				echo "<h1>Favorite videos</h1>";		
-	
+			if(count($result)>0)
+				echo "<h1>Favorite videos</h1>";
+
 			foreach ( $result as $print )   {
 				echo '
 					<div width="400px" style=" background-color:#FFFFFF; padding-bottom:20px; margin:15px; overflow:hidden; display: inline-block; " >
@@ -79,14 +79,14 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		// check for plugin using plugin name
 		if ( is_plugin_active( 'add-code-source/add-code-source.php' ) ) {
 
-			
+
 			$table_name = 'isir_'.$blog_id.'_code_source';
 				$blog_id = get_current_blog_id();
 				$result = $wpdb->get_results( "SELECT * FROM ".$table_name ." WHERE isFavoris=1 order by addedAt desc" );
-				
-				if(count($result)>0)	
+
+				if(count($result)>0)
 					echo "<h1>Favorite projects</h1>";
-				
+
 				foreach ($result as $print )
         		{
 
@@ -121,7 +121,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 							';
 				}
 		}
-		
+
 		}
 
 		$page_title = $wp_query->post->post_title;
@@ -136,31 +136,48 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 // check for plugin using plugin name
 		if ( is_plugin_active( 'add-video/add-video.php' ) ) {
 
-		echo '
-				<div style="margin: 0px auto; width:500px;">
-					<form action="/action_page.php" style="margin-bottom:20px; ">
-					  <input type="text" placeholder="Search for a video . . . " name="search">
-					  <button type="submit" style="width:50px; height="100px; "><i class="fa fa-search"></i></button>
-					</form>
+		// echo '
+		// 		<div style="margin: 0px auto; width:500px;">
+		// 			<form action="/action_page.php" style="margin-bottom:20px; ">
+		// 			  <input type="text" placeholder="Search for a video . . . " name="search">
+		// 			  <button type="submit" style="width:50px; height="100px; "><i class="fa fa-search"></i></button>
+		// 			</form>
+		//
+		// 			<div id="styled-select" style="width:700px;">
+		// 				<select name="group" id="group">
+		// 					<option val="">Choose year</option>
+		// 					<option val="1">2018</option>
+		// 					<option val="2">2017</option>
+		// 					<option val="3">2016</option>
+		// 					<option val="4">Before 2016</option>
+		// 				</select>
+		// 			</div>
+		// 		</div>
+		// 		';
+		//
+		if(!empty($_POST["video_search_value"])) {
+				$video_search_value = $_POST["video_search_value"];
+		 }
+		 ?>
+		 <div style="margin: 0px auto; width:500px;">
+		 <div>
+		 <form method="POST" action=" " style="margin-bottom:20px;align:center; text-align: center; ">
+			 <input type="text" id="myInputSearch" name ="video_search_value" value="<?php echo $video_search_value;?>" placeholder="Search for a video ..." style="display:inline-block; width:70%; margin-top:20px; align:center;">
+			 <button type="submit" style="display:inline-block; height:36px ;" ><i class="fa fa-search" style="font-size:18px"></i></button>
+		 </form>
+		 </div>
+	<?php
 
-					<div id="styled-select" style="width:700px;">
-						<select name="group" id="group">
-							<option val="">Choose year</option>
-							<option val="1">2018</option>
-							<option val="2">2017</option>
-							<option val="3">2016</option>
-							<option val="4">Before 2016</option>
-						</select>
-					</div>
-				</div>
-				';
-						global $wpdb;
-						$table_name = 'isir_'.$blog_id.'_video';
-						$blog_id = get_current_blog_id();
-						$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video" );
-						?>
+			global $wpdb;
+			$table_name = 'isir_'.$blog_id.'_video';
+			$blog_id = get_current_blog_id();
+			// $result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video ORDER BY addedAt DESC" );
+			if(!empty($_POST["video_search_value"])){
+						$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video WHERE titre LIKE "."'%".$video_search_value."%'"." order by addedAt desc" );
+			}else{
+						$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_video order by addedAt desc" );
+			}
 
-						<?php
 								foreach ( $result as $print )   {
 								echo '
 								<div width="400px" style=" background-color:#FFFFFF; padding-bottom:20px; margin:15px; overflow:hidden; display: inline-block; " >
@@ -213,19 +230,19 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 // check for plugin using plugin name
 if ( is_plugin_active( 'hal/hal.php' ) ) {
   //plugin is activated
- 
+
 
 
 			$table_name_hide = 'isir_'.$blog_id.'_hal_hide';
 			$blog_id = get_current_blog_id();
-			$result_hide = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_hal_hide" );	
+			$result_hide = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_hal_hide" );
 			echo "<script type=\"text/javascript\">";
 			foreach($result_hide as $tohide){
 				echo "getSelectedHide(\"$tohide->id\");" ;
 
 			}
 
-			echo "</script>";	
+			echo "</script>";
 
 echo "<script type=\"text/javascript\">
 	function myFunction() {
@@ -249,9 +266,9 @@ echo "<script type=\"text/javascript\">
 	    }
 	  }
 	}
-	</script>";	
+	</script>";
 
-			
+
 	echo "<div class=\"wrap\">
   <h1>Publications</h1><br>
 <div id=\"wait\"><p>Chargement en cours. Attendez svp...</p></div>
@@ -307,7 +324,7 @@ if ( is_plugin_active( 'add-code-source/add-code-source.php' ) ) {
 				<div>
 				<form method="POST"  style="margin-bottom:20px;align:center; text-align: center; ">
 					<input type="text" id="myInputSearch" name = "code_source_search_value" value="<?php echo $code_source_search_value; ?>" placeholder="Search for a project ..." style="display:inline-block; width:70%; margin-top:20px; align:center;">
-					<button type="submit" style="display:inline-block; " ><i class="fa fa-search"></i></button>
+					<button type="submit" style="display:inline-block;height:36px ;" ><i class="fa fa-search" style="font-size:18px"></i></button>
 				</form>
 				</div>
   <?php

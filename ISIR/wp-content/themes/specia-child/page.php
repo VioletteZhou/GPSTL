@@ -23,7 +23,7 @@ get_template_part('sections/specia','breadcrumb'); ?>
 					 }
 					 ?>
 
-								<div style="margin: 0px auto; width:500px;">
+								<div style="margin: 0px auto;">
 								<div>
 								<form method="POST" action=" " style="margin-bottom:20px;align:center; text-align: center; ">
 									<input type="text" id="myInputSearch" name ="video_search_value" value="<?php echo $video_search_value;?>" placeholder="Search for a video ..." style="display:inline-block; width:70%; margin-top:20px; align:center;">
@@ -86,7 +86,7 @@ get_template_part('sections/specia','breadcrumb'); ?>
 											}
 
 					?>
-									<div style="margin: 0px auto; width:500px;">
+									<div style="margin: 0px auto; margin-left:60px;">
 									<div>
 									<form method="POST"  style="margin-bottom:20px;align:center; text-align: center; ">
 										<input type="text" id="myInputSearch" name = "code_source_search_value" value="<?php echo $code_source_search_value; ?>" placeholder="Search for a project ..." style="display:inline-block; width:70%; margin-top:20px; align:center;">

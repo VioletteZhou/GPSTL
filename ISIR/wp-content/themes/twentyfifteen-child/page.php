@@ -13,7 +13,7 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
+	<div id="primary" class="content-area" >
 		<main id="main" class="site-main" role="main">
 
 		<?php
@@ -65,12 +65,11 @@ get_header(); ?>
 						$video_search_value = $_POST["video_search_value"];
 				 }
 				 ?>
-
-							<div style="margin: 0px auto; width:500px;">
+							<div style="margin: 0px auto;  margin-top:20px; ">
 							<div>
-							<form method="POST" action=" " style="margin-bottom:20px;align:center; text-align: center; ">
+							<form method="POST" action=" " style="margin-bottom:20px; align:center; text-align: center; ">
 								<input type="text" id="myInputSearch" name ="video_search_value" value="<?php echo $video_search_value;?>" placeholder="Search for a video ..." style="display:inline-block; width:70%; margin-top:20px; align:center;">
-								<input type="submit" style="display:inline-block; " ><i class="fa fa-search"></i></input>
+								<input type="submit" style="display:inline-block; " value="Search" ></input>
 							</form>
 							</div>
 			<?php
@@ -86,7 +85,7 @@ get_header(); ?>
 					}
 								foreach ( $result as $print )   {
 									echo '
-									<div width="90%" align ="center" style=" background-color:#FFFFFF; padding-bottom:20px; margin:25px; overflow:hidden; display: inline-block; " >
+									<div width="90%" align ="center" style=" background-color:#FFFFFF; padding-bottom:20px; margin:25px; margin-left:110px; overflow:hidden; display: inline-block; " >
 											<iframe width="600px" height="350px" src="'.$print->url.'"  style="margin-top: 20px; "></iframe>
 											<p style="padding-right:20px; font-weight: bold;">'.$print->titre.'</p>
 											<p> '.$print->channelTitle.' at '.$print->addedAt.'<p>
@@ -132,11 +131,11 @@ get_header(); ?>
 											}
 
 					?>
-									<div style="margin: 0px auto; width:500px;">
+									<div style="margin: 0px auto;">
 									<div>
 									<form method="POST" action=" " style="margin-bottom:20px;align:center; text-align: center; ">
 										<input type="text" id="myInputSearch" name = "code_source_search_value" value="<?php echo $code_source_search_value; ?>" placeholder="Search for a project ..." style="display:inline-block; width:70%; margin-top:20px; align:center;">
-										<input type="submit" style="display:inline-block; " ><i class="fa fa-search"></i></input>
+										<input type="submit" style="display:inline-block; " value="Search"></input>
 									</form>
 									</div>
 					  <?php
