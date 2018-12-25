@@ -209,6 +209,20 @@ function create_hal_tables($blog_id) {
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta( $sql );
       }
+
+$table_name = 'isir_'.$blog_id.'_hal_hide';
+	$charset_collate = $wpdb->get_charset_collate();
+        //if table exist or not
+  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+	$sql = "CREATE TABLE $table_name (
+		id int NOT NULL,
+		PRIMARY KEY  (id)
+	) $charset_collate;";
+        //excute
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
+      }
+
 }
 
 

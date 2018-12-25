@@ -1,4 +1,5 @@
 var checked = new Array();
+var checkedHide = new Array();
 
 var CheckedBox = function(id,  label, uri, checkbox){
 	this.id = id;
@@ -36,6 +37,56 @@ var CheckedBox = function(id,  label, uri, checkbox){
 					type: 'POST',
 					data: { 
 					   action: 'ajax_request_hal_remove', 
+					   id : id 
+					   },
+					success: function(data){
+						
+						},
+					 error:function(jqXMTR, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+				});
+				
+				
+			  }
+			})
+	
+}
+
+
+var CheckedBoxHide = function(id, checkbox){
+	this.id = id;
+	this.checkbox = checkbox;
+
+	
+	checkbox.addEventListener('change', (event) => {
+				if (event.target.checked) {
+					
+				checkedHide.push(id);
+						
+				jQuery.ajax({
+					url: 'admin-ajax.php',
+					type: 'POST',
+					data: { 
+					   action: 'ajax_request_hal_add_hide', 
+					   id : id
+					   },
+					success: function(data){
+						
+						},
+					 error:function(jqXMTR, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+				});
+				
+			  } else {
+				checkedHide.pop(id);
+				
+				jQuery.ajax({
+					url: 'admin-ajax.php',
+					type: 'POST',
+					data: { 
+					   action: 'ajax_request_hal_remove_hide', 
 					   id : id 
 					   },
 					success: function(data){
@@ -107,17 +158,28 @@ function traiterReponseDocuments(rep){
         
        
   s+="<br>";
-  s+="<ul class=\"list-group\" id=\"myList\">";
+  
+  
+  s+="<table id=\"myTable\">";
+  
+
+   s+="<tr class=\"header\">   <th>Ne pas montrer</th>       <th>Mettre en favoris</th>       <th>Publication</th> </tr>";
+   
+
+  
+ 
+  
+  
 
 	 for(var i=0; i<response["docs"].length; i++){
           var doc=response["docs"][i];
         
-			s+="<li id=\"element_"+doc.docid+"\" class=\"list-group-item\"><input type=\"checkbox\" id=\""+doc.docid+"\"  > <a href=\""+doc.uri_s+"\">"+doc.label_s+"</a></li>";
+			s+="<tr> <td><input type=\"checkbox\" id=\"hide_"+doc.docid+"\"  > </td><td><input type=\"checkbox\" id=\""+doc.docid+"\"  > </td> <td><a href=\""+doc.uri_s+"\">"+doc.label_s+"</a></td></tr>";
      
      }
-      s+=" </ul>";  
+     
       
-      
+      s+="</table>";
 	
 
      
@@ -128,12 +190,24 @@ function traiterReponseDocuments(rep){
          
 			var checkbox = document.getElementById(doc.docid);
 			var checkboxObject = new CheckedBox(doc.docid, doc.label_s, doc.uri_s, checkbox);
-
+			
+			var checkboxHide = document.getElementById("hide_"+doc.docid);
+			var checkboxHideObject = new CheckedBoxHide(doc.docid, checkboxHide);
 			
 	
-			for(var id in checked){
-				if(doc.docid == checked[id]){
+			for(var indice in checked){
+				if(doc.docid == checked[indice]){
 					checkbox.checked = true;
+					
+					break;
+				
+				}
+	
+			}
+			
+			for(var indice in checkedHide){
+				if(doc.docid == checkedHide[indice]){
+					checkboxHide.checked = true;
 					
 					break;
 				
@@ -155,31 +229,41 @@ function traiterReponseDocumentsSortedByGroup(rep){
       
 	var s="";	
         
-
-  s+="<ul class=\"list-group\" id=\"myList\">";
+ s+="<br>";
   
+  
+   s+="<table id=\"myTable\">";
+  
+
+   s+="<tr class=\"header\">   <th>Ne pas montrer</th>       <th>Mettre en favoris</th>  <th>Type</th>     <th>Publication</th> </tr>";
+   
   
   for(var j=0; j<response["groups"].length; j++){
  
       var group = response["groups"][j];
      
-      s+="<h1>"+group.groupValue+"</h1>";
+    
       
       doclist = group.doclist;
       
+     
+
+  
+      
        for(var i=0; i<doclist["docs"].length; i++){
           var doc=doclist["docs"][i];
-          //var doc=response["org"][i];
-			s+="<li id=\"element_"+doc.docid+"\" class=\"list-group-item\"><input type=\"checkbox\" id=\""+doc.docid+"\" > <a href=\""+doc.uri_s+"\">"+doc.label_s+"</a></li>";
+			s+="<tr> <td><input type=\"checkbox\" id=\"hide_"+doc.docid+"\"  > </td><td><input type=\"checkbox\" id=\""+doc.docid+"\"  > </td> "+
+			"<td>"+group.groupValue+"</td><td><a href=\""+doc.uri_s+"\">"+doc.label_s+"</a></td></tr>";       
+
      }
-      
+       
       
   }
 
-
+ s+="</table>";
 	
-      s+=" </ul>"; 
-
+         
+    
 
      
      document.getElementById("docs").innerHTML=s;
@@ -191,14 +275,28 @@ function traiterReponseDocumentsSortedByGroup(rep){
       doclist = group.doclist;
 	
        for(var i=0; i<doclist["docs"].length; i++){
+		   
           var doc=doclist["docs"][i];
+          
            var checkbox = document.getElementById(doc.docid);
-
 			var checkboxObject = new CheckedBox(doc.docid, doc.label_s, doc.uri_s, checkbox);
 			
-			for(var id in checked){
-				if(doc.docid == checked[id]){
+			var checkboxHide = document.getElementById("hide_"+doc.docid);
+			var checkboxHideObject = new CheckedBoxHide(doc.docid, checkboxHide);
+			
+			for(var indice in checked){
+				if(doc.docid == checked[indice]){
 					checkbox.checked = true;
+					break;
+				
+				}
+	
+			}
+			
+			for(var indice in checkedHide){
+				if(doc.docid == checkedHide[indice]){
+					checkboxHide.checked = true;
+					
 					break;
 				
 				}
@@ -211,9 +309,15 @@ function traiterReponseDocumentsSortedByGroup(rep){
 
 
 function getSelected(id){
-	
+
 	checked.push(id);
 
+	
+}
+
+function getSelectedHide(id){
+	
+	checkedHide.push(id);
 	
 }
 

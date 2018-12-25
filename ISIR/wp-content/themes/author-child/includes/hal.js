@@ -1,3 +1,13 @@
+var checkedHide = new Array();
+
+function getSelectedHide(id){
+
+	checkedHide.push(id);
+	
+}
+
+
+
 
 function getDocuments(nom, prenom){
 	
@@ -52,25 +62,36 @@ function traiterReponseDocuments(rep){
 	var s="";	
         
        
-  s+="<br>";
-  s+="<ul class=\"list-group\" id=\"myList\">";
+ s+="<br>";
+  
+  
+  s+="<table id=\"myTable\">";
+  
 
-
+   s+="<tr class=\"header\">   <th>Publication</th> </tr>";
+   
 
 	 for(var i=0; i<response["docs"].length; i++){
           var doc=response["docs"][i];
-          //var doc=response["org"][i];
-			s+="<li id=\""+doc.docid+"\" class=\"list-group-item\"><a href=\""+doc.uri_s+"\">"+doc.label_s+"</a></li>";
-     }
-      s+=" </ul>";  
+          
+          var show = true;
+          
+          for(var indice in checkedHide){
+		
+			  if(doc.docid == checkedHide[indice]){
+			
+				show = false;
+				break;
+			}
+		  }
+		  
+		  if(show)
 
-        /*<div>
-          <input type="checkbox" id="subscribeNews" name="subscribe" value="newsletter">
-          <label for="subscribeNews">Souhaitez-vous vous abonner à la newsletter ?</label>
-        </div>
-        <div>
-          <button type="submit">S'abonner</button>
-        </div>*/
+			s+="<td><a href=\""+doc.uri_s+"\">"+doc.label_s+"</a></td></tr>";
+     }
+      s+=" </table>";  
+
+      
 
      
      document.getElementById("docs").innerHTML=s;
@@ -88,21 +109,41 @@ function traiterReponseDocumentsSortedByGroup(rep){
 	var s="";	
         
 
-  s+="<ul class=\"list-group\" id=\"myList\">";
+  s+="<br>";
+  
+  
+   s+="<table id=\"myTable\">";
+  
+
+   s+="<tr class=\"header\">   <th>Type</th>     <th>Publication</th> </tr>";
+   
   
   
   for(var j=0; j<response["groups"].length; j++){
  
       var group = response["groups"][j];
      
-      s+="<h1>"+group.groupValue+"</h1>";
-      
+       
       doclist = group.doclist;
       
        for(var i=0; i<doclist["docs"].length; i++){
           var doc=doclist["docs"][i];
-          //var doc=response["org"][i];
-			s+="<li id=\""+doc.docid+"\" class=\"list-group-item\"><a href=\""+doc.uri_s+"\">"+doc.label_s+"</a></li>";
+          
+			 var show = true;
+          
+          for(var indice in checkedHide){
+		
+			  if(doc.docid == checkedHide[indice]){
+			
+				show = false;
+				break;
+			}
+		  }
+		  
+		  if(show){
+       s+="<tr> <td>"+group.groupValue+"</td><td><a href=\""+doc.uri_s+"\">"+doc.label_s+"</a></td></tr>";   
+		}
+     
      }
       
       
@@ -113,32 +154,9 @@ function traiterReponseDocumentsSortedByGroup(rep){
 	
       s+=" </ul>"; 
 
-        /*<div>
-          <input type="checkbox" id="subscribeNews" name="subscribe" value="newsletter">
-          <label for="subscribeNews">Souhaitez-vous vous abonner à la newsletter ?</label>
-        </div>
-        <div>
-          <button type="submit">S'abonner</button>
-        </div>*/
-
      
      document.getElementById("docs").innerHTML=s;
 	
 }
 
-
-
-	document.getElementById("all").addEventListener("click",function(){
-        getDocuments("amel", "arkoub"); return false;
-    },false);
-
-
-
-
-	document.getElementById("sortbygroup").addEventListener("click",function(){
-        getDocumentsSortedByGroup("amel", "arkoub"); return false;
-    },false);
-
-
-getDocuments("amel", "arkoub");
 
