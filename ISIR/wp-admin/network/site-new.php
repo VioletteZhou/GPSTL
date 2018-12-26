@@ -61,6 +61,7 @@ if ( isset($_REQUEST['action']) && 'add-site' == $_REQUEST['action'] ) {
 
 	$blog_type = $blog['blog_type'];
 	$blog_desc = $blog['blog_desc'];
+	$blog_domain = $blog['domainType'];
 
 	$meta = array(
 		'public' => 1
@@ -93,11 +94,14 @@ if ( isset($_REQUEST['action']) && 'add-site' == $_REQUEST['action'] ) {
 	}
 
 	if ( is_subdomain_install() ) {
-		$newdomain = $domain . '.' . preg_replace( '|^www\.|', '', get_network()->domain );
+		//$newdomain =  $blog_domain.$domain . '.' . preg_replace( '|^www\.|', '', get_network()->domain );
+
+		$newdomain =  $domain . '.' . preg_replace( '|^www\.|', '', get_network()->domain );
 		$path      = get_network()->path;
 	} else {
-		$newdomain = get_network()->domain;
-		$path      = get_network()->path . $domain . '/';
+		$newdomain =  get_network()->domain;
+		$path      = get_network()->path .$domain . '/';
+		//$path      = get_network()->path .$blog_domain. $domain . '/';
 	}
 
 	$password = 'N/A';
@@ -216,37 +220,87 @@ Name: %3$s' ),
 
 
 
-// create hal table
-$table_name = 'isir_'.$id.'_hal';
-$charset_collate = $wpdb->get_charset_collate();
-//if table exist or not
-if($wpdb->get_var("show tables like $table_name") != $table_name) {
-$sql = "CREATE TABLE $table_name (
-	id int NOT NULL,
-	label varchar(1000) ,
-	url varchar(1000) ,
-	PRIMARY KEY  (id)
-) $charset_collate;";
-//excute
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-dbDelta( $sql );
-  }
+			// create hal table
+
+			if($blog_type == 1){
+
+				$table_name = 'isir_'.$blog_id.'_hal_project';
+					$charset_collate = $wpdb->get_charset_collate();
+					//if table exist or not
+				  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+					$sql = "CREATE TABLE $table_name (
+						nameProject varchar(50) not null
+					) $charset_collate;";
+					//excute
+					require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+					dbDelta( $sql );
+				      }
+
+				$wpdb->insert($table_name, array( 'nameProject'=> $title) );
+			}
+			else{
+
+				$table_name = 'isir_'.$blog_id.'_hal_team';
+					$charset_collate = $wpdb->get_charset_collate();
+					//if table exist or not
+				  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+					$sql = "CREATE TABLE $table_name (
+						nameTeam varchar(50) not null
+					) $charset_collate;";
+					//excute
+					require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+					dbDelta( $sql );
+				      }
+
+				$wpdb->insert($table_name, array( 'nameTeam'=> $title) );
 
 
-$table_name = 'isir_'.$id.'_hal_hide';
-$charset_collate = $wpdb->get_charset_collate();
-//if table exist or not
-if($wpdb->get_var("show tables like $table_name") != $table_name) {
-$sql = "CREATE TABLE $table_name (
-	id int NOT NULL,
-	PRIMARY KEY  (id)
-) $charset_collate;";
-//excute
-require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-dbDelta( $sql );
-  }
+			}
 
-// end create table
+			$table_name = 'isir_'.$blog_id.'_hal_id';
+				$charset_collate = $wpdb->get_charset_collate();
+				//if table exist or not
+			  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+				$sql = "CREATE TABLE $table_name (
+					id int NOT NULL,
+					idHal varchar(1000),
+					PRIMARY KEY  (id)
+				) $charset_collate;";
+				//excute
+				require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+				dbDelta( $sql );
+			      }
+
+			$table_name = 'isir_'.$id.'_hal';
+			$charset_collate = $wpdb->get_charset_collate();
+			//if table exist or not
+			if($wpdb->get_var("show tables like $table_name") != $table_name) {
+			$sql = "CREATE TABLE $table_name (
+				id int NOT NULL,
+				label varchar(1000) ,
+				url varchar(1000) ,
+				PRIMARY KEY  (id)
+			) $charset_collate;";
+			//excute
+			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+			dbDelta( $sql );
+			  }
+
+
+			$table_name = 'isir_'.$id.'_hal_hide';
+			$charset_collate = $wpdb->get_charset_collate();
+			//if table exist or not
+			if($wpdb->get_var("show tables like $table_name") != $table_name) {
+			$sql = "CREATE TABLE $table_name (
+				id int NOT NULL,
+				PRIMARY KEY  (id)
+			) $charset_collate;";
+			//excute
+			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+			dbDelta( $sql );
+			  }
+
+			// end create table
 
 
 
@@ -262,6 +316,7 @@ if ( isset($_GET['update']) ) {
 	$messages = array();
 	if ( 'added' == $_GET['update'] )
 		$messages[] = sprintf(
+
 			/* translators: 1: dashboard url, 2: network admin edit url */
 			__( 'Site added. <a href="%1$s">Visit Dashboard</a> or <a href="%2$s">Edit Site</a>' ),
 			esc_url( get_admin_url( absint( $_GET['id'] ) ) ),
@@ -278,6 +333,8 @@ require( ABSPATH . 'wp-admin/admin-header.php' );
 
 ?>
 
+
+
 <div class="wrap">
 <h1 id="add-new-site"><?php _e( 'Add New Site' ); ?></h1>
 <?php
@@ -293,18 +350,26 @@ if ( ! empty( $messages ) ) {
 			<th scope="row"><label for="site-type"><?php _e( 'Site Type' ) ?></label></th>
 			<td>
 				<select id="siteType" onchange="change_site_type();">
-           <option value ="projet">Projet</option>
-           <option value ="equipe">Equipe</option>
+           <option value ="project">Project</option>
+           <option value ="team">Team</option>
         </select>
+
+<script type="text/javascript">
+
+	var e = document.getElementById("siteType");
+	var strUser = e.options[e.selectedIndex].value;
+	 var domainType = strUser+"s/";
+ </script>
 			</td>
 		</tr>
 		<tr class="form-field form-required">
 			<th scope="row"><label for="site-address"><?php _e( 'Site Address (URL)' ) ?></label></th>
 			<td>
 			<?php if ( is_subdomain_install() ) { ?>
-				<input name="blog[domain]" type="text" class="regular-text" id="site-address" aria-describedby="site-address-desc" autocapitalize="none" autocorrect="off"/><span class="no-break">.<?php echo preg_replace( '|^www\.|', '', get_network()->domain ); ?></span>
+				<input name="blog[domain]" type="text" class="regular-text" id="site-address" aria-describedby="site-address-desc" autocapitalize="none" autocorrect="off"/><span class="no-break">.<?php echo preg_replace( '|^www\.|', '', get_network()->domain ); ?><span id=domainTypeDiv><script>document.write(domainType)</script></span></span>
 			<?php } else {
-				echo get_network()->domain . get_network()->path ?><input name = "blog[blog_type]" type="text" id= "blog_type" value = "1" style="display: none;"></input><input name="blog[domain]" type="text" class="regular-text" id="site-address" aria-describedby="site-address-desc"  autocapitalize="none" autocorrect="off" />
+				echo get_network()->domain . get_network()->path ?><span id=domainTypeDiv><script>document.write(domainType)</script></span>
+<input name = "blog[blog_type]" type="text" id= "blog_type" value = "1" style="display: none;"></input><input name="blog[domain]" type="text" class="regular-text" id="site-address" aria-describedby="site-address-desc"  autocapitalize="none" autocorrect="off" />
 			<?php }
 			echo '<p class="description" id="site-address-desc">' . __( 'Only lowercase letters (a-z), numbers, and hyphens are allowed.' ) . '</p>';
 			?>
@@ -318,6 +383,11 @@ if ( ! empty( $messages ) ) {
 			<th scope="row"><label for="site-desc"><?php _e( 'Site Description' ) ?></label></th>
 			<td><input name="blog[blog_desc]" type="text" class="regular-text" id="site-title" /></td>
 		</tr>
+<input type = "hidden" id="domainInput" name = "blog[domainType]" value = "null" />
+
+<script type="text/javascript">
+	document.getElementById("domainInput").value = domainType;
+ </script>
 		<?php
 		$languages    = get_available_languages();
 		$translations = wp_get_available_translations();
@@ -374,16 +444,20 @@ if ( ! empty( $messages ) ) {
      function change_site_type(){
 			 var  myselect = document.getElementById("siteType");
 			 var index=myselect.selectedIndex ;
-			 // var append_path = document.getElementById("append_path");
-			 // var label_type = document.getElementById("label_type");
+
 			 var blog_type = document.getElementById("blog_type");
-			 // label_type.innerText = myselect.options[index].value+"-";
-			 // append_path.value=myselect.options[index].value+"-";
+
 			 if(index == 0){
 				 blog_type.value = 1;
+				domainType = "projects/";
+				
 			 }else{
 				 blog_type.value = 2;
+				domainType = "teams/";
 			 }
+			document.getElementById("domainTypeDiv").innerHTML = domainType;
+			document.getElementById("domainInput").value = domainType;
+			
 
 		 }
 	// alert("kjhbg");
