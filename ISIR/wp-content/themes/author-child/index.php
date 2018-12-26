@@ -36,18 +36,24 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			$blog_id = get_current_blog_id();
 			$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_hal" );
 
-			if(count($result)>0)
+			if(count($result)>0){
 				echo "<h1>Favorite publications</h1>";
+				echo "<table id=\"myTable\">";
+  
+
+  				 echo "<tr class=\"header\">   <th>Publication</th> </tr>";
 
 
 
-			foreach ( $result as $print )   {
-				echo "
-				<li id=\"element_".$print->id."\" class=\"list-group-item\"> <a href=\"".$print->url."\">".$print->label."</a></li>
+				foreach ( $result as $print )   {
+					echo "
+					<td> <a href=\"".$print->url."\">".$print->label."</a></td></tr>
 
-					";
-				}
+						";
+					}
 
+				echo "</table>";
+			}
 		}
 
 
@@ -227,80 +233,98 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 
 
-// check for plugin using plugin name
-if ( is_plugin_active( 'hal/hal.php' ) ) {
-  //plugin is activated
+	// check for plugin using plugin name
+	if ( is_plugin_active( 'hal/hal.php' ) ) {
+	  //plugin is activated
+ 
 
 
+		$table_name_hide = 'isir_'.$blog_id.'_hal_hide';
+		$blog_id = get_current_blog_id();
+		$result_hide = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_hal_hide" );	
+		echo "<script type=\"text/javascript\">";
+		foreach($result_hide as $tohide){
+			echo "getSelectedHide(\"$tohide->id\");" ;
 
-			$table_name_hide = 'isir_'.$blog_id.'_hal_hide';
-			$blog_id = get_current_blog_id();
-			$result_hide = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_hal_hide" );
-			echo "<script type=\"text/javascript\">";
-			foreach($result_hide as $tohide){
-				echo "getSelectedHide(\"$tohide->id\");" ;
+		}
 
+		echo "</script>";	
+
+		echo "<script type=\"text/javascript\">
+			var i_search = 0;
+			function myFunction() {
+			  // Declare variables
+			  var input, filter, table, tr, td, i, txtValue;
+			  input = document.getElementById(\"myInput\");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById(\"myTable\");
+			  tr = table.getElementsByTagName(\"tr\");
+				
+			  // Loop through all table rows, and hide those who don't match the search query
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName(\"td\")[i_search];
+			    if (td) {
+			      txtValue = td.textContent || td.innerText;
+			      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = \"\";
+			      } else {
+				tr[i].style.display = \"none\";
+			      }
+			    }
+			  }
 			}
+			</script>";	
 
-			echo "</script>";
+			
+		echo "<div class=\"wrap\">
+			  <h1>Publications</h1><br>";
 
-echo "<script type=\"text/javascript\">
-	function myFunction() {
-	  // Declare variables
-	  var input, filter, table, tr, td, i, txtValue;
-	  input = document.getElementById(\"myInput\");
-	  filter = input.value.toUpperCase();
-	  table = document.getElementById(\"myTable\");
-	  tr = table.getElementsByTagName(\"tr\");
 
-	  // Loop through all table rows, and hide those who don't match the search query
-	  for (i = 0; i < tr.length; i++) {
-	    td = tr[i].getElementsByTagName(\"td\")[2];
-	    if (td) {
-	      txtValue = td.textContent || td.innerText;
-	      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-		tr[i].style.display = \"\";
-	      } else {
-		tr[i].style.display = \"none\";
-	      }
-	    }
-	  }
+		$tablename = "isir_".get_current_blog_id()."_hal_id";
+		$myrows = $wpdb->get_results( "SELECT idHal FROM $tablename" );
+
+		$hasHal = true;
+
+		if(count($myrows)!=0 && strlen($myrows[0]->idHal)!=0){
+			$idHal = $myrows[0]->idHal;
+		}
+		else
+			$hasHal = false;
+		
+		if($hasHal){
+
+
+			echo "<div id=\"wait\"><p>Chargement en cours. Attendez svp...</p></div>
+			<div class=\"container\">";
+
+			echo "<input class=\"form-control\" id=\"myInput\" type=\"text\" onkeyup=\"myFunction()\" placeholder=\"Search..\">
+			<br>
+			<a href=\"#\" id=\"all\" >Sort by date</a>
+
+			<a href=\"#\" id=\"sortbygroup\" >Sort by doctype</a>
+
+			<script>
+				document.getElementById(\"all\").addEventListener(\"click\",function(){
+				i_search = 0;
+				getDocuments(\"$idHal\"); return false;
+			    },false);
+			</script>
+
+
+			<script>
+				document.getElementById(\"sortbygroup\").addEventListener(\"click\",function(){
+				i_search = 1;
+				getDocumentsSortedByGroup(\"$idHal\"); return false;
+			    },false);
+			</script>
+
+			  <script type=\"text/javascript\">getDocuments(\"$idHal\");</script>
+
+				<div id=\"docs\"></div></div>
+			</div>";
+		}
+
 	}
-	</script>";
-
-
-	echo "<div class=\"wrap\">
-  <h1>Publications</h1><br>
-<div id=\"wait\"><p>Chargement en cours. Attendez svp...</p></div>
-<div class=\"container\">";
-
-
-
-echo "<input class=\"form-control\" id=\"myInput\" type=\"text\" onkeyup=\"myFunction()\" placeholder=\"Search..\">
-<br>
-<a href=\"#\" id=\"all\" >Sort by date</a>
-
-<a href=\"#\" id=\"sortbygroup\" >Sort by doctype</a>
-
-<script>
-	document.getElementById(\"all\").addEventListener(\"click\",function(){
-        getDocuments(\"amel\", \"arkoub\"); return false;
-    },false);
-</script>
-
-
-<script>
-	document.getElementById(\"sortbygroup\").addEventListener(\"click\",function(){
-        getDocumentsSortedByGroup(\"amel\", \"arkoub\"); return false;
-    },false);
-</script>
-
-  <script type=\"text/javascript\">getDocuments(\"amel\", \"arkoub\");</script>
-
-	<div id=\"docs\"></div></div>
-</div>";
-
-}
 
  ?>
 

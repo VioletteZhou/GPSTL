@@ -195,6 +195,21 @@ function create_video_tables($blog_id) {
 
 function create_hal_tables($blog_id) {
 	global $wpdb;
+
+	$table_name = 'isir_'.$blog_id.'_hal_id';
+	$charset_collate = $wpdb->get_charset_collate();
+        //if table exist or not
+  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+	$sql = "CREATE TABLE $table_name (
+		id int NOT NULL,
+		idHal varchar(1000),
+		PRIMARY KEY  (id)
+	) $charset_collate;";
+        //excute
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql );
+      }
+
 	$table_name = 'isir_'.$blog_id.'_hal';
 	$charset_collate = $wpdb->get_charset_collate();
         //if table exist or not
@@ -224,6 +239,7 @@ $table_name = 'isir_'.$blog_id.'_hal_hide';
       }
 
 }
+
 
 
 function create_code_source_tables($blog_id) {
@@ -778,6 +794,7 @@ function get_blogs_of_user( $user_id, $all = false ) {
 	}
 
 	$keys = array_keys( $keys );
+
 
 	foreach ( $keys as $key ) {
 		if ( 'capabilities' !== substr( $key, -12 ) )

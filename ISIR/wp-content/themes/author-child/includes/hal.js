@@ -9,15 +9,13 @@ function getSelectedHide(id){
 
 
 
-function getDocuments(nom, prenom){
-	
-        nom = "Doncieux";
-        prenom = "Stephane";
+function getDocuments(idHal){
+
         
 	jQuery.ajax({ 
         type:"get",
         url:"https://api.archives-ouvertes.fr/search/",
-        data:"q="+nom+" "+prenom+"&rows=10000&sort=producedDate_tdate desc",
+        data:"q=authIdHal_s:"+idHal+"&rows=10000&sort=producedDate_tdate desc",
         datatype:"json",
         success:function(rep){
             traiterReponseDocuments(rep);
@@ -30,16 +28,13 @@ function getDocuments(nom, prenom){
 	
 }
 
-function getDocumentsSortedByGroup(nom, prenom){
+function getDocumentsSortedByGroup(idHal){
   
-  
-    nom = "Doncieux";
-        prenom = "Stephane";
         
 	jQuery.ajax({ 
         type:"get",
         url:"https://api.archives-ouvertes.fr/search/",
-        data:"q="+nom+" "+prenom+"&rows=10000&sort=producedDate_tdate desc&group=true&group.field=docType_s&indent=true&group.limit=1000",
+        data:"q=authIdHal_s:"+idHal+"&rows=10000&sort=producedDate_tdate desc&group=true&group.field=docType_s&indent=true&group.limit=1000",
         datatype:"json",
         success:function(rep){
             traiterReponseDocumentsSortedByGroup(rep);
@@ -152,7 +147,7 @@ function traiterReponseDocumentsSortedByGroup(rep){
 
 
 	
-      s+=" </ul>"; 
+      s+=" </table>"; 
 
      
      document.getElementById("docs").innerHTML=s;

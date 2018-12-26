@@ -104,15 +104,13 @@ var CheckedBoxHide = function(id, checkbox){
 }
 
 
-function getDocuments(nom, prenom){
-	
-        nom = "Doncieux";
-        prenom = "Stephane";
+function getDocuments(idHal){
+
         
 	jQuery.ajax({ 
         type:"get",
         url:"https://api.archives-ouvertes.fr/search/",
-        data:"q="+nom+" "+prenom+"&rows=10000&sort=producedDate_tdate desc",
+        data:"q=authIdHal_s:"+idHal+"&rows=10000&sort=producedDate_tdate desc",
         datatype:"json",
         success:function(rep){
             traiterReponseDocuments(rep);
@@ -125,16 +123,13 @@ function getDocuments(nom, prenom){
 	
 }
 
-function getDocumentsSortedByGroup(nom, prenom){
+function getDocumentsSortedByGroup(idHal){
   
-  
-    nom = "Doncieux";
-        prenom = "Stephane";
         
 	jQuery.ajax({ 
         type:"get",
         url:"https://api.archives-ouvertes.fr/search/",
-        data:"q="+nom+" "+prenom+"&rows=10000&sort=producedDate_tdate desc&group=true&group.field=docType_s&indent=true&group.limit=1000",
+        data:"q=authIdHal_s:"+idHal+"&rows=10000&sort=producedDate_tdate desc&group=true&group.field=docType_s&indent=true&group.limit=1000",
         datatype:"json",
         success:function(rep){
             traiterReponseDocumentsSortedByGroup(rep);
@@ -163,7 +158,7 @@ function traiterReponseDocuments(rep){
   s+="<table id=\"myTable\">";
   
 
-   s+="<tr class=\"header\">   <th>Ne pas montrer</th>       <th>Mettre en favoris</th>       <th>Publication</th> </tr>";
+   s+="<tr class=\"header\">   <th>Do not show</th>       <th>Add to favorites</th>       <th>Publication</th> </tr>";
    
 
   
@@ -235,7 +230,7 @@ function traiterReponseDocumentsSortedByGroup(rep){
    s+="<table id=\"myTable\">";
   
 
-   s+="<tr class=\"header\">   <th>Ne pas montrer</th>       <th>Mettre en favoris</th>  <th>Type</th>     <th>Publication</th> </tr>";
+   s+="<tr class=\"header\">   <th>Do not show</th>       <th>Add to favorites</th>  <th>Type</th>     <th>Publication</th> </tr>";
    
   
   for(var j=0; j<response["groups"].length; j++){
