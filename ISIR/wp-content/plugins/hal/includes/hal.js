@@ -104,7 +104,11 @@ var CheckedBoxHide = function(id, checkbox){
 }
 
 
-function getDocuments(idHal){
+function getDocuments(idHal, username){
+	
+	
+	if(username!=undefined)
+		document.getElementById("publicationHead").innerHTML = "Publications of "+username;
 
         
 	jQuery.ajax({ 
@@ -123,7 +127,10 @@ function getDocuments(idHal){
 	
 }
 
-function getDocumentsSortedByGroup(idHal){
+function getDocumentsSortedByGroup(idHal, username){
+	
+	if(username!=undefined)
+		document.getElementById("publicationHead").innerHTML = "Publications of "+username;
   
         
 	jQuery.ajax({ 

@@ -6,6 +6,7 @@
 		email VARCHAR(30) NOT NULL,
 		password VARCHAR(50) NOT NULL,
 		isirequipe VARCHAR(50) NOT NULL,
-  		role VARCHAR(50)
+  		role VARCHAR(50),
+		blog_id INT(6) DEFAULT -1
 	)";
 ?>

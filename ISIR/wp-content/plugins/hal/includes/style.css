@@ -30,3 +30,23 @@
   /* Add a grey background color to the table header and on hover */
   background-color: #f1f1f1;
 }
+
+#liste_users {
+    float:left;
+    width:20%;
+}
+#hal_component {
+    margin-left:23%   
+    
+}
+
+#myInput, #myTable {
+	width:72%; 
+}
+
+
+html, body{
+	
+	overflow-x: hidden;
+
+}

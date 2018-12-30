@@ -11,7 +11,13 @@
  * @since Twenty Fifteen 1.0
  */
 
-get_header(); ?>
+get_header();
+/**
+ * Detect plugin. For use on Front End only.
+ */
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+ ?>
 
 	<div id="primary" class="content-area" >
 		<main id="main" class="site-main" role="main">
@@ -61,6 +67,8 @@ get_header(); ?>
 		<?php break;
 				case 'Team videos':
 
+// check for plugin using plugin name
+		if ( is_plugin_active( 'add-video/add-video.php' ) ) {
 				if(!empty($_POST["video_search_value"])) {
 						$video_search_value = $_POST["video_search_value"];
 				 }
@@ -92,11 +100,16 @@ get_header(); ?>
 									</div>
 									';
 								 }
+}
 
 			?>
 
 		<?php break;
 			case 'Team videos live':
+
+// check for plugin using plugin name
+		if ( is_plugin_active( 'youtube-live/youtube-live.php' ) ) {
+
 				$blog_id = get_current_blog_id();
 					$result = $wpdb->get_results( "SELECT * FROM isir_youtubelive WHERE blog_id=".$blog_id."");
 					$row = json_decode(json_encode($result[0]), True);
@@ -116,15 +129,143 @@ get_header(); ?>
 						printf('<iframe width="560" height="315" src="https://www.youtube.com/embed/%s?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>',$embed);
 						echo "<h4>By : ".$row['author_name']."<h4>";
 					}
-			?>
+		}			
+	?>
 
 			<?php break;
-					case 'Publications': ?>
+					case 'Team Publications':
+
+	$servername = "localhost";
+	$username = "root";
+	$password = "root";
+	$dbname = "MEMBER";
+	$table = "User";
+
+				// check for plugin using plugin name
+				if ( is_plugin_active( 'hal/hal.php' ) ) {
+
+					$tablename = "isir_".get_current_blog_id()."_hal_team";
+	$myrows = $wpdb->get_results( "SELECT nameTeam FROM $tablename" );
+
+	$nameTeam = $myrows[0]->nameTeam;
+	
+	$mydb = new wpdb($username,$passeword,$dbname,$servername);
+	
+	$rows = $mydb->get_results("select * from $table where isirequipe='$nameTeam'");
+	
+	echo "<div id=\"liste_users\">";
+	echo "<h4>List of the researchers of the team</h4>";
+	echo "<ul >";
+	
+	foreach ($rows as $obj) :
+		if($obj->blog_id >=0){
+	   		$tablename_user = "isir_".$obj->blog_id."_hal_id";
+			$user_rows = $wpdb->get_results( "SELECT * FROM $tablename_user" );
+			if(count($user_rows)!=0 && strlen($user_rows[0]->idHal)!=0){
+				$idHal = $user_rows[0]->idHal;
+				echo "<li><a href=\"#\" onclick=\"getDocuments('$idHal','$obj->username')\">".$obj->username."</a></li>";
+				$username_idHal = $obj->username; 
+				
+			}
+			else{
+				echo "<li>".$obj->username." didn't active its HAL plugin</li>";
+			}	
+			
+		}
+	endforeach;
+
+	echo "</ul></div>";
+
+	echo "<div id=\"hal_component\">";
+	echo "<strong id=\"publicationHead\">Publications</strong><br><br>";
+
+	echo "<script type=\"text/javascript\">
+		var i_search = 2;
+		function myFunction() {
+		  // Declare variables
+		  var input, filter, table, tr, td, i, txtValue;
+		  input = document.getElementById(\"myInput\");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById(\"myTable\");
+		  tr = table.getElementsByTagName(\"tr\");
+
+		  // Loop through all table rows, and hide those who don't match the search query
+		  for (i = 0; i < tr.length; i++) {
+		    td = tr[i].getElementsByTagName(\"td\")[i_search];
+		    if (td) {
+		      txtValue = td.textContent || td.innerText;
+		      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			tr[i].style.display = \"\";
+		      } else {
+			tr[i].style.display = \"none\";
+		      }
+		    }
+		  }
+		}
+		</script>";
+
+	
+
+	$tablename = "isir_".get_current_blog_id()."_hal_hide";
+	$result_hide = $wpdb->get_results( "SELECT id FROM $tablename" );
+
+
+	echo "<script type=\"text/javascript\">";
+	foreach($result_hide as $tohide){
+		echo "getSelectedHide(\"$tohide->id\");" ;
+
+	}
+
+
+
+	echo "</script>";
+
+
+		echo "<div class=\"wrap\">";
+	
+		echo "<div id=\"wait\"><p>Loading. Please wait...</p></div>
+		<div class=\"container\">
+		<input class=\"form-control\" id=\"myInput\" type=\"text\" onkeyup=\"myFunction()\" placeholder=\"Search documents...\">
+		<br>
+		<a href=\"#\" id=\"all\" >Sort by date</a>
+
+		<a href=\"#\" id=\"sortbygroup\" >Sort by doctype</a>
+
+		<script>
+			document.getElementById(\"all\").addEventListener(\"click\",function(){
+			i_search = 2;
+			getDocuments(\"$idHal\"); return false;
+		    },false);
+		</script>
+
+
+		<script>
+			document.getElementById(\"sortbygroup\").addEventListener(\"click\",function(){
+			i_search = 3;
+			getDocumentsSortedByGroup(\"$idHal\"); return false;
+		    },false);
+		</script>
+
+		  <script type=\"text/javascript\">getDocuments(\"$idHal\", \"$username_idHal\");</script>
+
+			<div id=\"docs\"></div></div>
+		</div>";
+
+
+	echo "</div>";
+
+
+				}
+			
+			?>
 
 			<?php break;
 					case 'Photos': ?>
 			<?php break;
 					case 'Codes Sources':
+
+// check for plugin using plugin name
+if ( is_plugin_active( 'add-code-source/add-code-source.php' ) ) {
 
 										 if(!empty($_POST["code_source_search_value"])) {
 												 $code_source_search_value = $_POST["code_source_search_value"];
@@ -182,6 +323,7 @@ get_header(); ?>
 
 								';
 					}
+	}
 
 					?>
 			<?php break;

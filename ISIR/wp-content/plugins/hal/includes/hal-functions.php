@@ -23,6 +23,177 @@ function hal_Print_Text()
 
 
 function hal_init(){
+	global $wpdb;
+	
+	$tablename = "isir_".get_current_blog_id()."_hal_team";
+	$myrows = $wpdb->get_results( "SELECT nameTeam FROM $tablename" );
+	if($myrows!=null){
+		hal_team();
+	}
+	else {
+		$tablename = "isir_".get_current_blog_id()."_hal_project";
+	$myrows = $wpdb->get_results( "SELECT nameProject FROM $tablename" );
+		if($myrows!=null){
+			hal_project();
+
+		}
+		else
+			hal_chercheur();
+
+
+	}
+		
+		
+
+}
+
+
+
+function hal_team(){
+
+	$servername = "localhost";
+	$username = "root";
+	$password = "root";
+	$dbname = "MEMBER";
+	$table = "User";
+
+	echo "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">
+	<link rel=\"stylesheet\" href=\"/ISIR/wp-content/plugins/hal/includes/style.css\">
+	  <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>";
+
+	echo "<script type=\"text/javascript\" src=\"/ISIR/wp-content/plugins/hal/includes/hal.js\"></script>";
+
+	echo "<h2>Choose the documents from HAL that you want to show in the \"Favorite\" section ! </h2><br>";
+	global $wpdb;
+	$tablename = "isir_".get_current_blog_id()."_hal_team";
+	$myrows = $wpdb->get_results( "SELECT nameTeam FROM $tablename" );
+
+	$nameTeam = $myrows[0]->nameTeam;
+	
+	$mydb = new wpdb($username,$passeword,$dbname,$servername);
+	
+	$rows = $mydb->get_results("select * from $table where isirequipe='$nameTeam'");
+	
+	echo "<div id=\"liste_users\">";
+	echo "<h4>List of the researchers of the team</h4>";
+	echo "<ul >";
+	foreach ($rows as $obj) :
+		if($obj->blog_id >=0){
+	   		$tablename_user = "isir_".$obj->blog_id."_hal_id";
+			$user_rows = $wpdb->get_results( "SELECT * FROM $tablename_user" );
+			if(count($user_rows)!=0 && strlen($user_rows[0]->idHal)!=0){
+				$idHal = $user_rows[0]->idHal;
+				echo "<li><a href=\"#\" onclick=\"getDocuments('$idHal')\">".$obj->username."</a></li>";
+				$username_idHal = $obj->username;
+				
+			}
+			else{
+				echo "<li>".$obj->username." didn't active its HAL plugin</li>";
+			}	
+			
+		}
+	endforeach;
+
+	echo "</ul></div>";
+
+	echo "<div id=\"hal_component\">";
+
+	echo "<script type=\"text/javascript\">
+		var i_search = 2;
+		function myFunction() {
+		  // Declare variables
+		  var input, filter, table, tr, td, i, txtValue;
+		  input = document.getElementById(\"myInput\");
+		  filter = input.value.toUpperCase();
+		  table = document.getElementById(\"myTable\");
+		  tr = table.getElementsByTagName(\"tr\");
+
+		  // Loop through all table rows, and hide those who don't match the search query
+		  for (i = 0; i < tr.length; i++) {
+		    td = tr[i].getElementsByTagName(\"td\")[i_search];
+		    if (td) {
+		      txtValue = td.textContent || td.innerText;
+		      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			tr[i].style.display = \"\";
+		      } else {
+			tr[i].style.display = \"none\";
+		      }
+		    }
+		  }
+		}
+		</script>";
+
+$tablename = "isir_".get_current_blog_id()."_hal";
+	$myrows = $wpdb->get_results( "SELECT id FROM $tablename" );
+
+	echo "<script type=\"text/javascript\">";
+
+	foreach ( $myrows as $row ) 
+	{
+		echo "getSelected(\"$row->id\");" ;
+	}
+
+	$tablename = "isir_".get_current_blog_id()."_hal_hide";
+	$myrows = $wpdb->get_results( "SELECT id FROM $tablename" );
+
+
+	foreach ( $myrows as $row ) 
+	{
+		echo "getSelectedHide(\"$row->id\");" ;
+	}
+
+
+
+
+	echo "</script>";
+
+
+		echo "<div class=\"wrap\">";
+
+		echo "<h4 id=\"publicationHead\">Publications</h4><br><br>";
+	
+		echo "<div id=\"wait\"><p>Loading. Please wait...</p></div>
+		<div class=\"container\">
+		<input class=\"form-control\" id=\"myInput\" type=\"text\" onkeyup=\"myFunction()\" placeholder=\"Search documents...\">
+
+		<a href=\"#\" id=\"all\" >Sort by date</a>
+
+		<a href=\"#\" id=\"sortbygroup\" >Sort by doctype</a>
+
+		<script>
+			document.getElementById(\"all\").addEventListener(\"click\",function(){
+			i_search = 2;
+			getDocuments(\"$idHal\"); return false;
+		    },false);
+		</script>
+
+
+		<script>
+			document.getElementById(\"sortbygroup\").addEventListener(\"click\",function(){
+			i_search = 3;
+			getDocumentsSortedByGroup(\"$idHal\"); return false;
+		    },false);
+		</script>
+
+		  <script type=\"text/javascript\">getDocuments(\"$idHal\", \"$username_idHal\");</script>
+
+			<div id=\"docs\"></div></div>
+		</div>";
+
+
+
+	echo "</div>";
+
+
+}
+
+
+function hal_project(){
+
+}
+
+
+function hal_chercheur(){
 
 	global $wpdb;
 

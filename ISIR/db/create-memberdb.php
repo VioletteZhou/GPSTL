@@ -9,6 +9,7 @@
   $csvFile ="./data/export.csv";
 
 
+
   function createDb($servername, $username, $password,$dbname)
   {
     // Create connection

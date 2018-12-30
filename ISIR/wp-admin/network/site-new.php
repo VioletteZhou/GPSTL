@@ -224,7 +224,7 @@ Name: %3$s' ),
 
 			if($blog_type == 1){
 
-				$table_name = 'isir_'.$blog_id.'_hal_project';
+				$table_name = 'isir_'.$id.'_hal_project';
 					$charset_collate = $wpdb->get_charset_collate();
 					//if table exist or not
 				  if($wpdb->get_var("show tables like $table_name") != $table_name) {
@@ -240,7 +240,7 @@ Name: %3$s' ),
 			}
 			else{
 
-				$table_name = 'isir_'.$blog_id.'_hal_team';
+				$table_name = 'isir_'.$id.'_hal_team';
 					$charset_collate = $wpdb->get_charset_collate();
 					//if table exist or not
 				  if($wpdb->get_var("show tables like $table_name") != $table_name) {
@@ -257,7 +257,7 @@ Name: %3$s' ),
 
 			}
 
-			$table_name = 'isir_'.$blog_id.'_hal_id';
+			$table_name = 'isir_'.$id.'_hal_id';
 				$charset_collate = $wpdb->get_charset_collate();
 				//if table exist or not
 			  if($wpdb->get_var("show tables like $table_name") != $table_name) {

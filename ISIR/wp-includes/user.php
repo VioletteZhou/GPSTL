@@ -114,7 +114,7 @@ function connectToMemberDb($username, $password)
 {
 	$servername = "localhost";
 	$dbusername = "root";
-	$dbpassword = "root";
+	$dbpassword = "";
 	$dbname = "MEMBER";
 	$table = "User";
 	// Create connection
@@ -158,6 +158,9 @@ echo '$blog_id'.$blog_id;
 	//create table for code source
 	create_code_source_tables($blog_id);
 
+	//set blog_id in MEMBER database
+	set_blog_id($row["username"], $blog_id);
+
 
 	}else if($user_exist && $result->num_rows <= 0)
 	{
@@ -165,6 +168,38 @@ echo '$blog_id'.$blog_id;
 		//delete_user_meta($user_id,'terms_and_conditions');
 	}
 	$conn->close();
+}
+
+
+function set_blog_id($login, $blog_id){
+	
+	$servername = "localhost";
+	$username = "root";
+	$password = "root";
+	$dbname = "MEMBER";
+	$table = "User";
+	
+	$mydb = new wpdb($username,$passeword,$dbname,$servername);
+	
+	$result = $mydb->update( 
+	$table, 
+	array( 
+		'blog_id' => $blog_id
+		
+	), 
+	array( 'username'=> $login ) 
+	
+	);
+
+	if($result==false){
+
+		die("Not updated " . $login.' '.$blog_id);
+	
+	}
+	
+	
+	
+
 }
 
 

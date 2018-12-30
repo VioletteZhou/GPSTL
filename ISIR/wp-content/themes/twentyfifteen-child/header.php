@@ -8,6 +8,12 @@
  * @subpackage Twenty_Fifteen
  * @since Twenty Fifteen 1.0
  */
+
+/**
+ * Detect plugin. For use on Front End only.
+ */
+include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js">
 <head>
@@ -19,6 +25,7 @@
 	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/html5.js"></script>
 	<![endif]-->
 	<?php wp_head(); ?>
+	<script type="text/javascript" src="/ISIR/wp-content/themes/twentyfifteen-child/includes/hal.js"></script>
 </head>
 
 <body <?php body_class(); ?>>
@@ -65,11 +72,23 @@
 				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page2->ID ); ?>">Members</a><div>
 				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page3->ID ); ?>">Axes of research</a><div>
         		<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page4->ID ); ?>">Experimental platforms</a><div>
+
+<?php if ( is_plugin_active( 'hal/hal.php' ) ) {  ?>
         		<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page5->ID ); ?>">Publications</a><div>
+<?php } ?>
 				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page6->ID ); ?>">Links</a><div>
-				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page11->ID ); ?>">Codes sources</a><div>
+
+<?php if ( is_plugin_active( 'add-code-source/add-code-source.php' ) ) {  ?>
+				<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page11->ID ); ?>">Git projects</a><div>
+<?php } ?>
+
+<?php if ( is_plugin_active( 'add-video/add-video.php' ) ) {  ?>
 			<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page7->ID ); ?>">Videos</a><div>
+<?php } ?>
+
+<?php if ( is_plugin_active( 'youtube-live/youtube-live.php' ) ) {  ?>
 			<div class="row" style="margin:25px auto"><a href="<?php echo get_permalink( $page8->ID ); ?>">Videos live</a><div>
+<?php } ?>
 			</div><!-- .site-branding -->
 		</header><!-- .site-header -->
 

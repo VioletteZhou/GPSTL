@@ -14,7 +14,11 @@
  * @since Twenty Fifteen 1.0
  */
 
-get_header(); ?>
+get_header(); 
+
+
+
+?>
 
 
 	<div id="primary" class="content-area">
@@ -22,6 +26,33 @@ get_header(); ?>
 
 		<?php
 		// Start the loop.
+
+// check for plugin using plugin name
+		if ( is_plugin_active( 'hal/hal.php' ) ) {
+
+			$table_name = 'isir_'.$blog_id.'_hal';
+			$blog_id = get_current_blog_id();
+			$result = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_hal" );
+
+			if(count($result)>0){
+				echo "<h1>Favorite publications</h1>";
+				echo "<table id=\"myTable\">";
+  
+
+  				 echo "<tr class=\"header\">   <th>Publication</th> </tr>";
+
+
+
+				foreach ( $result as $print )   {
+					echo "
+					<td> <a href=\"".$print->url."\">".$print->label."</a></td></tr>
+
+						";
+					}
+
+				echo "</table>";
+			}
+		}
 
 		global $wpdb;
 		$table_name = 'isir_'.$blog_id.'_video';
