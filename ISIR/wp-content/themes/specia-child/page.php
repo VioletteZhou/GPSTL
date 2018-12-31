@@ -18,6 +18,7 @@ get_template_part('sections/specia','breadcrumb'); ?>
 					</div>
 			<?php break;
 					case 'Vidéos':
+				if ( is_plugin_active( 'add-video/add-video.php' ) ) {
 					if(!empty($_POST["video_search_value"])) {
 							$video_search_value = $_POST["video_search_value"];
 					 }
@@ -49,10 +50,15 @@ get_template_part('sections/specia','breadcrumb'); ?>
 									<p> '.$print->channelTitle.' at '.$print->addedAt.'<p>
 								</div>
 								';
-								 }  ?>
+								 } 
+
+			}			
+			 ?>
 
 			<?php break;
 				case 'Videos live':
+
+				if ( is_plugin_active( 'youtube-live/youtube-live.php' ) ) {
 					$blog_id = get_current_blog_id();
 					$result = $wpdb->get_results( "SELECT * FROM isir_youtubelive WHERE blog_id=".$blog_id."");
 					$row = json_decode(json_encode($result[0]), True);
@@ -72,14 +78,101 @@ get_template_part('sections/specia','breadcrumb'); ?>
 						printf('<iframe width="560" height="315" src="https://www.youtube.com/embed/%s?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>',$embed);
 						echo "<h4>By : ".$row['author_name']."<h4>";
 					}
+			}			
 			?>
 
 			<?php break;
-					case 'Publications': ?>
+					case 'Publications': 
+
+	// check for plugin using plugin name
+	if ( is_plugin_active( 'hal/hal.php' ) ) {
+	  //plugin is activated
+ 
+
+
+		$table_name_show = 'isir_'.$blog_id.'_hal_show';
+		$blog_id = get_current_blog_id();
+		$result_show = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_hal_show" );	
+		echo "<script type=\"text/javascript\">";
+		foreach($result_show as $toshow){
+			echo "getSelectedShow(\"$toshow->id\", \"$toshow->label\", \"$toshow->url\", \"$toshow->type\");" ;
+
+		}
+
+		echo "</script>";	
+
+		echo "<script type=\"text/javascript\">
+			var i_search = 0;
+			function myFunction() {
+			  // Declare variables
+			  var input, filter, table, tr, td, i, txtValue;
+			  input = document.getElementById(\"myInput\");
+			  filter = input.value.toUpperCase();
+			  table = document.getElementById(\"myTable\");
+			  tr = table.getElementsByTagName(\"tr\");
+				
+			  // Loop through all table rows, and hide those who don't match the search query
+			  for (i = 0; i < tr.length; i++) {
+			    td = tr[i].getElementsByTagName(\"td\")[i_search];
+			    if (td) {
+			      txtValue = td.textContent || td.innerText;
+			      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+				tr[i].style.display = \"\";
+			      } else {
+				tr[i].style.display = \"none\";
+			      }
+			    }
+			  }
+			}
+			</script>";	
+
+			
+		echo "<div class=\"wrap\">
+			  <h1>Publications</h1><br>";
+
+
+
+			echo "<div id=\"wait\"><p>Chargement en cours. Attendez svp...</p></div>
+			<div class=\"container\">";
+
+			echo "<input class=\"form-control\" id=\"myInput\" type=\"text\" onkeyup=\"myFunction()\" placeholder=\"Search..\">
+			<br>
+			<a href=\"#\" id=\"all\" >Sort by date</a>
+
+			<a href=\"#\" id=\"sortbygroup\" >Sort by doctype</a>
+
+			<script>
+				document.getElementById(\"all\").addEventListener(\"click\",function(){
+				i_search = 0;
+				getDocuments(); return false;
+			    },false);
+			</script>
+
+
+			<script>
+				document.getElementById(\"sortbygroup\").addEventListener(\"click\",function(){
+				i_search = 1;
+				getDocumentsSortedByGroup(); return false;
+			    },false);
+			</script>
+
+			  
+
+				<div id=\"docs\"></div></div>
+				<script type=\"text/javascript\">getDocuments();</script>
+			</div>";
+		
+
+	}
+
+ ?>
+
+
 			<?php break;
 					case 'Photos': ?>
 			<?php break;
 					case 'Codes Sources':
+				if ( is_plugin_active( 'add-code-source/add-code-source.php' ) ) {
 
 										 if(!empty($_POST["code_source_search_value"])) {
 												 $code_source_search_value = $_POST["code_source_search_value"];
@@ -137,6 +230,7 @@ get_template_part('sections/specia','breadcrumb'); ?>
 
 								';
 					}
+				}
 
 					?>
 			<?php break;

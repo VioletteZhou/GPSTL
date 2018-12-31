@@ -12,6 +12,11 @@ add_action('wp_ajax_ajax_request_hal_add_hide', 'add_publication_hide');
 add_action('wp_ajax_nopriv_ajax_request_hal_remove_hide', 'remove_publication_hide');
 add_action('wp_ajax_ajax_request_hal_remove_hide', 'remove_publication_hide');
 
+add_action('wp_ajax_nopriv_ajax_request_hal_add_show', 'add_publication_show');
+add_action('wp_ajax_ajax_request_hal_add_show', 'add_publication_show');
+
+add_action('wp_ajax_nopriv_ajax_request_hal_remove_show', 'remove_publication_show');
+add_action('wp_ajax_ajax_request_hal_remove_show', 'remove_publication_show');
 
 
 
@@ -101,3 +106,55 @@ global $wpdb;
     die(); //this makes sure you don't get a "1" or "0" appended to the end of your request.
 }
 
+
+function add_publication_show(){
+
+global $wpdb;
+
+    $ret = 'ok'; //our return variable
+
+		$id = $_REQUEST['id'];
+		$label =  $_REQUEST['label'];
+		$uri =  $_REQUEST['uri'];
+		$type = $_REQUEST['type'];
+		$tablename = "isir_".get_current_blog_id()."_hal_show";
+
+		$wpdb->insert( 
+			$tablename, 
+			array( 
+				'id' => $id,
+				'label'=>$label,
+				'url' => $uri ,
+				'type' => $type
+			)
+		);
+
+    echo $ret;
+    die(); //this makes sure you don't get a "1" or "0" appended to the end of your request.
+}
+
+
+function remove_publication_show(){
+
+global $wpdb;
+
+    $ret = 'ok'; //our return variable
+
+		$id = $_REQUEST['id'];
+		$tablename = "isir_".get_current_blog_id()."_hal_show";
+
+		$wpdb->delete( 
+			$tablename, 
+			array( 
+				'id' => $id 
+			), 
+			array(  
+				'%d' 
+			) 
+		);
+
+        
+
+    echo $ret;
+    die(); //this makes sure you don't get a "1" or "0" appended to the end of your request.
+}

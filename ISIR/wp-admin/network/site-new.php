@@ -237,6 +237,22 @@ Name: %3$s' ),
 				      }
 
 				$wpdb->insert($table_name, array( 'nameProject'=> $title) );
+
+				$table_name = 'isir_'.$id.'_hal_show';
+				$charset_collate = $wpdb->get_charset_collate();
+				//if table exist or not
+			  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+				$sql = "CREATE TABLE $table_name (
+					id int NOT NULL,
+					label varchar(1000) ,
+					url varchar(1000) ,
+					type varchar(20),
+					PRIMARY KEY  (id)
+				) $charset_collate;";
+				//excute
+				require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+				dbDelta( $sql );
+			      }
 			}
 			else{
 
@@ -254,22 +270,23 @@ Name: %3$s' ),
 
 				$wpdb->insert($table_name, array( 'nameTeam'=> $title) );
 
-
-			}
-
-			$table_name = 'isir_'.$id.'_hal_id';
+				$table_name = 'isir_'.$id.'_hal_hide';
 				$charset_collate = $wpdb->get_charset_collate();
 				//if table exist or not
-			  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+				if($wpdb->get_var("show tables like $table_name") != $table_name) {
 				$sql = "CREATE TABLE $table_name (
 					id int NOT NULL,
-					idHal varchar(1000),
 					PRIMARY KEY  (id)
 				) $charset_collate;";
 				//excute
 				require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 				dbDelta( $sql );
-			      }
+				  }
+
+
+			}
+
+			
 
 			$table_name = 'isir_'.$id.'_hal';
 			$charset_collate = $wpdb->get_charset_collate();
@@ -287,18 +304,7 @@ Name: %3$s' ),
 			  }
 
 
-			$table_name = 'isir_'.$id.'_hal_hide';
-			$charset_collate = $wpdb->get_charset_collate();
-			//if table exist or not
-			if($wpdb->get_var("show tables like $table_name") != $table_name) {
-			$sql = "CREATE TABLE $table_name (
-				id int NOT NULL,
-				PRIMARY KEY  (id)
-			) $charset_collate;";
-			//excute
-			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-			dbDelta( $sql );
-			  }
+			
 
 			// end create table
 

@@ -1,5 +1,8 @@
 var checked = new Array();
 var checkedHide = new Array();
+var checkedShow = new Array();
+
+var curr_idHal;
 
 var CheckedBox = function(id,  label, uri, checkbox){
 	this.id = id;
@@ -37,6 +40,76 @@ var CheckedBox = function(id,  label, uri, checkbox){
 					type: 'POST',
 					data: { 
 					   action: 'ajax_request_hal_remove', 
+					   id : id 
+					   },
+					success: function(data){
+						
+						},
+					 error:function(jqXMTR, textStatus, errorThrown){
+						alert(errorThrown);
+					}
+				});
+				
+				
+			  }
+			})
+	
+}
+
+
+var CheckedBoxShow = function(id,  label, uri, checkbox){
+	this.id = id;
+	this.checkbox = checkbox;
+	this.label = label;
+	this.uri = uri;
+	
+	checkbox.addEventListener('change', (event) => {
+				if (event.target.checked) {
+					
+					checkedShow.push(id);
+					
+					
+					jQuery.ajax({ 
+						type:"get",
+						url:"https://api.archives-ouvertes.fr/search/",
+						data:"q=docid:"+id+"&facet=true&facet.pivot=docType_s",
+						datatype:"json",
+						success:function(rep){
+							var type = rep.facet_counts.facet_pivot.docType_s[0].value;
+						
+							jQuery.ajax({
+									url: 'admin-ajax.php',
+									type: 'POST',
+									data: { 
+									   action: 'ajax_request_hal_add_show', 
+									   id : id,
+									   label : label,
+									   uri : uri,
+										type : type
+									   },
+									success: function(data){
+										
+										},
+									 error:function(jqXMTR, textStatus, errorThrown){
+										alert(errorThrown);
+									}
+					});
+						},
+						error:function(jqXMTR, textStatus, errorThrown){
+							func_err("Pb lors de la transmission des données", "inscription");
+						}
+					});
+						
+				
+				
+			  } else {
+				checkedShow.pop(id);
+				
+				jQuery.ajax({
+					url: 'admin-ajax.php',
+					type: 'POST',
+					data: { 
+					   action: 'ajax_request_hal_remove_show', 
 					   id : id 
 					   },
 					success: function(data){
@@ -104,11 +177,18 @@ var CheckedBoxHide = function(id, checkbox){
 }
 
 
-function getDocuments(idHal, username){
+function getDocuments(idHal, username, isProject){
 	
+	var project = false;
+	
+	curr_idHal = idHal;
 	
 	if(username!=undefined)
 		document.getElementById("publicationHead").innerHTML = "Publications of "+username;
+	
+	if(isProject!=undefined || project==true){
+		project  = true;
+	}
 
         
 	jQuery.ajax({ 
@@ -117,7 +197,7 @@ function getDocuments(idHal, username){
         data:"q=authIdHal_s:"+idHal+"&rows=10000&sort=producedDate_tdate desc",
         datatype:"json",
         success:function(rep){
-            traiterReponseDocuments(rep);
+            traiterReponseDocuments(rep, project);
         },
         error:function(jqXMTR, textStatus, errorThrown){
             func_err("Pb lors de la transmission des données", "inscription");
@@ -127,11 +207,16 @@ function getDocuments(idHal, username){
 	
 }
 
-function getDocumentsSortedByGroup(idHal, username){
+function getDocumentsSortedByGroup(idHal, username, isProject){
+	
+	var project = false;
 	
 	if(username!=undefined)
 		document.getElementById("publicationHead").innerHTML = "Publications of "+username;
-  
+	
+	if(isProject!=undefined || project==true){
+		project  = true;
+	}
         
 	jQuery.ajax({ 
         type:"get",
@@ -139,7 +224,7 @@ function getDocumentsSortedByGroup(idHal, username){
         data:"q=authIdHal_s:"+idHal+"&rows=10000&sort=producedDate_tdate desc&group=true&group.field=docType_s&indent=true&group.limit=1000",
         datatype:"json",
         success:function(rep){
-            traiterReponseDocumentsSortedByGroup(rep);
+            traiterReponseDocumentsSortedByGroup(rep, project);
         },
         error:function(jqXMTR, textStatus, errorThrown){
             func_err("Pb lors de la transmission des données", "inscription");
@@ -150,10 +235,14 @@ function getDocumentsSortedByGroup(idHal, username){
 }
 
 
-function traiterReponseDocuments(rep){
+function traiterReponseDocuments(rep, isProject){
 	
 	document.getElementById("wait").innerHTML="";
-	
+	if(isProject){
+		showString = "Show";
+	}
+	else
+		showString = "Do not show";
 	
 	var response = rep.response;
 	var s="";	
@@ -165,18 +254,26 @@ function traiterReponseDocuments(rep){
   s+="<table id=\"myTable\">";
   
 
-   s+="<tr class=\"header\">   <th>Do not show</th>       <th>Add to favorites</th>       <th>Publication</th> </tr>";
+   s+="<tr class=\"header\">   <th>"+showString+"</th>       <th>Add to favorites</th>       <th>Publication</th> </tr>";
    
 
   
- 
+	
   
   
 
 	 for(var i=0; i<response["docs"].length; i++){
           var doc=response["docs"][i];
-        
-			s+="<tr> <td><input type=\"checkbox\" id=\"hide_"+doc.docid+"\"  > </td><td><input type=\"checkbox\" id=\""+doc.docid+"\"  > </td> <td><a href=\""+doc.uri_s+"\">"+doc.label_s+"</a></td></tr>";
+			
+			var checkbox_name;
+			
+			if(isProject){
+				checkbox_name = "show_";
+			}
+			else{
+				checkbox_name = "hide_";
+			}
+			s+="<tr> <td><input type=\"checkbox\" id=\""+checkbox_name+doc.docid+"\"  > </td><td><input type=\"checkbox\" id=\""+doc.docid+"\"  > </td> <td><a href=\""+doc.uri_s+"\">"+doc.label_s+"</a></td></tr>";
      
      }
      
@@ -193,8 +290,20 @@ function traiterReponseDocuments(rep){
 			var checkbox = document.getElementById(doc.docid);
 			var checkboxObject = new CheckedBox(doc.docid, doc.label_s, doc.uri_s, checkbox);
 			
-			var checkboxHide = document.getElementById("hide_"+doc.docid);
-			var checkboxHideObject = new CheckedBoxHide(doc.docid, checkboxHide);
+			var checkboxType = document.getElementById(checkbox_name+doc.docid);
+						
+			if(isProject){
+				var checkboxTypeObject = new CheckedBoxShow(doc.docid, doc.label_s, doc.uri_s, checkboxType);
+				var checkedType = checkedShow;
+			}
+			else{
+				
+				
+				var checkboxTypeObject = new CheckedBoxHide(doc.docid, checkboxType);
+				var checkedType = checkedHide;
+			}
+			
+			
 			
 	
 			for(var indice in checked){
@@ -207,9 +316,9 @@ function traiterReponseDocuments(rep){
 	
 			}
 			
-			for(var indice in checkedHide){
-				if(doc.docid == checkedHide[indice]){
-					checkboxHide.checked = true;
+			for(var indice in checkedType){
+				if(doc.docid == checkedType[indice]){
+					checkboxType.checked = true;
 					
 					break;
 				
@@ -222,10 +331,14 @@ function traiterReponseDocuments(rep){
 }
 
 
-function traiterReponseDocumentsSortedByGroup(rep){
+function traiterReponseDocumentsSortedByGroup(rep, isProject){
 	
 	document.getElementById("wait").innerHTML="";
-	
+	if(isProject){
+		showString = "Show";
+	}
+	else
+		showString = "Do not show";
 	
 	var response = rep.grouped.docType_s;
       
@@ -237,7 +350,7 @@ function traiterReponseDocumentsSortedByGroup(rep){
    s+="<table id=\"myTable\">";
   
 
-   s+="<tr class=\"header\">   <th>Do not show</th>       <th>Add to favorites</th>  <th>Type</th>     <th>Publication</th> </tr>";
+   s+="<tr class=\"header\">   <th>"+showString+"</th>       <th>Add to favorites</th>  <th>Type</th>     <th>Publication</th> </tr>";
    
   
   for(var j=0; j<response["groups"].length; j++){
@@ -254,7 +367,17 @@ function traiterReponseDocumentsSortedByGroup(rep){
       
        for(var i=0; i<doclist["docs"].length; i++){
           var doc=doclist["docs"][i];
-			s+="<tr> <td><input type=\"checkbox\" id=\"hide_"+doc.docid+"\"  > </td><td><input type=\"checkbox\" id=\""+doc.docid+"\"  > </td> "+
+          
+          var checkbox_name;
+			
+			if(isProject){
+				checkbox_name = "show_";
+			}
+			else{
+				checkbox_name = "hide_";
+			}
+          
+			s+="<tr> <td><input type=\"checkbox\" id=\""+checkbox_name+doc.docid+"\"  > </td><td><input type=\"checkbox\" id=\""+doc.docid+"\"  > </td> "+
 			"<td>"+group.groupValue+"</td><td><a href=\""+doc.uri_s+"\">"+doc.label_s+"</a></td></tr>";       
 
      }
@@ -283,21 +406,35 @@ function traiterReponseDocumentsSortedByGroup(rep){
            var checkbox = document.getElementById(doc.docid);
 			var checkboxObject = new CheckedBox(doc.docid, doc.label_s, doc.uri_s, checkbox);
 			
-			var checkboxHide = document.getElementById("hide_"+doc.docid);
-			var checkboxHideObject = new CheckedBoxHide(doc.docid, checkboxHide);
+			var checkboxType = document.getElementById(checkbox_name+doc.docid);
 			
+			if(isProject){
+				var checkboxTypeObject = new CheckedBoxShow(doc.docid, doc.label_s, doc.uri_s, checkboxType);
+				var checkedType = checkedShow;
+			}
+			else{
+				
+				
+				var checkboxTypeObject = new CheckedBoxHide(doc.docid, checkboxType);
+				var checkedType = checkedHide;
+			}
+			
+			
+			
+	
 			for(var indice in checked){
 				if(doc.docid == checked[indice]){
 					checkbox.checked = true;
+					
 					break;
 				
 				}
 	
 			}
 			
-			for(var indice in checkedHide){
-				if(doc.docid == checkedHide[indice]){
-					checkboxHide.checked = true;
+			for(var indice in checkedType){
+				if(doc.docid == checkedType[indice]){
+					checkboxType.checked = true;
 					
 					break;
 				
@@ -323,3 +460,9 @@ function getSelectedHide(id){
 	
 }
 
+
+function getSelectedShow(id){
+	
+	checkedShow.push(id);
+	
+}

@@ -25,7 +25,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/html5.js"></script>
 	<![endif]-->
 	<?php wp_head(); ?>
-	<script type="text/javascript" src="/ISIR/wp-content/themes/twentyfifteen-child/includes/hal.js"></script>
+	<script type="text/javascript" src="/ISIR/wp-content/plugins/hal/includes/hal_team.js"></script>
 </head>
 
 <body <?php body_class(); ?>>

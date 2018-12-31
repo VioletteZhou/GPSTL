@@ -11,7 +11,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 <head>
 	<?php wp_head(); ?>
-	<script type="text/javascript" src="/ISIR/wp-content/themes/author-child/includes/hal.js"></script>
+	<script type="text/javascript" src="/ISIR/wp-content/plugins/hal/includes/hal_researcher.js"></script>
 
 </head>
 

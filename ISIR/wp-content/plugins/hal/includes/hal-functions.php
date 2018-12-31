@@ -43,7 +43,7 @@ function hal_init(){
 
 	}
 		
-		
+	
 
 }
 
@@ -63,7 +63,7 @@ function hal_team(){
 
 	echo "<script type=\"text/javascript\" src=\"/ISIR/wp-content/plugins/hal/includes/hal.js\"></script>";
 
-	echo "<h2>Choose the documents from HAL that you want to show in the \"Favorite\" section ! </h2><br>";
+	echo "<h3>Choose the documents from HAL you want to show in the \"Favorite\" section and the documents you want to hide in the \"Publications\" section ! </h3><br>";
 	global $wpdb;
 	$tablename = "isir_".get_current_blog_id()."_hal_team";
 	$myrows = $wpdb->get_results( "SELECT nameTeam FROM $tablename" );
@@ -163,7 +163,7 @@ $tablename = "isir_".get_current_blog_id()."_hal";
 		<script>
 			document.getElementById(\"all\").addEventListener(\"click\",function(){
 			i_search = 2;
-			getDocuments(\"$idHal\"); return false;
+			getDocuments(curr_idHal); return false;
 		    },false);
 		</script>
 
@@ -171,13 +171,14 @@ $tablename = "isir_".get_current_blog_id()."_hal";
 		<script>
 			document.getElementById(\"sortbygroup\").addEventListener(\"click\",function(){
 			i_search = 3;
-			getDocumentsSortedByGroup(\"$idHal\"); return false;
+			getDocumentsSortedByGroup(curr_idHal); return false;
 		    },false);
 		</script>
-
+			
+		<div id=\"docs\"></div></div>
 		  <script type=\"text/javascript\">getDocuments(\"$idHal\", \"$username_idHal\");</script>
 
-			<div id=\"docs\"></div></div>
+			
 		</div>";
 
 
@@ -189,6 +190,167 @@ $tablename = "isir_".get_current_blog_id()."_hal";
 
 
 function hal_project(){
+
+	$servername = "localhost";
+	$username = "root";
+	$password = "root";
+	$dbname = "MEMBER";
+	$table = "User";
+
+	echo "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">
+
+	<link rel=\"stylesheet\" href=\"/ISIR/wp-content/plugins/hal/includes/style.css\">
+	  <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>";
+
+	echo "<script type=\"text/javascript\" src=\"/ISIR/wp-content/plugins/hal/includes/hal.js\"></script>";
+
+	echo "<h3>Choose the documents from HAL you want to show in the \"Favorite\" section and the documents you want to show in the \"Publications\" section ! </h3><br>";
+	
+	global $wpdb;
+	$tablename = "isir_".get_current_blog_id()."_hal_project";
+	$myrows = $wpdb->get_results( "SELECT nameProject FROM $tablename" );
+
+	$nameProject = $myrows[0]->nameProject;
+	
+	$mydb = new wpdb($username,$passeword,$dbname,$servername);
+	
+	$rows = $mydb->get_results("select * from $table");
+
+	$blogusers = get_users( 'blog_id='.get_current_blog_id().'&role=subscriber' );
+
+	
+
+	echo "<div id=\"liste_users\">";
+	echo "<h4>List of the researchers of the team</h4>";
+	echo "<ul >";
+
+	foreach($blogusers as $user){
+		
+		foreach ($rows as $obj) :
+
+			if($user->user_login==$obj->username){
+				if( $obj->blog_id >=0){
+			   		$tablename_user = "isir_".$obj->blog_id."_hal_id";
+					$user_rows = $wpdb->get_results( "SELECT * FROM $tablename_user" );
+					if(count($user_rows)!=0 && strlen($user_rows[0]->idHal)!=0){
+						$idHal = $user_rows[0]->idHal;
+						echo "<li><a href=\"#\" onclick=\"getDocuments('$idHal', '$obj->username', true)\">".$obj->username."</a></li>";
+						$username_idHal = $obj->username;
+				
+					}
+					else{
+						echo "<li>".$obj->username." didn't active its HAL plugin</li>";
+					}	
+			
+				}
+				break;
+
+			}
+			
+		endforeach;
+	}
+	
+
+	echo "</ul></div>";
+
+	echo "<div id=\"hal_component\">";
+
+	echo "<script type=\"text/javascript\">
+		var i_search = 2;
+
+		function myFunction() {
+		  // Declare variables
+		  var input, filter, table, tr, td, i, txtValue;
+		  input = document.getElementById(\"myInput\");
+		  filter = input.value.toUpperCase();
+
+		  table = document.getElementById(\"myTable\");
+		  tr = table.getElementsByTagName(\"tr\");
+
+		  // Loop through all table rows, and hide those who don't match the search query
+		  for (i = 0; i < tr.length; i++) {
+
+		    td = tr[i].getElementsByTagName(\"td\")[i_search];
+		    if (td) {
+		      txtValue = td.textContent || td.innerText;
+		      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			tr[i].style.display = \"\";
+
+		      } else {
+			tr[i].style.display = \"none\";
+		      }
+		    }
+
+		  }
+		}
+		</script>";
+
+$tablename = "isir_".get_current_blog_id()."_hal";
+	$myrows = $wpdb->get_results( "SELECT id FROM $tablename" );
+
+	echo "<script type=\"text/javascript\">";
+
+	foreach ( $myrows as $row ) 
+	{
+		echo "getSelected(\"$row->id\");" ;
+	}
+
+	$tablename = "isir_".get_current_blog_id()."_hal_show";
+	$myrows = $wpdb->get_results( "SELECT id FROM $tablename" );
+
+
+	foreach ( $myrows as $row ) 
+	{
+		echo "getSelectedShow(\"$row->id\");" ;
+	}
+
+
+
+
+	echo "</script>";
+
+
+		echo "<div class=\"wrap\">";
+
+		echo "<h4 id=\"publicationHead\">Publications</h4><br><br>";
+	
+		echo "<div id=\"wait\"><p>Loading. Please wait...</p></div>
+
+		<div class=\"container\">
+		<input class=\"form-control\" id=\"myInput\" type=\"text\" onkeyup=\"myFunction()\" placeholder=\"Search documents...\">
+
+		<a href=\"#\" id=\"all\" >Sort by date</a>
+
+
+		<a href=\"#\" id=\"sortbygroup\" >Sort by doctype</a>
+
+		<script>
+			document.getElementById(\"all\").addEventListener(\"click\",function(){
+
+			i_search = 2;
+			getDocuments(curr_idHal, undefined, true); return false;
+		    },false);
+		</script>
+
+
+
+		<script>
+			document.getElementById(\"sortbygroup\").addEventListener(\"click\",function(){
+			i_search = 3;
+			getDocumentsSortedByGroup(curr_idHal, undefined, true); return false;
+
+		    },false);
+		</script>
+		
+			<div id=\"docs\"></div></div>
+		  <script type=\"text/javascript\">getDocuments(\"$idHal\", \"$username_idHal\", true);</script>
+
+		</div>";
+
+
+
+	echo "</div>";
+
 
 }
 
@@ -287,7 +449,7 @@ function hal_chercheur(){
 
 
 		echo "<div class=\"wrap\">
-	  <h1>Choose the documents from HAL that you want to show in the \"Favorite\" section ! </h1>
+	 <h3>Choose the documents from HAL you want to show in the \"Favorite\" section and the documents you want to show in the \"Publications\" section ! </h3>
 	  <h5>Enter your HAL id:</h5>
 	 <form action=\"\" method=\"post\">
 
@@ -319,9 +481,11 @@ function hal_chercheur(){
 		    },false);
 		</script>
 
+			<div id=\"docs\"></div></div>
+
 		  <script type=\"text/javascript\">getDocuments(\"$idHal\");</script>
 
-			<div id=\"docs\"></div></div>
+		
 		</div>";
 
 

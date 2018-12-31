@@ -1,53 +1,104 @@
-var checkedHide = new Array();
+var checkedShow = new Array();
+var map = {};
 
-function getSelectedHide(id){
+var CheckedBoxShow = function(id,  label, uri, type){
+	this.id = id;
+	
+	this.label = label;
+	this.uri = uri;
+	if(map[type]==undefined){
+		var new_array = new Array();
+		new_array.push(this);
+		map[type]=new_array;
+	}
+	else{
+		map[type].push(this);
+	}
+	
+	
+}
 
-	checkedHide.push(id);
+function getSelectedShow(id, label, uri, type){
+
+	checkedShow.push( new CheckedBoxShow(id, label, uri, type));
 	
 }
 
 
 
 
-function getDocuments(idHal, username){
+function getDocuments(){
 	
-	if(username!=undefined)
-		document.getElementById("publicationHead").innerHTML = "Publications of "+username;
+	
+	document.getElementById("wait").innerHTML="";
+	
+	
+	
+	
+	var s="";	
         
-	jQuery.ajax({ 
-        type:"get",
-        url:"https://api.archives-ouvertes.fr/search/",
-        data:"q=authIdHal_s:"+idHal+"&rows=10000&sort=producedDate_tdate desc",
-        datatype:"json",
-        success:function(rep){
-            traiterReponseDocuments(rep);
-        },
-        error:function(jqXMTR, textStatus, errorThrown){
-            func_err("Pb lors de la transmission des données", "inscription");
-        }
-    });
-
-	
-}
-
-function getDocumentsSortedByGroup(idHal, username){
-	
-	if(username!=undefined)
-		document.getElementById("publicationHead").innerHTML = "Publications of "+username;
+       
+ s+="<br>";
   
+  
+  s+="<table id=\"myTable\">";
+  
+
+   s+="<tr class=\"header\">   <th>Publication</th> </tr>";
+   
+
+	 for(var indice in checkedShow){
+		var box = checkedShow[indice];
+			s+="<td><a href=\""+box.uri+"\">"+box.label+"</a></td></tr>";
+     }
+      s+=" </table>";  
+
+      
+
+     
+     document.getElementById("docs").innerHTML=s;
+		
+}
+
+function getDocumentsSortedByGroup(){
+	
+	
+	document.getElementById("wait").innerHTML="";
+	
+	
+      
+	var s="";	
         
-	jQuery.ajax({ 
-        type:"get",
-        url:"https://api.archives-ouvertes.fr/search/",
-        data:"q=authIdHal_s:"+idHal+"&rows=10000&sort=producedDate_tdate desc&group=true&group.field=docType_s&indent=true&group.limit=1000",
-        datatype:"json",
-        success:function(rep){
-            traiterReponseDocumentsSortedByGroup(rep);
-        },
-        error:function(jqXMTR, textStatus, errorThrown){
-            func_err("Pb lors de la transmission des données", "inscription");
-        }
-    });
+
+  s+="<br>";
+  
+  
+   s+="<table id=\"myTable\">";
+  
+
+   s+="<tr class=\"header\">   <th>Type</th>     <th>Publication</th> </tr>";
+   
+  
+  
+	for(var type in map){
+		var box_array = map[type];
+		
+		for(var indice in box_array){
+			var box = box_array[indice];
+			
+			s+="<tr> <td>"+type+"</td><td><a href=\""+box.uri+"\">"+box.label+"</a></td></tr>";   
+			
+		} 
+		
+	
+	}
+     
+       
+	
+      s+=" </table>"; 
+
+     
+     document.getElementById("docs").innerHTML=s;
     
     
 }
@@ -74,13 +125,13 @@ function traiterReponseDocuments(rep){
 	 for(var i=0; i<response["docs"].length; i++){
           var doc=response["docs"][i];
           
-          var show = true;
+          var show = false;
           
           for(var indice in checkedHide){
 		
 			  if(doc.docid == checkedHide[indice]){
 			
-				show = false;
+				show = true;
 				break;
 			}
 		  }
@@ -129,13 +180,13 @@ function traiterReponseDocumentsSortedByGroup(rep){
        for(var i=0; i<doclist["docs"].length; i++){
           var doc=doclist["docs"][i];
           
-			 var show = true;
+			 var show = false;
           
           for(var indice in checkedHide){
 		
 			  if(doc.docid == checkedHide[indice]){
 			
-				show = false;
+				show = true;
 				break;
 			}
 		  }

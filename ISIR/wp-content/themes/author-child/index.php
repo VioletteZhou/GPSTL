@@ -318,9 +318,11 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			    },false);
 			</script>
 
+			<div id=\"docs\"></div></div>
+
 			  <script type=\"text/javascript\">getDocuments(\"$idHal\");</script>
 
-				<div id=\"docs\"></div></div>
+				
 			</div>";
 		}
 

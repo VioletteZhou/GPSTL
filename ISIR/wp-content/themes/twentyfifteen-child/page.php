@@ -180,8 +180,9 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	echo "<strong id=\"publicationHead\">Publications</strong><br><br>";
 
 	echo "<script type=\"text/javascript\">
-		var i_search = 2;
+		var i_search = 0;
 		function myFunction() {
+			
 		  // Declare variables
 		  var input, filter, table, tr, td, i, txtValue;
 		  input = document.getElementById(\"myInput\");
@@ -202,6 +203,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		    }
 		  }
 		}
+		
 		</script>";
 
 	
@@ -233,22 +235,24 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 		<script>
 			document.getElementById(\"all\").addEventListener(\"click\",function(){
-			i_search = 2;
-			getDocuments(\"$idHal\"); return false;
+			i_search = 0;
+			getDocuments(curr_idHal); return false;
 		    },false);
 		</script>
 
 
 		<script>
 			document.getElementById(\"sortbygroup\").addEventListener(\"click\",function(){
-			i_search = 3;
-			getDocumentsSortedByGroup(\"$idHal\"); return false;
+			i_search = 1;
+			getDocumentsSortedByGroup(curr_idHal); return false;
 		    },false);
 		</script>
 
+		<div id=\"docs\"></div></div>
+
 		  <script type=\"text/javascript\">getDocuments(\"$idHal\", \"$username_idHal\");</script>
 
-			<div id=\"docs\"></div></div>
+			
 		</div>";
 
 
