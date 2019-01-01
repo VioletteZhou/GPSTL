@@ -72,25 +72,36 @@ function hal_team(){
 	
 	$mydb = new wpdb($username,$passeword,$dbname,$servername);
 	
-	$rows = $mydb->get_results("select * from $table where isirequipe='$nameTeam'");
+	$rows = $mydb->get_results("select * from $table");
 	
 	echo "<div id=\"liste_users\">";
 	echo "<h4>List of the researchers of the team</h4>";
 	echo "<ul >";
 	foreach ($rows as $obj) :
-		if($obj->blog_id >=0){
-	   		$tablename_user = "isir_".$obj->blog_id."_hal_id";
-			$user_rows = $wpdb->get_results( "SELECT * FROM $tablename_user" );
-			if(count($user_rows)!=0 && strlen($user_rows[0]->idHal)!=0){
-				$idHal = $user_rows[0]->idHal;
-				echo "<li><a href=\"#\" onclick=\"getDocuments('$idHal')\">".$obj->username."</a></li>";
-				$username_idHal = $obj->username;
-				
+		$equipes = explode("|", $obj->isirequipe);
+		$belongs = false;
+		foreach($equipes as $nom_equipe){
+			if($nom_equipe == $nameTeam){
+				$belongs = true;
+				break;
 			}
-			else{
-				echo "<li>".$obj->username." didn't active its HAL plugin</li>";
-			}	
+
+		} 
+		if($belongs){
+			if($obj->blog_id >=0){
+		   		$tablename_user = "isir_".$obj->blog_id."_hal_id";
+				$user_rows = $wpdb->get_results( "SELECT * FROM $tablename_user" );
+				if(count($user_rows)!=0 && strlen($user_rows[0]->idHal)!=0){
+					$idHal = $user_rows[0]->idHal;
+					echo "<li><a href=\"#\" onclick=\"getDocuments('$idHal', '$obj->username')\">".$obj->username."</a></li>";
+					$username_idHal = $obj->username;
+				
+				}
+				else{
+					echo "<li>".$obj->username." didn't active its HAL plugin</li>";
+				}	
 			
+			}
 		}
 	endforeach;
 
@@ -216,7 +227,7 @@ function hal_project(){
 	
 	$rows = $mydb->get_results("select * from $table");
 
-	$blogusers = get_users( 'blog_id='.get_current_blog_id().'&role=subscriber' );
+	$blogusers = get_users( 'blog_id='.get_current_blog_id() );
 
 	
 
