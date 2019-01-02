@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.accordion {
+  background-color:#23282D;
+  color: #FFFFFF;
+  cursor: pointer;
+  padding: 18px;
+  width: 98%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+.accordion_active, .accordion:hover {
+  background-color:#FF0000;
+}
+.accordion:after {
+  content: '\002B';
+  color: #FFFFFF;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.accordion_active:after{
+  content: "\2212";
+}
+
+.panel{
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  width: 94.4%;
+  overflow: hidden;
+}
+/* Style the buttons */
+input{
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  background-color: #FF0000;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  margin:1%;
+}
+
+/* Style the active class, and buttons on mouse-over */
+input:hover{
+  background-color:#23282D;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<h2>Help section</h2>
+
+<button class="accordion">Step1 : Creat a Google Account </button>
+<div class="panel">
+  <p>
+    You need a <a target="blank" href="https://accounts.google.com/signup/v2/webcreateaccount?continue=https%3A%2F%2Faccounts.google.com%2FManageAccount&flowName=GlifWebSignIn&flowEntry=SignUp">Google Account </a>to access the Youtube live services.
+  </p>
+</div>
+
+<button class="accordion">Step2 : Activate your YouTube Channel & youtube live</button>
+<div class="panel">
+  <p>You need to activate your YouTube Channel, please follow this tutorial : </p>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/mau0oI1OT5M"
+  frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope;
+  picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<button class="accordion">Step3 : Create a project in the Google Developers Console </button>
+<div class="panel">
+  <p>You need to create a project in the
+    <a  target="blank" href="https://accounts.google.com/ServiceLogin/signinchooser?service=cloudconsole&passive=1209600&osid=1&continue=https%3A%2F%2Fconsole.developers.google.com%2F%3Fref%3Dhttps%3A%2F%2Fdevelopers.google.com%2Fyoutube%2Fv3%2Fgetting-started&followup=https%3A%2F%2Fconsole.developers.google.com%2F%3Fref%3Dhttps%3A%2F%2Fdevelopers.google.com%2Fyoutube%2Fv3%2Fgetting-started&flowName=GlifWebSignIn&flowEntry=ServiceLogin">
+      Google Developers Console.</a>
+    </p>
+    <p>
+      Project name : Research Showcase
+    </p>
+</div>
+<button class="accordion">Step4 : Activate YouTube Data API v3</button>
+<div class="panel">
+  <p>Please follow this link <a  target="blank" href="https://console.developers.google.com/apis/library/youtube.googleapis.com?q=you&id=125bab65-cfb6-4f25-9826-4dcc309bc508&project=test-226609"> to activate YouTube Data API v3 for your project.</a>.</p>
+</div>
+<button class="accordion">Step5 : Define a product name</button>
+<div class="panel">
+  <p>Please follow this link :
+    <a  target="blank" href="https://console.developers.google.com/apis/credentials/oauthclient?project=test-226609">
+      product name</a></p>
+    <p><strong>Application name :</strong> Research showcase<p>
+    <p><strong>Allowed domains :</strong> isir.com	<p>
+</div>
+<button class="accordion">Step6 : create ID client OAuth</button>
+<div class="panel">
+  <p>Please follow this link :
+    <a  target="blank" href="https://console.developers.google.com/apis/credentials?project=test-226609">
+      ID client OAuth</a>
+  </p>
+  <p><strong>Name :</strong> Research showcase</p>
+  <p><strong>Authorized redirection URI :</strong> redirectLink</p>
+</div>
+<button class="accordion">Step7 : Register Ids</button>
+<div class="panel">
+  <p>Click on addNewGoogleClient to finish</p>
+  <form method="POST" action="redirectLink">
+    <input type="submit" id="addId" name="addNewGoogleClient" value="addNewGoogleClient" style="margin-bottom:4%; width:25%;">
+  </form>
+</div>
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("accordion_active");
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+</script>
+
+</body>
+</html>

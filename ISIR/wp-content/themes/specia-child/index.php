@@ -96,6 +96,38 @@ get_template_part('sections/specia','breadcrumb'); ?>
 								'; 
 					}
 				}
+
+			if(is_plugin_active( 'youtube-live/youtube-live.php' ))
+			{
+				global $wpdb;
+				$blog_id = get_current_blog_id();
+				$table_name = 'youtubelive';
+				$width=700;
+				$height=430;
+				$pagecontents = file_get_contents(__DIR__.'/view/youtubelive.html');
+				$data = $wpdb->get_results( "SELECT * FROM $table_name  WHERE blog_id=".$blog_id."");
+
+				if(count($data) == 1)
+				{
+					$data = $data[0];
+					$iframe = '<iframe class="ifram" width='.$width.' height='.$height.'
+								src="https://www.youtube.com/embed/'.$data->video_id.'?autoplay=1"
+								frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="">
+								</iframe>';
+
+					$pagecontents =  str_replace("ifrm",$iframe,$pagecontents);
+					$pagecontents =  str_replace("title",$data->title,$pagecontents);
+					$pagecontents =  str_replace("dscpt",'<p>'.$data->description.'</p>',$pagecontents);
+				}
+				else
+				{
+					$defaultImg ='<img class="ifram" src="/ISIR/wp-content/uploads/youtube-live/youtubelive.jpg" alt="Youtube-live" width="'.$width.'" height="'.$height.'"/>';
+					$pagecontents =  str_replace("ifrm",$defaultImg,$pagecontents);
+					$pagecontents =  str_replace("title","Youtube live currently unavailable.",$pagecontents);
+					$pagecontents =  str_replace("dscpt","",$pagecontents);
+				}
+				echo $pagecontents;
+			}
 			?>
 
 

@@ -200,30 +200,38 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 <?php break;
 		case 'Videos live':
 
-// check for plugin using plugin name
-		if ( is_plugin_active( 'youtube-live/youtube-live.php' ) ) {
+			// check for plugin using plugin name
+			if(is_plugin_active( 'youtube-live/youtube-live.php' ))
+			{
+				global $wpdb;
+				$blog_id = get_current_blog_id();
+				$table_name = 'youtubelive';
+				$width=700;
+				$height=430;
+				$pagecontents = file_get_contents(__DIR__.'/view/youtubelive.html');
+				$data = $wpdb->get_results( "SELECT * FROM $table_name  WHERE blog_id=".$blog_id."");
 
-		$blog_id = get_current_blog_id();
-		$result = $wpdb->get_results( "SELECT * FROM isir_youtubelive WHERE blog_id=".$blog_id."");
-		$row = json_decode(json_encode($result[0]), True);
-		$embed = $row['sharelink'];
+				if(count($data) == 1)
+				{
+					$data = $data[0];
+					$iframe = '<iframe class="ifram" width='.$width.' height='.$height.'
+								src="https://www.youtube.com/embed/'.$data->video_id.'?autoplay=1"
+								frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="">
+								</iframe>';
 
-		$url = "https://www.youtube.com/oembed?format=json&url=https://youtu.be/".$embed;
-      	$data = file_get_contents($url);
-      	$json = json_decode($data);
-		if(count($result) == 0 || $json->title == "")
-		{
-			echo "<h3>Youtube live currently unavailable</h3>";
-			echo '<img src="/ISIR/wp-content/uploads/youtube-live/youtubelive.jpg" alt="Youtube-live" width="560" height="315"/>';
-		}
-		else
-		{
-			echo "<h3>".$row['title']."</h3>";
-			printf('<iframe width="560" height="315" src="https://www.youtube.com/embed/%s?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>',$embed);
-			echo "<h4>By : ".$row['author_name']."<h4>";
-		}
-
-}
+					$pagecontents =  str_replace("ifrm",$iframe,$pagecontents);
+					$pagecontents =  str_replace("title",$data->title,$pagecontents);
+					$pagecontents =  str_replace("dscpt",'<p>'.$data->description.'</p>',$pagecontents);
+				}
+				else
+				{
+					$defaultImg ='<img class="ifram" src="/ISIR/wp-content/uploads/youtube-live/youtubelive.jpg" alt="Youtube-live" width="'.$width.'" height="'.$height.'"/>';
+					$pagecontents =  str_replace("ifrm",$defaultImg,$pagecontents);
+					$pagecontents =  str_replace("title","Youtube live currently unavailable.",$pagecontents);
+					$pagecontents =  str_replace("dscpt","",$pagecontents);
+				}
+				echo $pagecontents;
+			}
 		?>
 
 		<?php break;

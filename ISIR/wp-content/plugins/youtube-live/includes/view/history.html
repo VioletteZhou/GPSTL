@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      * {
+          box-sizing: border-box;
+        }
+
+        /* Create three equal columns that floats next to each other */
+        .column {
+          float: left;
+          width: 33.33%;
+          padding: 10px;
+          height: 370px; /* Should be removed. Only for demonstration */
+          text-align: center;
+        }
+        /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      .card {
+        outline: 0;
+        padding: 12px;
+        text-align: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        margin: 1%;
+        font-family: arial;
+      }
+
+      .title {
+        color: grey;
+        font-size: 18px;
+      }
+      /* Style the buttons */
+      input{
+        border: none;
+        outline: none;
+        padding: 10px 16px;
+        background-color: #FF0000;
+        color: white;
+        cursor: pointer;
+        font-size: 18px;
+        margin:1%;
+      }
+
+      /* Style the active class, and buttons on mouse-over */
+      input:hover{
+        background-color:#23282D;
+        color: white;
+      }
+      /*vsb <=> visible*/
+      .vsb1,.vsb2,.vsb3,
+      .vsb4,.vsb5,.vsb6,.sb{
+        display:none;
+      }
+      /*hd <=> hidde*/
+      .hd1,.hd2,.hd3,
+      .hd4,.hd5,.hd6,.ds{
+        display:block;
+      }
+
+      .para{
+        word-wrap: break-word;
+        width: 270px;
+        height:10%;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Live history</h2>
+    <div class="row">
+      hst
+      <div class="sb">
+        <h2>Histrory is currently empty !</h2>
+      </div>
+    </div>
+    <hr>
+  </body>
+</html>

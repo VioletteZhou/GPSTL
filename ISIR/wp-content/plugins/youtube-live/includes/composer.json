@@ -1,0 +1,14 @@
+{
+    "name": "isir/includes",
+    "description": "isir_project",
+    "type": "project",
+    "require": {
+        "google/apiclient": "^2.2"
+    },
+    "authors": [
+        {
+            "name": "isir",
+            "email": "isir@gmail.com"
+        }
+    ]
+}
