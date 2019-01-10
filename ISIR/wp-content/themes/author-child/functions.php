@@ -476,7 +476,7 @@ function ct_author_add_customizer_content_child( $wp_customize ) {
 
 	/***** Custom CSS *****/
 
-	if ( function_exists( 'wp_update_custom_css_post' ) ) {
+	/*if ( function_exists( 'wp_update_custom_css_post' ) ) {
 		// Migrate any existing theme CSS to the core option added in WordPress 4.7.
 		$css = get_theme_mod( 'custom_css' );
 		if ( $css ) {
@@ -487,7 +487,7 @@ function ct_author_add_customizer_content_child( $wp_customize ) {
 			//	remove_theme_mod( 'custom_css' );
 			}
 		}
-	} else {
+	} else {*/
 		// section
 		$wp_customize->add_section( 'author_custom_css', array(
 			'title'    => __( 'Custom CSS', 'author' ),
@@ -505,5 +505,5 @@ function ct_author_add_customizer_content_child( $wp_customize ) {
 			'section'  => 'author_custom_css',
 			'settings' => 'custom_css'
 		) );
-	}
+	//}
 }
