@@ -193,7 +193,7 @@ function set_blog_id($login, $blog_id){
 
 	if($result==false){
 
-		die("Not updated " . $login.' '.$blog_id);
+		//die("Not updated " . $login.' '.$blog_id);
 	
 	}
 	
@@ -2139,6 +2139,7 @@ This email has been sent to ###EMAIL###
 
 Regards,
 All at ###SITENAME###
+
 ###SITEURL###' );
 
 			$email_change_email = array(
