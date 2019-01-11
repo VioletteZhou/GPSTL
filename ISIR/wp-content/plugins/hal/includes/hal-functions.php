@@ -70,7 +70,7 @@ function hal_team(){
 
 	$nameTeam = $myrows[0]->nameTeam;
 	
-	$mydb = new wpdb($username,$passeword,$dbname,$servername);
+	$mydb = new wpdb($username,$password,$dbname,$servername);
 	
 	$rows = $mydb->get_results("select * from $table");
 	
@@ -223,7 +223,7 @@ function hal_project(){
 
 	$nameProject = $myrows[0]->nameProject;
 	
-	$mydb = new wpdb($username,$passeword,$dbname,$servername);
+	$mydb = new wpdb($username,$password,$dbname,$servername);
 	
 	$rows = $mydb->get_results("select * from $table");
 

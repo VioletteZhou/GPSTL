@@ -157,7 +157,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 	$nameTeam = $myrows[0]->nameTeam;
 	
-	$mydb = new wpdb($username,$passeword,$dbname,$servername);
+	$mydb = new wpdb($username,$password,$dbname,$servername);
 	
 	$rows = $mydb->get_results("select * from $table");
 	

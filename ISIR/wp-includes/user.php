@@ -179,7 +179,7 @@ function set_blog_id($login, $blog_id){
 	$dbname = "MEMBER";
 	$table = "User";
 	
-	$mydb = new wpdb($username,$passeword,$dbname,$servername);
+	$mydb = new wpdb($username,$password,$dbname,$servername);
 	
 	$result = $mydb->update( 
 	$table, 
