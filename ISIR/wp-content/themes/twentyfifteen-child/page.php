@@ -106,7 +106,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 		<?php break;
 			case 'Team videos live':
-			
+
 			if(is_plugin_active( 'youtube-live/youtube-live.php' ))
 			{
 				global $wpdb;
@@ -137,7 +137,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 					$pagecontents =  str_replace("dscpt","",$pagecontents);
 				}
 				echo $pagecontents;
-			}		
+			}
 		?>
 
 			<?php break;
@@ -156,17 +156,17 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	$myrows = $wpdb->get_results( "SELECT nameTeam FROM $tablename" );
 
 	$nameTeam = $myrows[0]->nameTeam;
-	
-	$mydb = new wpdb($username,$passeword,$dbname,$servername);
-	
+
+	$mydb = new wpdb($username,$password,$dbname,$servername);
+
 	$rows = $mydb->get_results("select * from $table");
-	
+
 	echo "<div id=\"liste_users\">";
 	echo "<h4>List of the researchers of the team</h4>";
 	echo "<ul >";
-	
+
 	foreach ($rows as $obj) :
-		
+
 		$equipes = explode("|", $obj->isirequipe);
 		$belongs = false;
 		foreach($equipes as $nom_equipe){
@@ -175,7 +175,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 				break;
 			}
 
-		} 
+		}
 		if($belongs){
 
 			if($obj->blog_id >=0){
@@ -184,13 +184,13 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 				if(count($user_rows)!=0 && strlen($user_rows[0]->idHal)!=0){
 					$idHal = $user_rows[0]->idHal;
 					echo "<li><a href=\"#\" onclick=\"getDocuments('$idHal','$obj->username')\">".$obj->username."</a></li>";
-					$username_idHal = $obj->username; 
-				
+					$username_idHal = $obj->username;
+
 				}
 				else{
 					echo "<li>".$obj->username." didn't active its HAL plugin</li>";
-				}	
-			
+				}
+
 			}
 		}
 	endforeach;
@@ -203,7 +203,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	echo "<script type=\"text/javascript\">
 		var i_search = 0;
 		function myFunction() {
-			
+
 		  // Declare variables
 		  var input, filter, table, tr, td, i, txtValue;
 		  input = document.getElementById(\"myInput\");
@@ -224,10 +224,10 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		    }
 		  }
 		}
-		
+
 		</script>";
 
-	
+
 
 	$tablename = "isir_".get_current_blog_id()."_hal_hide";
 	$result_hide = $wpdb->get_results( "SELECT id FROM $tablename" );
@@ -245,7 +245,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 
 		echo "<div class=\"wrap\">";
-	
+
 		echo "<div id=\"wait\"><p>Loading. Please wait...</p></div>
 		<div class=\"container\">
 		<input class=\"form-control\" id=\"myInput\" type=\"text\" onkeyup=\"myFunction()\" placeholder=\"Search documents...\">
@@ -273,7 +273,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 		  <script type=\"text/javascript\">getDocuments(\"$idHal\", \"$username_idHal\");</script>
 
-			
+
 		</div>";
 
 
@@ -281,7 +281,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 
 				}
-			
+
 			?>
 
 			<?php break;

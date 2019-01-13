@@ -183,7 +183,7 @@ function ct_author_add_customizer_content_child( $wp_customize ) {
 	$wp_customize->get_setting( 'blogdescription' )->transport = 'postMessage';
 
 	/***** Add Custom Controls *****/
-	
+
 
 	/***** Avatar *****/
 
@@ -476,18 +476,23 @@ function ct_author_add_customizer_content_child( $wp_customize ) {
 
 	/***** Custom CSS *****/
 
-	/*if ( function_exists( 'wp_update_custom_css_post' ) ) {
+	if ( function_exists( 'wp_update_custom_css_post' ) ) {
+    echo "if existes ";
 		// Migrate any existing theme CSS to the core option added in WordPress 4.7.
 		$css = get_theme_mod( 'custom_css' );
 		if ( $css ) {
+      echo "test if ";
 			$core_css = wp_get_custom_css(); // Preserve any CSS already added to the core option.
 			$return = wp_update_custom_css_post( $core_css . $css );
 			if ( ! is_wp_error( $return ) ) {
 				// Remove the old theme_mod, so that the CSS is stored in only one place moving forward.
-			//	remove_theme_mod( 'custom_css' );
+				remove_theme_mod( 'custom_css' );
 			}
-		}
-	} else {*/
+		}else{
+        echo "test else ";
+    }
+      echo "test fin ";
+	} else {
 		// section
 		$wp_customize->add_section( 'author_custom_css', array(
 			'title'    => __( 'Custom CSS', 'author' ),
@@ -505,5 +510,5 @@ function ct_author_add_customizer_content_child( $wp_customize ) {
 			'section'  => 'author_custom_css',
 			'settings' => 'custom_css'
 		) );
-	//}
+	}
 }

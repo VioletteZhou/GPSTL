@@ -114,7 +114,7 @@ function connectToMemberDb($username, $password)
 {
 	$servername = "localhost";
 	$dbusername = "root";
-	$dbpassword = "";
+	$dbpassword = "root";
 	$dbname = "MEMBER";
 	$table = "User";
 	// Create connection
@@ -172,33 +172,33 @@ echo '$blog_id'.$blog_id;
 
 
 function set_blog_id($login, $blog_id){
-	
+
 	$servername = "localhost";
 	$username = "root";
 	$password = "root";
 	$dbname = "MEMBER";
 	$table = "User";
-	
-	$mydb = new wpdb($username,$passeword,$dbname,$servername);
-	
-	$result = $mydb->update( 
-	$table, 
-	array( 
+
+	$mydb = new wpdb($username,$password,$dbname,$servername);
+
+	$result = $mydb->update(
+	$table,
+	array(
 		'blog_id' => $blog_id
-		
-	), 
-	array( 'username'=> $login ) 
-	
+
+	),
+	array( 'username'=> $login )
+
 	);
 
 	if($result==false){
 
-		die("Not updated " . $login.' '.$blog_id);
-	
+		//die("Not updated " . $login.' '.$blog_id);
+
 	}
-	
-	
-	
+
+
+
 
 }
 

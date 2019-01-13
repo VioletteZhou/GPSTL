@@ -8,7 +8,7 @@
 add_action( 'admin_menu', 'hal_Print_Text' );
 
 
- 
+
 // Add a new top level menu link to the ACP
 function hal_Print_Text()
 {
@@ -24,7 +24,7 @@ function hal_Print_Text()
 
 function hal_init(){
 	global $wpdb;
-	
+
 	$tablename = "isir_".get_current_blog_id()."_hal_team";
 	$myrows = $wpdb->get_results( "SELECT nameTeam FROM $tablename" );
 	if($myrows!=null){
@@ -42,8 +42,8 @@ function hal_init(){
 
 
 	}
-		
-	
+
+
 
 }
 
@@ -69,11 +69,11 @@ function hal_team(){
 	$myrows = $wpdb->get_results( "SELECT nameTeam FROM $tablename" );
 
 	$nameTeam = $myrows[0]->nameTeam;
-	
-	$mydb = new wpdb($username,$passeword,$dbname,$servername);
-	
+
+	$mydb = new wpdb($username,$password,$dbname,$servername);
+
 	$rows = $mydb->get_results("select * from $table");
-	
+
 	echo "<div id=\"liste_users\">";
 	echo "<h4>List of the researchers of the team</h4>";
 	echo "<ul >";
@@ -86,7 +86,7 @@ function hal_team(){
 				break;
 			}
 
-		} 
+		}
 		if($belongs){
 			if($obj->blog_id >=0){
 		   		$tablename_user = "isir_".$obj->blog_id."_hal_id";
@@ -95,12 +95,12 @@ function hal_team(){
 					$idHal = $user_rows[0]->idHal;
 					echo "<li><a href=\"#\" onclick=\"getDocuments('$idHal', '$obj->username')\">".$obj->username."</a></li>";
 					$username_idHal = $obj->username;
-				
+
 				}
 				else{
 					echo "<li>".$obj->username." didn't active its HAL plugin</li>";
-				}	
-			
+				}
+
 			}
 		}
 	endforeach;
@@ -139,7 +139,7 @@ $tablename = "isir_".get_current_blog_id()."_hal";
 
 	echo "<script type=\"text/javascript\">";
 
-	foreach ( $myrows as $row ) 
+	foreach ( $myrows as $row )
 	{
 		echo "getSelected(\"$row->id\");" ;
 	}
@@ -148,7 +148,7 @@ $tablename = "isir_".get_current_blog_id()."_hal";
 	$myrows = $wpdb->get_results( "SELECT id FROM $tablename" );
 
 
-	foreach ( $myrows as $row ) 
+	foreach ( $myrows as $row )
 	{
 		echo "getSelectedHide(\"$row->id\");" ;
 	}
@@ -162,7 +162,7 @@ $tablename = "isir_".get_current_blog_id()."_hal";
 		echo "<div class=\"wrap\">";
 
 		echo "<h4 id=\"publicationHead\">Publications</h4><br><br>";
-	
+
 		echo "<div id=\"wait\"><p>Loading. Please wait...</p></div>
 		<div class=\"container\">
 		<input class=\"form-control\" id=\"myInput\" type=\"text\" onkeyup=\"myFunction()\" placeholder=\"Search documents...\">
@@ -185,11 +185,11 @@ $tablename = "isir_".get_current_blog_id()."_hal";
 			getDocumentsSortedByGroup(curr_idHal); return false;
 		    },false);
 		</script>
-			
+
 		<div id=\"docs\"></div></div>
 		  <script type=\"text/javascript\">getDocuments(\"$idHal\", \"$username_idHal\");</script>
 
-			
+
 		</div>";
 
 
@@ -216,15 +216,15 @@ function hal_project(){
 	echo "<script type=\"text/javascript\" src=\"/ISIR/wp-content/plugins/hal/includes/hal.js\"></script>";
 
 	echo "<h3>Choose the documents from HAL you want to show in the \"Favorite\" section and the documents you want to show in the \"Publications\" section ! </h3><br>";
-	
+
 	global $wpdb;
 	$tablename = "isir_".get_current_blog_id()."_hal_project";
 	$myrows = $wpdb->get_results( "SELECT nameProject FROM $tablename" );
 
 	$nameProject = $myrows[0]->nameProject;
-	
-	$mydb = new wpdb($username,$passeword,$dbname,$servername);
-	
+
+	$mydb = new wpdb($username,$password,$dbname,$servername);
+
 	$rows = $mydb->get_results("select * from $table");
 
 	$blogusers = get_users( 'blog_id='.get_current_blog_id() );
@@ -236,7 +236,7 @@ function hal_project(){
 	echo "<ul >";
 
 	foreach($blogusers as $user){
-		
+
 		foreach ($rows as $obj) :
 
 			if($user->user_login==$obj->username){
@@ -247,20 +247,20 @@ function hal_project(){
 						$idHal = $user_rows[0]->idHal;
 						echo "<li><a href=\"#\" onclick=\"getDocuments('$idHal', '$obj->username', true)\">".$obj->username."</a></li>";
 						$username_idHal = $obj->username;
-				
+
 					}
 					else{
 						echo "<li>".$obj->username." didn't active its HAL plugin</li>";
-					}	
-			
+					}
+
 				}
 				break;
 
 			}
-			
+
 		endforeach;
 	}
-	
+
 
 	echo "</ul></div>";
 
@@ -301,7 +301,7 @@ $tablename = "isir_".get_current_blog_id()."_hal";
 
 	echo "<script type=\"text/javascript\">";
 
-	foreach ( $myrows as $row ) 
+	foreach ( $myrows as $row )
 	{
 		echo "getSelected(\"$row->id\");" ;
 	}
@@ -310,7 +310,7 @@ $tablename = "isir_".get_current_blog_id()."_hal";
 	$myrows = $wpdb->get_results( "SELECT id FROM $tablename" );
 
 
-	foreach ( $myrows as $row ) 
+	foreach ( $myrows as $row )
 	{
 		echo "getSelectedShow(\"$row->id\");" ;
 	}
@@ -324,7 +324,7 @@ $tablename = "isir_".get_current_blog_id()."_hal";
 		echo "<div class=\"wrap\">";
 
 		echo "<h4 id=\"publicationHead\">Publications</h4><br><br>";
-	
+
 		echo "<div id=\"wait\"><p>Loading. Please wait...</p></div>
 
 		<div class=\"container\">
@@ -352,7 +352,7 @@ $tablename = "isir_".get_current_blog_id()."_hal";
 
 		    },false);
 		</script>
-		
+
 			<div id=\"docs\"></div></div>
 		  <script type=\"text/javascript\">getDocuments(\"$idHal\", \"$username_idHal\", true);</script>
 
@@ -371,22 +371,22 @@ function hal_chercheur(){
 	global $wpdb;
 
 	if(isset($_POST['SubmitButton'])){ //check if form was submitted
-	  	
+
 		$idHal = $_POST['idHal']; //get input text
 		$tablename = "isir_".get_current_blog_id()."_hal_id";
 
-		$wpdb->replace( 
+		$wpdb->replace(
 				$tablename,
- 				array( 
+ 				array(
 					'id' => 1,
 					'idHal' => $idHal
-			
+
 				)
 			);
-	  
 
 
-	}    
+
+	}
 
 
 	echo "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">
@@ -439,7 +439,7 @@ function hal_chercheur(){
 
 	echo "<script type=\"text/javascript\">";
 
-	foreach ( $myrows as $row ) 
+	foreach ( $myrows as $row )
 	{
 		echo "getSelected(\"$row->id\");" ;
 	}
@@ -448,7 +448,7 @@ function hal_chercheur(){
 	$myrows = $wpdb->get_results( "SELECT id FROM $tablename" );
 
 
-	foreach ( $myrows as $row ) 
+	foreach ( $myrows as $row )
 	{
 		echo "getSelectedHide(\"$row->id\");" ;
 	}
@@ -496,7 +496,7 @@ function hal_chercheur(){
 
 		  <script type=\"text/javascript\">getDocuments(\"$idHal\");</script>
 
-		
+
 		</div>";
 
 
@@ -506,4 +506,3 @@ function hal_chercheur(){
 
 
 }
-

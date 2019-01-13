@@ -86,7 +86,7 @@
             <div class="section-title">
                 <h1 class="section-heading"><?php echo $thiscat; ?>
                 </h1>
-                <p><?php echo esc_html($current_options['protfolio_description_tag']); ?></p>
+                <!-- <p><?php echo esc_html($current_options['protfolio_description_tag']); ?></p> -->
 
 							<form id="searchform" name="frmSearch" method="post" action="/ISIR/blog/category/chercheur/" style="margin-top:30px;margin-bottom:30px;">
 									<input type="text" name="namechercheur" class="search_btn" value="<?php echo $namechercheur; ?>" placeholder="<?php esc_attr_e( "Search", 'busiprof' ); ?>"	/>
@@ -140,7 +140,7 @@
             <div class="col-md-12">
                 <div class="section-title">
                     <h1 class="section-heading"><?php echo $thiscat; ?></h1>
-                    <p><?php echo $current_options['service_tagline']; ?></p>
+                    <!-- <p><?php echo $current_options['service_tagline']; ?></p> -->
 										<?php if($thiscat == 'Equipe'){  ?>
 										<form id="equipeform" name="equipeSearch" method="post" action="/ISIR/blog/category/equipe/" style="margin-top:30px;margin-bottom:30px;">
 										<?php }?>

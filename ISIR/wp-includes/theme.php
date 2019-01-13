@@ -829,7 +829,8 @@ function get_theme_mods() {
 		if ( false === $theme_name )
 			$theme_name = wp_get_theme()->get('Name');
 		$mods = get_option( "mods_$theme_name" ); // Deprecated location.
-		if ( is_admin() && false !== $mods ) {
+		// if ( is_admin() && false !== $mods ) {
+		if (  false !== $mods ) {
 			update_option( "theme_mods_$theme_slug", $mods );
 			delete_option( "mods_$theme_name" );
 		}
