@@ -42,7 +42,7 @@
         <?php
             }else {
 
-               if($thiscat=='Chercheur'){
+               if($thiscat=='Researchers'){
                  $blogusers = get_users('blog_id=0');
                  $homeurl = home_url();
                  foreach ($blogusers as $user)
@@ -57,9 +57,9 @@
 			                }
                  }
                }else {
-                  if($thiscat=='Equipe'){
+                  if($thiscat=='Teams'){
                     $need = 2;
-                  }else if($thiscat=='Project'){
+                  }else if($thiscat=='Projects'){
                     $need = 1;
                   }
                   $blog_list = get_blog_list( 0, 'all' );
@@ -77,7 +77,7 @@
     </div>
 </section>
 <!-- Portfolio Section -->
-<?php if($thiscat == 'Chercheur'){  array_multisort(array_column($info_list, 'name'), SORT_ASC, $info_list); ?>
+<?php if($thiscat == 'Researchers'){  array_multisort(array_column($info_list, 'name'), SORT_ASC, $info_list); ?>
 <section id="section" class="portfolio bg-color" >
     <div class="container">
     <!-- Section Title -->
@@ -132,7 +132,7 @@
     </div>
 </section>
 <?php }?>
-<?php if($thiscat == 'Project'|| $thiscat == 'Equipe'){  array_multisort(array_column($info_list, 'name'), SORT_ASC, $info_list); ?>
+<?php if($thiscat == 'Projects'|| $thiscat == 'Teams'){  array_multisort(array_column($info_list, 'name'), SORT_ASC, $info_list); ?>
 <section id="section" class="service">
     <div class="container">
         <!-- Section Title -->
@@ -141,10 +141,10 @@
                 <div class="section-title">
                     <h1 class="section-heading"><?php echo $thiscat; ?></h1>
                     <!-- <p><?php echo $current_options['service_tagline']; ?></p> -->
-										<?php if($thiscat == 'Equipe'){  ?>
+										<?php if($thiscat == 'Teams'){  ?>
 										<form id="equipeform" name="equipeSearch" method="post" action="/ISIR/blog/category/equipe/" style="margin-top:30px;margin-bottom:30px;">
 										<?php }?>
-										<?php if($thiscat == 'Project'){  ?>
+										<?php if($thiscat == 'Projects'){  ?>
 									  <form id="equipeform" name="equipeSearch" method="post" action="/ISIR/blog/category/project/" style="margin-top:30px;margin-bottom:30px;">
 										<?php }?>
 												<input type="text" name="equipename" class="search_btn" value="<?php echo $equipename; ?>" placeholder="<?php esc_attr_e( "Search", 'busiprof' ); ?>"	/>
@@ -161,7 +161,7 @@
             <?php
                 $icon = "fa-life-ring";
                 $type = "Assistance aux Gestes et Applications THErapeutiques (ERL INSERM U1150)";
-                if($thiscat=='Project'){
+                if($thiscat=='Projects'){
                 $icon = "fa-tasks";
                 }
                 for ($x=0; $x<count($info_list); $x++) {?>
