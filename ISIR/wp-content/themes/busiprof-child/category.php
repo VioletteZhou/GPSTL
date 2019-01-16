@@ -142,10 +142,10 @@
                     <h1 class="section-heading"><?php echo $thiscat; ?></h1>
                     <!-- <p><?php echo $current_options['service_tagline']; ?></p> -->
 										<?php if($thiscat == 'Teams'){  ?>
-										<form id="equipeform" name="equipeSearch" method="post" action="/ISIR/blog/category/equipe/" style="margin-top:30px;margin-bottom:30px;">
+										<form id="equipeform" name="equipeSearch" method="post" action="/ISIR/blog/category/teams/" style="margin-top:30px;margin-bottom:30px;">
 										<?php }?>
 										<?php if($thiscat == 'Projects'){  ?>
-									  <form id="equipeform" name="equipeSearch" method="post" action="/ISIR/blog/category/project/" style="margin-top:30px;margin-bottom:30px;">
+									  <form id="equipeform" name="equipeSearch" method="post" action="/ISIR/blog/category/projects/" style="margin-top:30px;margin-bottom:30px;">
 										<?php }?>
 												<input type="text" name="equipename" class="search_btn" value="<?php echo $equipename; ?>" placeholder="<?php esc_attr_e( "Search", 'busiprof' ); ?>"	/>
 												<input type="submit" name="go" class="submit_search" value="Search">
