@@ -80,9 +80,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 <?php } ?>
 
 
-			</ul>
-
-			 <li>
+			<li>
 
 			    <?php 
 
@@ -105,6 +103,11 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			    ?>
 
 			    </li>
+
+
+			</ul>
+
+			 
 
 			</div>
 			<!-- Menu Toggle -->
