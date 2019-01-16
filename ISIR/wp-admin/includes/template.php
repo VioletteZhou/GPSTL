@@ -836,20 +836,33 @@ function parent_dropdown( $default = 0, $parent = 0, $level = 0, $post = null ) 
  *
  * @param string $selected Slug for the role that should be already selected.
  */
-function wp_dropdown_roles( $selected = '' ) {
+function wp_dropdown_roles( $selected = '') {
 	$r = '';
 
 	$editable_roles = array_reverse( get_editable_roles() );
+	
+	$roles = array( 'subscriber', 'administrator'); 
 
-	foreach ( $editable_roles as $role => $details ) {
-		$name = translate_user_role($details['name'] );
-		// preselect specified role
-		if ( $selected == $role ) {
-			$r .= "\n\t<option selected='selected' value='" . esc_attr( $role ) . "'>$name</option>";
-		} else {
-			$r .= "\n\t<option value='" . esc_attr( $role ) . "'>$name</option>";
+		foreach($roles as $wanted_role){
+			foreach ( $editable_roles as $role => $details ) {
+				$name = translate_user_role($details['name'] );
+				// preselect specified role
+				if ( $selected == $role && $wanted_role == $role ) {
+					$r .= "\n\t<option selected='selected' value='" . esc_attr( $role ) . "'>$name</option>";
+					break;
+				} else {
+					if($wanted_role == $role){
+						$r .= "\n\t<option value='" . esc_attr( $role ) . "'>$name</option>";
+						break;
+					}
+				}
 		}
-	}
+		
+		}	
+	
+	
+	
+	
 
 	echo $r;
 }

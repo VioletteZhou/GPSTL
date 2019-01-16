@@ -51,12 +51,9 @@ function hal_init(){
 
 function hal_team(){
 
-	$servername = "localhost";
-	$username = "root";
-	$password = "root";
-	$dbname = "MEMBER";
-	$table = "User";
-
+	global $db_member;
+	global $table_user;
+	
 	echo "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">
 	<link rel=\"stylesheet\" href=\"/ISIR/wp-content/plugins/hal/includes/style.css\">
 	  <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>";
@@ -65,14 +62,15 @@ function hal_team(){
 
 	echo "<h3>Choose the documents from HAL you want to show in the \"Favorite\" section and the documents you want to hide in the \"Publications\" section ! </h3><br>";
 	global $wpdb;
+	
 	$tablename = "isir_".get_current_blog_id()."_hal_team";
 	$myrows = $wpdb->get_results( "SELECT nameTeam FROM $tablename" );
 
 	$nameTeam = $myrows[0]->nameTeam;
 
-	$mydb = new wpdb($username,$password,$dbname,$servername);
+	
 
-	$rows = $mydb->get_results("select * from $table");
+	$rows = $db_member->get_results("select * from $table_user");
 
 	echo "<div id=\"liste_users\">";
 	echo "<h4>List of the researchers of the team</h4>";
@@ -202,11 +200,8 @@ $tablename = "isir_".get_current_blog_id()."_hal";
 
 function hal_project(){
 
-	$servername = "localhost";
-	$username = "root";
-	$password = "root";
-	$dbname = "MEMBER";
-	$table = "User";
+	global $db_member;
+	global $table_user;
 
 	echo "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">
 
@@ -223,9 +218,9 @@ function hal_project(){
 
 	$nameProject = $myrows[0]->nameProject;
 
-	$mydb = new wpdb($username,$password,$dbname,$servername);
+	
 
-	$rows = $mydb->get_results("select * from $table");
+	$rows = $db_member->get_results("select * from $table_user");
 
 	$blogusers = get_users( 'blog_id='.get_current_blog_id() );
 

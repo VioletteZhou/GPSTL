@@ -143,11 +143,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 			<?php break;
 					case 'Team Publications':
 
-	$servername = "localhost";
-	$username = "root";
-	$password = "root";
-	$dbname = "MEMBER";
-	$table = "User";
+
 
 				// check for plugin using plugin name
 				if ( is_plugin_active( 'hal/hal.php' ) ) {
@@ -157,9 +153,9 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 	$nameTeam = $myrows[0]->nameTeam;
 
-	$mydb = new wpdb($username,$password,$dbname,$servername);
-
-	$rows = $mydb->get_results("select * from $table");
+	global $db_member ;
+	global $table_user;
+	$rows = $db_member->get_results("select * from $table_user");
 
 	echo "<div id=\"liste_users\">";
 	echo "<h4>List of the researchers of the team</h4>";
@@ -188,7 +184,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 				}
 				else{
-					echo "<li>".$obj->username." didn't active its HAL plugin</li>";
+					//echo "<li>".$obj->username." didn't active its HAL plugin</li>";
 				}
 
 			}

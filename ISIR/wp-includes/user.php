@@ -30,6 +30,10 @@
  * @param string|bool $secure_cookie Optional. Whether to use secure cookie.
  * @return WP_User|WP_Error WP_User on success, WP_Error on failure.
  */
+ 
+ 
+ 
+ 
 function wp_signon( $credentials = array(), $secure_cookie = '' ) {
 	if ( empty($credentials) ) {
 		$credentials = array(); // Back-compat for plugins passing an empty string.
@@ -112,40 +116,31 @@ function wp_signon( $credentials = array(), $secure_cookie = '' ) {
 
 function connectToMemberDb($username, $password)
 {
-	$servername = "localhost";
-	$dbusername = "root";
-	$dbpassword = "root";
-	$dbname = "MEMBER";
-	$table = "User";
-	// Create connection
-	$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+	global $db_member;
+	global $table_user;
 
-	if($conn->connect_error){
-    	die("Connection failed: " . $conn->connect_error);
-	}
+	$sql = "SELECT * FROM $table_user WHERE username = '$username' AND password = '$password'";
 
-
-	$sql = "SELECT username, email, password,role FROM $table WHERE username = '$username' AND password = '$password'";
-
-	$result = $conn->query($sql);
+	$result = $db_member->get_results($sql);
 
 	$user = get_user_by( 'login', $username);
 
-	if((!$user && $result->num_rows > 0))
+	if(!$user && $result)
 	// if((!$user_exist && $result->num_rows > 0)||($user && $result->num_rows > 0))
 	{
-		$row = $result->fetch_assoc();
+		$row = $result[0];
 		$userdata = array();
-		$userdata["user_login"] = $row["username"];
-		$userdata["user_email"] = $row["email"];
-		$userdata["user_pass"] = $row["password"];
-		//$userdata['role'] = $row["role"];
+		
+		$userdata["user_login"] = $row->username;
+		$userdata["user_email"] = $row->email;
+		$userdata["user_pass"] = $row->password;
+		$userdata['role'] = strtolower($row->role);
 		$user_id = wp_insert_user($userdata);
 		$meta = array(
-		'public' => 1,
-    'WPLANG' => ''
-	  );
-		$blog_id = wpmu_create_blog( 'localhost', '/ISIR/'.$row["username"], $row["username"], 0,$row["username"] , $user_id, $meta, get_current_network_id() );
+			'public' => 1,
+		'WPLANG' => ''
+		  );
+		$blog_id = wpmu_create_blog( 'localhost', '/ISIR/'.$row->username, $row->username, 0,$row->username , $user_id, $meta, get_current_network_id() );
 
 echo '$blog_id'.$blog_id;
 
@@ -159,30 +154,25 @@ echo '$blog_id'.$blog_id;
 	create_code_source_tables($blog_id);
 
 	//set blog_id in MEMBER database
-	set_blog_id($row["username"], $blog_id);
+	set_blog_id($row->username, $blog_id);
 
 
-	}else if($user_exist && $result->num_rows <= 0)
+	}else if($user_exist && $result==null)
 	{
 		//$user_id = $user->ID;
 		//delete_user_meta($user_id,'terms_and_conditions');
 	}
-	$conn->close();
+
 }
 
 
 function set_blog_id($login, $blog_id){
 
-	$servername = "localhost";
-	$username = "root";
-	$password = "root";
-	$dbname = "MEMBER";
-	$table = "User";
+	global $db_member;
+	global $table_user;
 
-	$mydb = new wpdb($username,$password,$dbname,$servername);
-
-	$result = $mydb->update(
-	$table,
+	$result = $db_member->update(
+	$table_user,
 	array(
 		'blog_id' => $blog_id
 
@@ -193,7 +183,7 @@ function set_blog_id($login, $blog_id){
 
 	if($result==false){
 
-		//die("Not updated " . $login.' '.$blog_id);
+	 die("Not updated " . $login.' '.$blog_id);
 
 	}
 
@@ -1943,7 +1933,7 @@ function wp_insert_user( $userdata ) {
 	}
 
 	if ( isset( $userdata['role'] ) ) {
-		$user->set_role( $userdata['role'] );
+		$user->set_role($userdata['role']);
 	} elseif ( ! $update ) {
 		$user->set_role(get_option('default_role'));
 	}
