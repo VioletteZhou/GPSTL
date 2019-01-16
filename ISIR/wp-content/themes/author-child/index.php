@@ -7,6 +7,26 @@ get_template_part( 'content/archive-header' );
  */
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
+global $wpdb;
+
+$result = $wpdb->get_results( "SELECT * FROM isir_options  where option_name = 'home'"  );
+
+
+
+if(count($result)>0){
+
+
+
+	foreach ( $result as $print )   {
+
+		echo '<a href="'.$print->option_value.'" style="float: right; "> <i class="fa fa-home"></i>Laboratory</a> '; 
+
+		
+
+	}
+
+}	
+
 
 ?>
 	<div id="loop-container" class="loop-container">

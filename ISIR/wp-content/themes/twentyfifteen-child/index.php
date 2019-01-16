@@ -14,6 +14,32 @@
  * @since Twenty Fifteen 1.0
  */
 
+
+?>
+
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+<?php
+
+get_header(); 
+
+global $wpdb;
+
+$result = $wpdb->get_results( "SELECT * FROM isir_options  where option_name = 'home'"  );
+
+if(count($result)>0){
+
+    foreach ( $result as $print )   {
+
+        echo '<a href="'.$print->option_value.'" style="float: right;color:#5882FA;"> <i class="fa fa-home"></i>Laboratory</a> '; 
+
+        
+
+    }
+
+}
+
+
 get_header(); 
 
 

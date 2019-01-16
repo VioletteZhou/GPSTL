@@ -82,10 +82,36 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 			</ul>
 
+			 <li>
+
+			    <?php 
+
+			    global $wpdb;
+
+			    $result = $wpdb->get_results( "SELECT * FROM isir_options  where option_name = 'home'"  );
+
+			    if(count($result)>0){
+
+				foreach ( $result as $print )   {
+
+				    echo '<a href="'.$print->option_value.'" style="float: right; color:#5882FA;"> <i class="fa fa-home"></i>Laboratory</a> '; 
+
+				    
+
+				}
+
+			    }
+
+			    ?>
+
+			    </li>
+
 			</div>
 			<!-- Menu Toggle -->
 
 		</div>
+		
+
 	</nav>
 </header>
 <div class="clearfix"></div>
