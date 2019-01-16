@@ -88,7 +88,7 @@
                 </h1>
                 <!-- <p><?php echo esc_html($current_options['protfolio_description_tag']); ?></p> -->
 
-							<form id="searchform" name="frmSearch" method="post" action="/ISIR/blog/category/chercheur/" style="margin-top:30px;margin-bottom:30px;">
+							<form id="searchform" name="frmSearch" method="post" action="/ISIR/blog/category/researchers/" style="margin-top:30px;margin-bottom:30px;">
 									<input type="text" name="namechercheur" class="search_btn" value="<?php echo $namechercheur; ?>" placeholder="<?php esc_attr_e( "Search", 'busiprof' ); ?>"	/>
 									<input type="submit" name="go" class="submit_search" value="Search">
 							</form>
