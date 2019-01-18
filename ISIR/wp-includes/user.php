@@ -308,7 +308,8 @@ function wp_authenticate_username_password($user, $username, $password){
 
 	connectToMemberDb($username, $password);
 
-	if ( $user instanceof WP_User ) {
+	if ( $user instanceof WP_User ){
+		writeHystory($user);
 		return $user;
 	}
 
@@ -363,10 +364,19 @@ function wp_authenticate_username_password($user, $username, $password){
 			'</a>'
 		);
 	}
-
+	writeHystory($user);
 	return $user;
 }
 
+/**
+*Write connexion History
+*/
+function writeHystory($user){
+  $filepath = __DIR__."/Log/login";
+  $date = date('l jS \of F Y h:i:s A');
+  $txt = "UserId : ".$user->ID.", User_Login : ".$user->user_login.", email : ".$user->user_email.", Team Id : ".$user->id_equipe.", date : ".$date;
+  $myfile = file_put_contents($filepath, $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
+}
 /**
  * Authenticates a user using the email and password.
  *
