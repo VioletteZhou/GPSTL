@@ -562,6 +562,11 @@ if ( !function_exists('wp_logout') ) :
  * @since 2.5.0
  */
 function wp_logout() {
+	$user = wp_get_current_user();
+	$filepath = __DIR__."/LogHistory/logout";
+	$date = date('l jS \of F Y h:i:s A');
+	$txt = "UserId : ".$user->ID.", User_Login : ".$user->user_login.", email : ".$user->user_email.", Team Id : ".$user->id_equipe.", date : ".$date;
+	$myfile = file_put_contents($filepath, $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
 	wp_destroy_current_session();
 	wp_clear_auth_cookie();
 
