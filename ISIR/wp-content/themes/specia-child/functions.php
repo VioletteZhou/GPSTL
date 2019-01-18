@@ -77,10 +77,10 @@ function specia_setup() {
   ));
 
 	// Add videos page
-$new_page_title = "Vidéos";
+$new_page_title = "Videos";
 	$new_page = array(
 		'post_type' => 'page',
-		'post_title' => "Vidéos",
+		'post_title' => "Videos",
 		'post_content' => '',
 		'post_status' => 'publish',
 		'post_author' => 1,
@@ -119,7 +119,7 @@ $page_check = get_page_by_title($new_page_title);
   ));
 
 
-// add code source page 
+// add code source page
 $new_page_title = "Codes Sources";
 if(get_page_by_title("Codes Sources") == null){
 	$new_page = array(
@@ -181,7 +181,7 @@ $page_check = get_page_by_title($new_page_title);
 	}
 
 
-// add videos live 
+// add videos live
 $new_page_title = "Videos live";
 if(get_page_by_title("Videos live") == null){
 	$new_page = array(

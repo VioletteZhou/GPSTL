@@ -3,7 +3,7 @@
 
 $servername = "localhost";
 	$dbusername = "root";
-	$dbpassword = "";
+	$dbpassword = "root";
 	$dbname = "MEMBER";
 
 

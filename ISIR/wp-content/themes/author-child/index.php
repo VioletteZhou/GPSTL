@@ -19,34 +19,45 @@ if(count($result)>0){
 
 	foreach ( $result as $print )   {
 
-		echo '<a href="'.$print->option_value.'" style="float: right; "> <i class="fa fa-home"></i>Laboratory</a> '; 
+		echo '<a href="'.$print->option_value.'" style="float: right; "> <i class="fa fa-home"></i>Laboratory</a> ';
 
-		
+
 
 	}
 
-}	
+}
 
 
 ?>
 	<div id="loop-container" class="loop-container">
 		<?php
-		if ( have_posts() ) :
-			while ( have_posts() ) :
-					the_post();
-					//ct_author_get_content_template();
-			endwhile;
-		endif;
+		$blog_id = get_current_blog_id();
+		$path = get_blog_details(	$blog_id )->siteurl ;
+		global $wp;
+		$current_url = home_url(add_query_arg(array(),$wp->request));
+    $page_title = $wp_query->post->post_title;
+
+    if($current_url != $path && $page_title !='Videos' && $page_title !='Codes Sources' && $page_title !='Publications' && $page_title !='Videos live') :
+			if ( have_posts() ) :
+  			while ( have_posts() ) :
+			  the_post();
+      	ct_author_get_content_template();
+  			endwhile;
+  		endif;
+	  endif;
 
 		?>
 		<?php
 
-		$slug = basename(get_permalink());
-		if ($slug == "hello-world"){
+	//	$slug = basename(get_permalink());
+
+	$blog_id = get_current_blog_id();
+	$path = get_blog_details(	$blog_id )->siteurl ;
+	global $wp;
+	$current_url = home_url(add_query_arg(array(),$wp->request));
+
+		if ($current_url == $path){
 			global $wpdb;
-
-
-
 
 
 		// check for plugin using plugin name
@@ -59,7 +70,7 @@ if(count($result)>0){
 			if(count($result)>0){
 				echo "<h1>Favorite publications</h1>";
 				echo "<table id=\"myTable\">";
-  
+
 
   				 echo "<tr class=\"header\">   <th>Publication</th> </tr>";
 
@@ -157,30 +168,11 @@ if(count($result)>0){
 				case 'Textes': ?>
 
 		<?php break;
-				case 'Vidéos':
+				case 'Videos':
 
 // check for plugin using plugin name
 		if ( is_plugin_active( 'add-video/add-video.php' ) ) {
 
-		// echo '
-		// 		<div style="margin: 0px auto; width:500px;">
-		// 			<form action="/action_page.php" style="margin-bottom:20px; ">
-		// 			  <input type="text" placeholder="Search for a video . . . " name="search">
-		// 			  <button type="submit" style="width:50px; height="100px; "><i class="fa fa-search"></i></button>
-		// 			</form>
-		//
-		// 			<div id="styled-select" style="width:700px;">
-		// 				<select name="group" id="group">
-		// 					<option val="">Choose year</option>
-		// 					<option val="1">2018</option>
-		// 					<option val="2">2017</option>
-		// 					<option val="3">2016</option>
-		// 					<option val="4">Before 2016</option>
-		// 				</select>
-		// 			</div>
-		// 		</div>
-		// 		';
-		//
 		if(!empty($_POST["video_search_value"])) {
 				$video_search_value = $_POST["video_search_value"];
 		 }
@@ -264,19 +256,19 @@ if(count($result)>0){
 	// check for plugin using plugin name
 	if ( is_plugin_active( 'hal/hal.php' ) ) {
 	  //plugin is activated
- 
+
 
 
 		$table_name_hide = 'isir_'.$blog_id.'_hal_hide';
 		$blog_id = get_current_blog_id();
-		$result_hide = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_hal_hide" );	
+		$result_hide = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_hal_hide" );
 		echo "<script type=\"text/javascript\">";
 		foreach($result_hide as $tohide){
 			echo "getSelectedHide(\"$tohide->id\");" ;
 
 		}
 
-		echo "</script>";	
+		echo "</script>";
 
 		echo "<script type=\"text/javascript\">
 			var i_search = 0;
@@ -287,7 +279,7 @@ if(count($result)>0){
 			  filter = input.value.toUpperCase();
 			  table = document.getElementById(\"myTable\");
 			  tr = table.getElementsByTagName(\"tr\");
-				
+
 			  // Loop through all table rows, and hide those who don't match the search query
 			  for (i = 0; i < tr.length; i++) {
 			    td = tr[i].getElementsByTagName(\"td\")[i_search];
@@ -301,9 +293,9 @@ if(count($result)>0){
 			    }
 			  }
 			}
-			</script>";	
+			</script>";
 
-			
+
 		echo "<div class=\"wrap\">
 			  <h1>Publications</h1><br>";
 
@@ -318,7 +310,7 @@ if(count($result)>0){
 		}
 		else
 			$hasHal = false;
-		
+
 		if($hasHal){
 
 
@@ -350,7 +342,7 @@ if(count($result)>0){
 
 			  <script type=\"text/javascript\">getDocuments(\"$idHal\");</script>
 
-				
+
 			</div>";
 		}
 
@@ -428,14 +420,7 @@ if ( is_plugin_active( 'add-code-source/add-code-source.php' ) ) {
 		}
 
 				?>
-		<?php break;
-				case 'Cours et présentations': ?>
 
-		<?php break;
-				case 'Réseaux Sociaux': ?>
-
-		<?php break;
-				case 'BD Expérimentale': ?>
 
 		<?php break;
 					}?>

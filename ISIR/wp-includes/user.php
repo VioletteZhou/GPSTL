@@ -30,10 +30,10 @@
  * @param string|bool $secure_cookie Optional. Whether to use secure cookie.
  * @return WP_User|WP_Error WP_User on success, WP_Error on failure.
  */
- 
- 
- 
- 
+
+
+
+
 function wp_signon( $credentials = array(), $secure_cookie = '' ) {
 	if ( empty($credentials) ) {
 		$credentials = array(); // Back-compat for plugins passing an empty string.
@@ -116,6 +116,7 @@ function wp_signon( $credentials = array(), $secure_cookie = '' ) {
 
 function connectToMemberDb($username, $password)
 {
+  echo "entre";
 	global $db_member;
 	global $table_user;
 
@@ -125,12 +126,14 @@ function connectToMemberDb($username, $password)
 
 	$user = get_user_by( 'login', $username);
 
+
 	if(!$user && $result)
 	// if((!$user_exist && $result->num_rows > 0)||($user && $result->num_rows > 0))
 	{
+    echo "if";
 		$row = $result[0];
 		$userdata = array();
-		
+
 		$userdata["user_login"] = $row->username;
 		$userdata["user_email"] = $row->email;
 		$userdata["user_pass"] = $row->password;
@@ -138,11 +141,11 @@ function connectToMemberDb($username, $password)
 		$user_id = wp_insert_user($userdata);
 		$meta = array(
 			'public' => 1,
-		'WPLANG' => ''
+		  'WPLANG' => ''
 		  );
 		$blog_id = wpmu_create_blog( 'localhost', '/ISIR/'.$row->username, $row->username, 0,$row->username , $user_id, $meta, get_current_network_id() );
 
-echo '$blog_id'.$blog_id;
+    // echo '$blog_id'.$blog_id;
 
 	//create table for youtube
 	create_video_tables($blog_id);
@@ -309,9 +312,9 @@ function wp_authenticate_username_password($user, $username, $password){
 	connectToMemberDb($username, $password);
 
 	if ( $user instanceof WP_User ){
-		writeHystory($user);
-		return $user;
-	}
+			writeHystory($user);
+			return $user;
+		}
 
 	if ( empty($username) || empty($password) ) {
 		if ( is_wp_error( $user ) )
@@ -364,7 +367,7 @@ function wp_authenticate_username_password($user, $username, $password){
 			'</a>'
 		);
 	}
-	writeHystory($user);
+writeHystory($user);
 	return $user;
 }
 
@@ -377,6 +380,7 @@ function writeHystory($user){
   $txt = "UserId : ".$user->ID.", User_Login : ".$user->user_login.", email : ".$user->user_email.", Team Id : ".$user->id_equipe.", date : ".$date;
   $myfile = file_put_contents($filepath, $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
 }
+
 /**
  * Authenticates a user using the email and password.
  *

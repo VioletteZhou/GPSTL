@@ -37,7 +37,7 @@ $new_page_title = "Videos";
 if(get_page_by_title("Videos") == null){
 	$new_page = array(
 		'post_type' => 'page',
-		'post_title' => "Vidéos",
+		'post_title' => "Videos",
 		'post_content' => '',
 		'post_status' => 'publish',
 		'post_author' => 1,

@@ -21,7 +21,7 @@
 
 <?php
 
-get_header(); 
+get_header();
 
 global $wpdb;
 
@@ -31,16 +31,16 @@ if(count($result)>0){
 
     foreach ( $result as $print )   {
 
-        echo '<a href="'.$print->option_value.'" style="float: right;color:#5882FA;"> <i class="fa fa-home"></i>Laboratory</a> '; 
+        echo '<a href="'.$print->option_value.'" style="float: right;color:#5882FA;"> <i class="fa fa-home"></i>Laboratory</a> ';
 
-        
+
 
     }
 
 }
 
 
-get_header(); 
+get_header();
 
 
 
@@ -63,7 +63,7 @@ get_header();
 			if(count($result)>0){
 				echo "<h1>Favorite publications</h1>";
 				echo "<table id=\"myTable\">";
-  
+
 
   				 echo "<tr class=\"header\">   <th>Publication</th> </tr>";
 
@@ -99,13 +99,13 @@ get_header();
 
 				$table_name = 'isir_'.$blog_id.'_code_source';
 				$blog_id = get_current_blog_id();
-				$result = $wpdb->get_results( "SELECT * FROM ".$table_name ." WHERE isFavoris=1 order by addedAt desc" );	
+				$result = $wpdb->get_results( "SELECT * FROM ".$table_name ." WHERE isFavoris=1 order by addedAt desc" );
 				if($result != null){
 					echo "<h1 style='margin-left: 30px; '>Favorite projects</h1>";
 				}
 				foreach ($result as $print )
 				{
-				
+
 					echo '
 					<table style=" border: none; background-color: white;  margin: 30px; width : 100%; padding: 30px; ">
 						<tr>
@@ -115,61 +115,61 @@ get_header();
 							</td>
 							<td style="position: relative; padding-left: 50px; width: 70%; ">
 							<h3 style=" margin-top: 0; ">'.$print->name.'</h3>
-							'; 
+							';
 							if($print->description != null){
-								echo '</br>'; 
-								echo '<p style=" margin-top: 0; " >Description : '.$print->description.'</p>'; 
+								echo '</br>';
+								echo '<p style=" margin-top: 0; " >Description : '.$print->description.'</p>';
 							}
 							echo '
 							<p style=" margin-top: 0; " >Created at  : '.$print->created_at.' </p>
-							'; 
+							';
 							if($print->language != ""){
-								echo '<p style=" margin-top: 0; " >Language  : '.$print->language.'</p>'; 
+								echo '<p style=" margin-top: 0; " >Language  : '.$print->language.'</p>';
 							}
 							echo '
 							<p>HTML Link : </p><a  style="  margin-top: 0; " href="'.$print->html_url.'">'.$print->html_url.'</a>
 							<p>Clone Link : '.$print->clone_url.'</p>
 							</td>
-					
+
 						</tr>
 					</table>
 
-							'; 
+							';
 				}
 			}
 
 
-		if(is_plugin_active( 'youtube-live/youtube-live.php' ))
-		{
-			global $wpdb;
-			$blog_id = get_current_blog_id();
-			$table_name = 'youtubelive';
-			$width=700;
-			$height=430;
-			$pagecontents = file_get_contents(__DIR__.'/view/youtubelive.html');
-			$data = $wpdb->get_results( "SELECT * FROM $table_name  WHERE blog_id=".$blog_id."");
-
-			if(count($data) == 1)
-			{
-				$data = $data[0];
-				$iframe = '<iframe class="ifram" width='.$width.' height='.$height.'
-							src="https://www.youtube.com/embed/'.$data->video_id.'?autoplay=1"
-							frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="">
-							</iframe>';
-
-				$pagecontents =  str_replace("ifrm",$iframe,$pagecontents);
-				$pagecontents =  str_replace("title",$data->title,$pagecontents);
-				$pagecontents =  str_replace("dscpt",'<p>'.$data->description.'</p>',$pagecontents);
-			}
-			else
-			{
-				$defaultImg ='<img class="ifram" src="/ISIR/wp-content/uploads/youtube-live/youtubelive.jpg" alt="Youtube-live" width="'.$width.'" height="'.$height.'"/>';
-				$pagecontents =  str_replace("ifrm",$defaultImg,$pagecontents);
-				$pagecontents =  str_replace("title","Youtube live currently unavailable.",$pagecontents);
-				$pagecontents =  str_replace("dscpt","",$pagecontents);
-			}
-			echo $pagecontents;
-		}
+		// if(is_plugin_active( 'youtube-live/youtube-live.php' ))
+		// {
+		// 	global $wpdb;
+		// 	$blog_id = get_current_blog_id();
+		// 	$table_name = 'youtubelive';
+		// 	$width=700;
+		// 	$height=430;
+		// 	$pagecontents = file_get_contents(__DIR__.'/view/youtubelive.html');
+		// 	$data = $wpdb->get_results( "SELECT * FROM $table_name  WHERE blog_id=".$blog_id."");
+    //
+		// 	if(count($data) == 1)
+		// 	{
+		// 		$data = $data[0];
+		// 		$iframe = '<iframe class="ifram" width='.$width.' height='.$height.'
+		// 					src="https://www.youtube.com/embed/'.$data->video_id.'?autoplay=1"
+		// 					frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="">
+		// 					</iframe>';
+    //
+		// 		$pagecontents =  str_replace("ifrm",$iframe,$pagecontents);
+		// 		$pagecontents =  str_replace("title",$data->title,$pagecontents);
+		// 		$pagecontents =  str_replace("dscpt",'<p>'.$data->description.'</p>',$pagecontents);
+		// 	}
+		// 	else
+		// 	{
+		// 		$defaultImg ='<img class="ifram" src="/ISIR/wp-content/uploads/youtube-live/youtubelive.jpg" alt="Youtube-live" width="'.$width.'" height="'.$height.'"/>';
+		// 		$pagecontents =  str_replace("ifrm",$defaultImg,$pagecontents);
+		// 		$pagecontents =  str_replace("title","Youtube live currently unavailable.",$pagecontents);
+		// 		$pagecontents =  str_replace("dscpt","",$pagecontents);
+		// 	}
+		// 	echo $pagecontents;
+		// }
 		?>
 
 		</main><!-- .site-main -->

@@ -17,7 +17,7 @@ get_template_part('sections/specia','breadcrumb'); ?>
 						<button type="button" style= " margin-bottom: 30px; float: right;">+ Ajouter un texte</button>
 					</div>
 			<?php break;
-					case 'Vidéos':
+					case 'Videos':
 				if ( is_plugin_active( 'add-video/add-video.php' ) ) {
 					if(!empty($_POST["video_search_value"])) {
 							$video_search_value = $_POST["video_search_value"];
@@ -50,9 +50,9 @@ get_template_part('sections/specia','breadcrumb'); ?>
 									<p> '.$print->channelTitle.' at '.$print->addedAt.'<p>
 								</div>
 								';
-								 } 
+								 }
 
-			}			
+			}
 			 ?>
 
 			<?php break;
@@ -78,28 +78,28 @@ get_template_part('sections/specia','breadcrumb'); ?>
 						printf('<iframe width="560" height="315" src="https://www.youtube.com/embed/%s?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen ></iframe>',$embed);
 						echo "<h4>By : ".$row['author_name']."<h4>";
 					}
-			}			
+			}
 			?>
 
 			<?php break;
-					case 'Publications': 
+					case 'Publications':
 
 	// check for plugin using plugin name
 	if ( is_plugin_active( 'hal/hal.php' ) ) {
 	  //plugin is activated
- 
+
 
 
 		$table_name_show = 'isir_'.$blog_id.'_hal_show';
 		$blog_id = get_current_blog_id();
-		$result_show = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_hal_show" );	
+		$result_show = $wpdb->get_results( "SELECT * FROM isir_".$blog_id."_hal_show" );
 		echo "<script type=\"text/javascript\">";
 		foreach($result_show as $toshow){
 			echo "getSelectedShow(\"$toshow->id\", \"$toshow->label\", \"$toshow->url\", \"$toshow->type\");" ;
 
 		}
 
-		echo "</script>";	
+		echo "</script>";
 
 		echo "<script type=\"text/javascript\">
 			var i_search = 0;
@@ -110,7 +110,7 @@ get_template_part('sections/specia','breadcrumb'); ?>
 			  filter = input.value.toUpperCase();
 			  table = document.getElementById(\"myTable\");
 			  tr = table.getElementsByTagName(\"tr\");
-				
+
 			  // Loop through all table rows, and hide those who don't match the search query
 			  for (i = 0; i < tr.length; i++) {
 			    td = tr[i].getElementsByTagName(\"td\")[i_search];
@@ -124,9 +124,9 @@ get_template_part('sections/specia','breadcrumb'); ?>
 			    }
 			  }
 			}
-			</script>";	
+			</script>";
 
-			
+
 		echo "<div class=\"wrap\">
 			  <h1>Publications</h1><br>";
 
@@ -156,12 +156,12 @@ get_template_part('sections/specia','breadcrumb'); ?>
 			    },false);
 			</script>
 
-			  
+
 
 				<div id=\"docs\"></div></div>
 				<script type=\"text/javascript\">getDocuments();</script>
 			</div>";
-		
+
 
 	}
 
@@ -272,7 +272,7 @@ get_template_part('sections/specia','breadcrumb'); ?>
 				the_content();
 				endif;
 
-				comments_template( '', true ); // show comments
+				//comments_template( '', true ); // show comments
 			?>
 
 

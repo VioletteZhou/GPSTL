@@ -28,7 +28,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 			switch($page_title)
 			{
-				    case 'Team Home': ?>
+				   case 'Team Home': ?>
 					<div id="primary" class="content-area">
 							<main id="main" class="site-main" role="main">
 

@@ -51,9 +51,6 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 						$page3 = get_page_by_title("Publications");
 						$page4 = get_category_by_slug("Photos");
 						$page5 = get_page_by_title("Codes Sources");
-						$page6 = get_page_by_title("Cours et présentations");
-						$page7 = get_page_by_title("Réseax Sociaux");
-						$page8 = get_page_by_title("BD Expérimentale");
 						$page9 = get_page_by_title("Videos live");
 
 						?>
@@ -63,9 +60,9 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 							<li id=" menu-item-0 " style ="margin: 0 0 10px 0;"><a style ="color: white;" href="<?php echo get_category_link($page1->term_id); ?>" title="Textes">Textes</a></li>
 
 <?php if ( is_plugin_active( 'add-video/add-video.php' ) ) {  ?>
-							<li id=" menu-item-1 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page2->ID ); ?>">Vidéos</a></li>
+							<li id=" menu-item-1 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page2->ID ); ?>">Videos</a></li>
 <?php } ?>
-							
+
 <?php if ( is_plugin_active( 'hal/hal.php' ) ) {  ?>
 
 <li id=" menu-item-2 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page3->ID ); ?>">Publications</a></li>
@@ -80,9 +77,6 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 
 <?php } ?>
-							<li id=" menu-item-5 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page6->ID ); ?>">Cours et présentations</a></li>
-							<li id=" menu-item-6 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page7->ID ); ?>">Réseaux sociaux</a></li>
-							<li id=" menu-item-7 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page8->ID ); ?>">BD expérimentales</a></li>
 
 <?php if ( is_plugin_active( 'youtube-live/youtube-live.php' ) ) {  ?>
 							<li id=" menu-item-8 " style ="margin: 0 0 10px 0;" ><a style ="color: white;" href="<?php echo get_permalink( $page9->ID ); ?>">Videos live</a></li>
@@ -94,7 +88,7 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 						</div>
 						<!-- Menu Toggle -->
 					</header>
-				
+
 				</div>
 				<?php do_action( 'before_main' ); ?>
 				<section id="main" class="main" role="main">
