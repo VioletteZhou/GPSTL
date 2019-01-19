@@ -157,6 +157,8 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	global $table_user;
 	$rows = $db_member->get_results("select * from $table_user");
 
+	$table_blogid = "isir_blogid";
+
 	echo "<div id=\"liste_users\">";
 	echo "<h4>List of the researchers of the team</h4>";
 	echo "<ul >";
@@ -174,8 +176,8 @@ include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		}
 		if($belongs){
 
-			if($obj->blog_id >=0){
-		   		$tablename_user = "isir_".$obj->blog_id."_hal_id";
+			if(($blogid = $wpdb->get_results("select blog_id from $table_blogid where username = '$obj->username' "))){
+		   		$tablename_user = "isir_".$blogid[0]->blog_id."_hal_id";
 				$user_rows = $wpdb->get_results( "SELECT * FROM $tablename_user" );
 				if(count($user_rows)!=0 && strlen($user_rows[0]->idHal)!=0){
 					$idHal = $user_rows[0]->idHal;

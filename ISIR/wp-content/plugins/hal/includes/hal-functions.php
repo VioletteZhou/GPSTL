@@ -67,10 +67,10 @@ function hal_team(){
 	$myrows = $wpdb->get_results( "SELECT nameTeam FROM $tablename" );
 
 	$nameTeam = $myrows[0]->nameTeam;
-
-	
-
 	$rows = $db_member->get_results("select * from $table_user");
+	
+	$table_blogid = "isir_blogid";	
+	
 
 	echo "<div id=\"liste_users\">";
 	echo "<h4>List of the researchers of the team</h4>";
@@ -86,8 +86,8 @@ function hal_team(){
 
 		}
 		if($belongs){
-			if($obj->blog_id >=0){
-		   		$tablename_user = "isir_".$obj->blog_id."_hal_id";
+			if( ($blogid = $wpdb->get_results("select blog_id from $table_blogid where username = '$obj->username' "))){
+		   		$tablename_user = "isir_".$blogid[0]->blog_id."_hal_id";
 				$user_rows = $wpdb->get_results( "SELECT * FROM $tablename_user" );
 				if(count($user_rows)!=0 && strlen($user_rows[0]->idHal)!=0){
 					$idHal = $user_rows[0]->idHal;
@@ -217,10 +217,10 @@ function hal_project(){
 	$myrows = $wpdb->get_results( "SELECT nameProject FROM $tablename" );
 
 	$nameProject = $myrows[0]->nameProject;
-
-	
-
 	$rows = $db_member->get_results("select * from $table_user");
+	
+	$table_blogid = "isir_blogid";	
+	
 
 	$blogusers = get_users( 'blog_id='.get_current_blog_id() );
 
@@ -235,8 +235,8 @@ function hal_project(){
 		foreach ($rows as $obj) :
 
 			if($user->user_login==$obj->username){
-				if( $obj->blog_id >=0){
-			   		$tablename_user = "isir_".$obj->blog_id."_hal_id";
+				if( ($blogid = $wpdb->get_results("select blog_id from $table_blogid where username = '$obj->username' "))){
+			   		$tablename_user = "isir_".$blogid[0]->blog_id."_hal_id";
 					$user_rows = $wpdb->get_results( "SELECT * FROM $tablename_user" );
 					if(count($user_rows)!=0 && strlen($user_rows[0]->idHal)!=0){
 						$idHal = $user_rows[0]->idHal;

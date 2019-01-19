@@ -388,7 +388,7 @@ do_action( 'user_new_form', 'add-existing-user' );
 <?php
 } // is_multisite()
 
-if ( current_user_can( 'create_users') ) {
+if ( /*current_user_can( 'create_users')*/ false ) {
 	if ( $do_both )
 		echo '<h2 id="create-new-user">' . __( 'Add New User' ) . '</h2>';
 ?>

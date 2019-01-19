@@ -116,7 +116,7 @@ function wp_signon( $credentials = array(), $secure_cookie = '' ) {
 
 function connectToMemberDb($username, $password)
 {
-  echo "entre";
+ 
 	global $db_member;
 	global $table_user;
 
@@ -130,14 +130,13 @@ function connectToMemberDb($username, $password)
 	if(!$user && $result)
 	// if((!$user_exist && $result->num_rows > 0)||($user && $result->num_rows > 0))
 	{
-    echo "if";
+
 		$row = $result[0];
 		$userdata = array();
 
 		$userdata["user_login"] = $row->username;
 		$userdata["user_email"] = $row->email;
 		$userdata["user_pass"] = $row->password;
-		$userdata['role'] = strtolower($row->role);
 		$user_id = wp_insert_user($userdata);
 		$meta = array(
 			'public' => 1,
@@ -171,18 +170,28 @@ function connectToMemberDb($username, $password)
 
 function set_blog_id($login, $blog_id){
 
-	global $db_member;
-	global $table_user;
+	global $wpdb;
+	$table_name = 'isir_blogid';
 
-	$result = $db_member->update(
-	$table_user,
+	//if table exist or not
+	  if($wpdb->get_var("show tables like $table_name") != $table_name) {
+		$sql = "CREATE TABLE $table_name (
+			username varchar(30) NOT NULL,
+			blog_id int NOT NULL,
+			PRIMARY KEY  (username)
+		) $charset_collate;";
+		//excute
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		dbDelta( $sql );
+	}
+
+	
+	$result = $wpdb->insert(
+	$table_name,
 	array(
-		'blog_id' => $blog_id
+		'username'=> $login, 'blog_id' => $blog_id
 
-	),
-	array( 'username'=> $login )
-
-	);
+	));
 
 	if($result==false){
 
@@ -1924,6 +1933,7 @@ function wp_insert_user( $userdata ) {
 	 *     @type bool     $rich_editing         Whether to enable the rich-editor for the user. False if not empty.
 	 *     @type bool     $syntax_highlighting  Whether to enable the rich code editor for the user. False if not empty.
 	 *     @type bool     $comment_shortcuts    Whether to enable keyboard shortcuts for the user. Default false.
+
 	 *     @type string   $admin_color          The color scheme for a user's admin screen. Default 'fresh'.
 	 *     @type int|bool $use_ssl              Whether to force SSL on the user's admin area. 0|false if SSL is
 	 *                                          not forced.
@@ -1945,12 +1955,10 @@ function wp_insert_user( $userdata ) {
 			update_user_meta( $user_id, $key, $userdata[ $key ] );
 		}
 	}
+	
+	//default_role = subscriber
+	$user->set_role(get_option('default_role'));
 
-	if ( isset( $userdata['role'] ) ) {
-		$user->set_role($userdata['role']);
-	} elseif ( ! $update ) {
-		$user->set_role(get_option('default_role'));
-	}
 	wp_cache_delete( $user_id, 'users' );
 	wp_cache_delete( $user_login, 'userlogins' );
 
