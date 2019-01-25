@@ -1,0 +1,29 @@
+
+Importation des bases des données ISIR et MEMBER
+
+
+Etape 1 :
+
+Dezippez l'archive db dans Isir/db/data.zip
+(voir le manuel développeur pour récuper le mot de passe du zip)
+
+Étape 2 :
+
+Mettre à jour les infomations sur les bases des données dans les fichiers suivants :
+
+	- ISIR/wp-config.php
+	- ISIR/wp-content/db.sql
+
+Étape 3 :
+
+Suivant le Système d'explotation :
+
+	- Pour Windows, démarrez WAMP
+	- Pour Unix, démarrez MAMP
+
+Étape 3 :
+
+Faire l'importation des bases des données suivant les deux possiblités suivantes :
+
+	- Via l'interface phpMyAdmin
+	- En ligne de commande : php  /ISIR/db/isirdbmanager/import.php
